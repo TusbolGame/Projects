@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+
+    <link rel="stylesheet" href="{% static 'css/GeffHome.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Geoffery Obi</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <a class="navbar-brand text-light" href="#">UniSubmit</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse text-light " id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active text-light">
+                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item text-light">
+                <a class="nav-link" href="{% url 'projects' %}">Projects</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item text-light">
+                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+            </li>
+            {% endif %}
+            <li class="nav-item dropdown text-light">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Topics
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for topic in Topics %}
+                    <a class="dropdown-item" href="{% url 'topic_search' topic.pk %}">{{ topic }}</a>
+                    {% endfor %}
+
+                </div>
+            </li>
+            {% if user.is_superuser %}
+            <li class="nav-item text-light">
+                <a class="nav-link " href="{% url 'admin:index' %}" tabindex="-1"> Admin</a>
+            </li>
+            {% endif %}
+
+        </ul>
+
+
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item text-light">
+                {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                {% else %}
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="gcse-search"></div>
+{% load static %}
+<div class="container mt-3 mb-3" style="width: 18rem; display: flex; ">
+    <img src="{{ user.profile.passport.url }}" class="card-img-top"/>
+
+</div>
+<div class="jumbotron">
+    <h1 class="display-4">Welcome! {{ user.username }}</h1>
+    <p class="lead">This is a project repository website where you submit projects and make money or buy projects.</p>
+    <hr class="my-4">
+    <p>Welcome to Research Box! Submit your projects and start making money.</p>
+    <a class="btn btn-danger btn-lg" href="#" role="button">Learn more</a>
+</div>
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+        <div class="slide">Register</div>...
+    </div>
+    <div class="carousel-item">
+        <div class="slide">Upload Project</div>...
+    </div>
+    <div class="carousel-item">
+      <div class="slide">Get Paid</div>...
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+    <div class="card-deck">
+        <div class="card mb-3">
+            <a href="{% url 'projects' %}"><img
+                    src="https://images.unsplash.com/photo-1504978167940-1c24eedd0edf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
+                    class="card-img-top" alt="..."
+                    height="300px"></a>
+            <div class="card-body">
+                <a href="{% url 'projects' %}"><h5 class="card-title">Download Project</h5></a>
+                <p class="card-text">Download Academic Project</p>
+                <p class="card-text">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="card mb-3">
+            <a href="{% url 'submit_work' %}"><img
+                    src="https://images.unsplash.com/photo-1517673132405-a56a62b18caf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
+                    class="card-img-top" alt=""
+                    height="300px"></a>
+            <div class="card-body">
+                <a href=""><h5 class="card-title">Submit Work</h5></a>
+                <p class="card-text">Submit work and get paid</p>
+                <p class="card-text">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
+            </div>
+        </div>
+        {% endif %}
+        {% if not user.is_authenticated %}
+        <div class="card mb-3">
+            <a href="{% url 'register' %}"><img
+                    src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
+                    class="card-img-top" alt=""
+                    height="300px"></a>
+            <div class="card-body">
+                <a href=""><h5 class="card-title">Register </h5></a>
+                <p class="card-text">Register as a researcher</p>
+                <p class="card-text">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
+            </div>
+
+        </div>
+        {% endif %}
+        <div class="card mb-3">
+            <a href="{% url 'researchers' %}"><img
+                    src="https://images.unsplash.com/photo-1501713117278-80d75143037a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60"
+                    class="card-img-top"
+                    height="300px"></a>
+            <div class="card-body">
+                <a href="{% url 'researchers' %}"><h5 class="card-title">Find a Researcher </h5></a>
+                <p class="card-text">Find the researcher you're looking for</p>
+                <p class="card-text">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<iframe src="https://fxo.io/m/db8nnk3v" width="100%" height="100%" style="border: 3px solid #f9f9fb; width: 100%;
+ height: 100%;" allowfullscreen></iframe>
+
+
+</body>
+<footer class="bg-dark text-light">
+    <div class="wpb_wrapper">
+        <p style="text-align: left;">Copyright © Research Box. All rights reserved.</p>
+
+    </div>
+</footer>
+<script async src="https://cse.google.com/cse.js?cx=014936476854942179348:tdieufnnolx"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://widget.flowxo.com/embed.js"
+        data-fxo-widget="eyJ0aGVtZSI6IiM2N2MxOGUiLCJ3ZWIiOnsiYm90SWQiOiI1ZDc2MjM4ZjhkMTg3MjAwMjBmYjU1MDQiLCJ0aGVtZSI6IiM
+        2N2MxOGUiLCJsYWJlbCI6IkFyc2xhbiJ9LCJ3ZWxjb21lVGV4dCI6IkFzayBhIHF1ZXN0aW9uLi4ifQ=="
+        async defer></script>
+</html>

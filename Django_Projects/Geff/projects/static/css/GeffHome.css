@@ -1,0 +1,23 @@
+html{
+    background-color: #e92828;
+}
+
+.flex-wrap{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.card-bottom{
+    text-align: center;
+    color: #fff;
+    text-decorated: false;
+    align:bottom;
+}
+
+.slide{
+    text-align: center;
+    background-color:#333;
+    color:#fff;
+    font-size: 2rem;
+
+}

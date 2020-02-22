@@ -1,0 +1,4 @@
+TODO:
+    Fix no validation registration problem
+    Add Payments
+    CHECK FILE DOWNLOAD
