@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.AppBarLayout android:id="@id/appbar_toolbar" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <android.support.v7.widget.Toolbar android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" android:id="@id/toolbar" android:background="#ff343d46" android:visibility="gone" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="50.0dip" android:minHeight="?actionBarSize" android:layout_centerInParent="true" local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            xmlns:android="http://schemas.android.com/apk/res/android" xmlns:local="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+                <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="10.0dip" android:layout_marginBottom="7.0dip" android:text="@string/settings" android:layout_centerHorizontal="true" android:fontFamily="@string/font_family_bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+        <LinearLayout android:orientation="vertical" android:background="@drawable/settings_screen_bg_tv" android:layout_width="fill_parent" android:layout_height="fill_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+            <RelativeLayout android:id="@id/rl_settings" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="50.0dip" android:layout_marginTop="10.0dip" android:layout_marginStart="30.0dip" android:layout_marginEnd="30.0dip">
+                <ImageView android:id="@id/logo" android:focusable="false" android:layout_width="120.0dip" android:layout_height="45.0dip" android:src="@drawable/iptv_placeholder" />
+                <TextView android:textSize="18.0sp" android:textColor="@color/light_gray" android:gravity="center" android:id="@id/separator" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginTop="8.0dip" android:text="|" android:layout_toEndOf="@id/logo" />
+                <TextView android:textSize="24.0sp" android:textColor="@color/light_gray" android:gravity="center" android:id="@id/textView" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginTop="8.0dip" android:text="@string/settings" android:layout_marginStart="10.0dip" android:layout_toEndOf="@id/separator" />
+
+                <TextView
+                    android:id="@id/tv_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="176dp"
+                    android:fontFamily="@string/font_family_bold"
+                    android:gravity="center"
+                    android:text="@string/settings"
+                    android:textColor="@color/white"
+                    android:textSize="18.0sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="177dp"
+                    android:gravity="center"
+                    android:text="06:30 am"
+                    android:textColor="@android:color/white"
+                    android:textSize="18.0sp" />
+
+                <TextView
+                    android:id="@id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="7.0dip"
+                    android:gravity="center"
+                    android:text="Monday,Janurary 12"
+                    android:textColor="#ffcccccc"
+                    android:textSize="18.0sp" />
+            </RelativeLayout>
+            <ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginBottom="50.0dip"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30.0dip"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:weightSum="3.0">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="50.0dip"
+                        android:layout_marginStart="50.0dip"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="3.0">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@id/rl_player_card"
+                            android:layout_width="0.0dip"
+                            android:layout_height="160.0sp"
+                            android:layout_weight="1.0"
+                            android:focusable="true"
+                            android:nextFocusUp="@id/logo"
+                            android:tag="1"
+                            app:cardCornerRadius="1.0dip"
+                            app:cardElevation="10.0dip"
+                            app:cardUseCompatPadding="true">
+
+                            <LinearLayout
+                                android:id="@id/rl_player"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:background="@drawable/ripple_white"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/app_name"
+                                    android:src="@drawable/playerselection" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10.0sp"
+                                    android:gravity="center"
+                                    android:text="@string/player_selection"
+                                    android:textColor="@color/settings_box_text"
+                                    android:textSize="18.0sp" />
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@id/rl_time_format_card"
+                            android:layout_width="0.0dip"
+                            android:visibility="gone"
+                            android:layout_height="160.0sp"
+                            android:layout_weight="1.0"
+                            android:focusable="true"
+                            android:tag="2"
+                            app:cardBackgroundColor="@android:color/white"
+                            app:cardCornerRadius="1.0dip"
+                            app:cardElevation="10.0dip"
+                            app:cardUseCompatPadding="true">
+
+                            <LinearLayout
+                                android:id="@id/rl_time_format"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:background="@drawable/ripple_white"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:visibility="visible">
+
+                                <ImageView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/app_name"
+                                    android:src="@drawable/time_format" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10.0sp"
+                                    android:gravity="center"
+                                    android:text="@string/time_format_settings"
+                                    android:textColor="@color/settings_box_text"
+                                    android:textSize="18.0sp" />
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@id/rl_general_settings_card"
+                            android:layout_width="0.0dip"
+                            android:layout_height="160.0sp"
+                            android:layout_weight="1.0"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:tag="3"
+                            app:cardBackgroundColor="@android:color/white"
+                            app:cardCornerRadius="1.0dip"
+                            app:cardElevation="10.0dip"
+                            app:cardUseCompatPadding="true">
+
+                            <requestFocus />
+
+                            <LinearLayout
+                                android:id="@id/rl_general_settings"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:background="@drawable/ripple_white"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:visibility="visible">
+
+                                <ImageView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/app_name"
+                                    android:src="@drawable/general_settings" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10.0sp"
+                                    android:gravity="center"
+                                    android:text="@string/general_settings"
+                                    android:textColor="@color/settings_box_text"
+                                    android:textSize="18.0sp" />
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+</LinearLayout>

@@ -1,0 +1,2 @@
+# Referenced at D:\Android_Projects\AnyChart-Android-master\sample\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:13
+-keep class android.support.multidex.MultiDexApplication { <init>(...); }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout n1:id="@id/appbar_toolbar" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+        <android.support.v7.widget.Toolbar n1:id="@id/toolbar" n1:paddingTop="10.0dip" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="90.0dip" n1:minHeight="?actionBarSize" n1:layout_centerInParent="true" n2:popupTheme="@style/ThemeOverlay.AppCompat.Light" xmlns:n2="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <ImageView n1:layout_gravity="center_horizontal" n1:id="@id/tv_header_title" n1:layout_width="2000.0dip" n1:layout_height="80.0dip" n1:layout_marginTop="5.0dip" n1:layout_marginBottom="5.0dip" n1:src="@drawable/logo_home" n1:layout_centerHorizontal="true" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+        <RelativeLayout n1:id="@id/rl_settings" n1:background="@color/colorAccent" n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+            <TextView n1:textSize="16.0dip" n1:textColor="@color/white" n1:id="@id/tv_settings" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="12.0dip" n1:layout_marginBottom="12.0dip" n1:text="@string/support" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_bold" />
+        </RelativeLayout>
+        <RelativeLayout n1:background="@color/light_gray" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+            <android.support.v7.widget.CardView n1:id="@id/support_carview" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_margin="10.0dip">
+                <LinearLayout n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginBottom="20.0dip">
+                    <RelativeLayout n1:layout_width="wrap_content" n1:layout_height="wrap_content">
+                        <TextView n1:textSize="15.0dip" n1:textStyle="bold" n1:id="@id/tv_support_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="20.0dip" n1:text="@string/support_label" />
+                        <TextView n1:textSize="15.0dip" n1:textStyle="bold" n1:id="@id/tv_sales_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="20.0dip" n1:text="@string/sales_label" n1:layout_below="@id/tv_support_label" />
+                        <TextView n1:textSize="15.0dip" n1:textStyle="bold" n1:id="@id/tv_info" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="20.0dip" n1:text="@string/whatsapp_label" n1:layout_below="@id/tv_sales_label" />
+                        <TextView n1:textSize="15.0dip" n1:textStyle="bold" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="20.0dip" n1:text="@string/website_label" n1:layout_below="@id/tv_info" />
+                    </RelativeLayout>
+                    <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                        <TextView n1:textSize="15.0dip" n1:autoLink="web" n1:id="@id/tv_exo_player" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="20.0dip" n1:text="@string/support_email" />
+                        <TextView n1:textSize="15.0dip" n1:id="@id/tv_mx_player" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="20.0dip" n1:text="@string/sales_email" n1:layout_below="@id/tv_exo_player" />
+                        <TextView n1:textSize="15.0dip" n1:id="@id/tv_info_value" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="20.0dip" n1:text="@string/website_url" n1:layout_below="@id/tv_mx_player" />
+                        <TextView n1:textSize="15.0dip" n1:autoLink="web" n1:id="@id/tv_website_url" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="20.0dip" n1:text="@string/website_url_value" n1:layout_below="@id/tv_info_value" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <Button n1:textColor="@drawable/selector_save_color" n1:id="@id/btn_back_support" n1:background="@drawable/selector_save_button" n1:focusable="true" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="15.0dip" n1:layout_marginRight="20.0dip" n1:text="@string/back_button" n1:layout_below="@id/support_carview" />
+        </RelativeLayout>
+        <include n1:layout_width="fill_parent" n1:layout_height="fill_parent" layout="@layout/app_bar_drawer" />
+    </android.support.design.widget.AppBarLayout>
+</LinearLayout>

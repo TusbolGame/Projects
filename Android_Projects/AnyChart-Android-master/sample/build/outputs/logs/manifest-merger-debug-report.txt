@@ -1,0 +1,346 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:1-68:12
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:1-68:12
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:1-68:12
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:1-68:12
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\39035550a1e02d727d23d3a4cd4997b5\AndroidManifest.xml:17:1-22:12
+MERGED from [:anychart] D:\Android_Projects\AnyChart-Android-master\anychart\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-17:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\c67f850d5fd10b6737b470239fcb3bf7\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\4bbec6273d4467ef42d745725cd59935\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-28.0.0.aar\4a909777b4bcdfdc806c28a910ca9154\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\cardview-v7-28.0.0.aar\d55bdd7d3c372e19e53ed9ee80211e65\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\cef20db0d0b3a5b5d4ad213a45f00667\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\1eafc2c4e4385f595dc9765b9e5d285e\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\497086edb51cc4045c18d9b6ed26195d\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\cd1d384649efd023211939346739ee8c\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-28.0.0.aar\bf0b36090ad5d28681667b37fd210ac0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\loader-28.0.0.aar\6a4094d1b10725666fa512e8fa62f9ec\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\viewpager-28.0.0.aar\a06f537bab0bd13326507b251b05339a\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-28.0.0.aar\a4d0f5d2247362a69145d446163c1190\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\drawerlayout-28.0.0.aar\d1bda73c1d13913c933e5d49ed7d58dc\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-28.0.0.aar\449475fadac9db1fb5203772a086051b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\customview-28.0.0.aar\05c94697d19678c77e46de4c7988a1bc\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-28.0.0.aar\076b4dda603597a599cbf09c4fbd475e\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-28.0.0.aar\18ca6f2fc92cb4098c1d4bb8d6ef5060\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\9580a12ef2d77bf0ea8bc57adb71ff7e\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\6b2c16e140239a0c2dfe76d3f3b3f5a7\AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\8ef9140e1276d2f6d00317f62a301517\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\050a7186eb91d9eb5acb88b33615d055\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\documentfile-28.0.0.aar\c2f730a3f2243c3058d31a9cf1447667\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-28.0.0.aar\af87f5809d13a2c435376fbecc9d8d12\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\print-28.0.0.aar\0183951c991b04b04b3dc66b4748df30\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\a8db0e6122afc6a849bd40a501e8cdaf\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\48dca90c6d398f8c5edb5a70d846d189\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\085ea6db175d3625ba3bc768ecbecf4c\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\b83f7a00612f97c2907cf05849e7d510\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\91f60b35f39da49afd27e4a838e0d957\AndroidManifest.xml:17:1-22:12
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:1-68:12
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:1-68:12
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:1-68:12
+	package
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:3:5-34
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:1-68:12
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:1-68:12
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:5:22-64
+application
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:7:5-66:19
+MERGED from [:anychart] D:\Android_Projects\AnyChart-Android-master\anychart\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:11:5-15:19
+MERGED from [:anychart] D:\Android_Projects\AnyChart-Android-master\anychart\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:11:5-15:19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\4bbec6273d4467ef42d745725cd59935\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\4bbec6273d4467ef42d745725cd59935\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\9580a12ef2d77bf0ea8bc57adb71ff7e\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\9580a12ef2d77bf0ea8bc57adb71ff7e\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\6b2c16e140239a0c2dfe76d3f3b3f5a7\AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\6b2c16e140239a0c2dfe76d3f3b3f5a7\AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\9580a12ef2d77bf0ea8bc57adb71ff7e\AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:12:9-35
+	android:label
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:10:9-41
+	android:roundIcon
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:11:9-54
+	android:icon
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:9:9-43
+	android:allowBackup
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:8:9-35
+	android:theme
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:13:9-40
+activity#com.anychart.sample.MainActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:14:9-20:20
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:14:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:15:13-19:29
+action#android.intent.action.MAIN
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:16:17-69
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:16:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:18:17-77
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:18:27-74
+activity#com.anychart.sample.charts.PieChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:21:9-61
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:21:19-58
+activity#com.anychart.sample.charts.ColumnChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:22:9-64
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:22:19-61
+activity#com.anychart.sample.charts.LineChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:23:9-62
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:23:19-59
+activity#com.anychart.sample.charts.VennDiagramActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:24:9-64
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:24:19-61
+activity#com.anychart.sample.charts.HeatMapChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:25:9-65
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:25:19-62
+activity#com.anychart.sample.charts.TagCloudActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:26:9-61
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:26:19-58
+activity#com.anychart.sample.charts.WaterfallChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:27:9-67
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:27:19-64
+activity#com.anychart.sample.charts.TreeMapChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:28:9-65
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:28:19-62
+activity#com.anychart.sample.charts.CircularGaugeActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:29:9-66
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:29:19-63
+activity#com.anychart.sample.charts.ScatterChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:30:9-65
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:30:19-62
+activity#com.anychart.sample.charts.ResourceChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:31:9-33:66
+	android:configChanges
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:33:13-63
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:32:13-57
+activity#com.anychart.sample.charts.RadarChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:34:9-63
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:34:19-60
+activity#com.anychart.sample.charts.PolarChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:35:9-63
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:35:19-60
+activity#com.anychart.sample.charts.RangeChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:36:9-63
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:36:19-60
+activity#com.anychart.sample.charts.VerticalChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:37:9-66
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:37:19-63
+activity#com.anychart.sample.charts.FunnelChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:38:9-64
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:38:19-61
+activity#com.anychart.sample.charts.PertChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:39:9-62
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:39:19-59
+activity#com.anychart.sample.charts.GanttChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:40:9-63
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:40:19-60
+activity#com.anychart.sample.charts.CombinedChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:41:9-66
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:41:19-63
+activity#com.anychart.sample.charts.BubbleChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:42:9-64
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:42:19-61
+activity#com.anychart.sample.charts.ParetoChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:43:9-64
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:43:19-61
+activity#com.anychart.sample.charts.PyramidActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:44:9-60
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:44:19-57
+activity#com.anychart.sample.charts.AreaChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:45:9-62
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:45:19-59
+activity#com.anychart.sample.charts.BarChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:46:9-61
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:46:19-58
+activity#com.anychart.sample.charts.BoxChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:47:9-61
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:47:19-58
+activity#com.anychart.sample.charts.Bar3DChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:48:9-63
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:48:19-60
+activity#com.anychart.sample.charts.MosaicChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:49:9-64
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:49:19-61
+activity#com.anychart.sample.charts.MekkoChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:50:9-63
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:50:19-60
+activity#com.anychart.sample.charts.Column3DChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:51:9-66
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:51:19-63
+activity#com.anychart.sample.charts.Area3DChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:52:9-64
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:52:19-61
+activity#com.anychart.sample.charts.HiloChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:53:9-62
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:53:19-59
+activity#com.anychart.sample.charts.QuadrantChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:54:9-66
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:54:19-63
+activity#com.anychart.sample.charts.OHLCChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:55:9-62
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:55:19-59
+activity#com.anychart.sample.charts.BubbleMapActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:56:9-62
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:56:19-59
+activity#com.anychart.sample.charts.ChoroplethMapActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:57:9-66
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:57:19-63
+activity#com.anychart.sample.charts.PointMapActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:58:9-61
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:58:19-58
+activity#com.anychart.sample.charts.ConnectorMapActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:59:9-65
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:59:19-62
+activity#com.anychart.sample.charts.SunburstChartActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:60:9-66
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:60:19-63
+activity#com.anychart.sample.charts.ThermometerActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:61:9-64
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:61:19-61
+activity#com.anychart.sample.charts.LinearColorScaleActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:62:9-69
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:62:19-66
+activity#com.anychart.sample.charts.WindSpeedActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:63:9-62
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:63:19-59
+activity#com.anychart.sample.charts.WindDirectionActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:64:9-66
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:64:19-63
+activity#com.anychart.sample.charts.TwoPiesOneColumnActivity
+ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:65:9-69
+	android:name
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml:65:19-66
+uses-sdk
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\39035550a1e02d727d23d3a4cd4997b5\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\39035550a1e02d727d23d3a4cd4997b5\AndroidManifest.xml:20:5-43
+MERGED from [:anychart] D:\Android_Projects\AnyChart-Android-master\anychart\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:5-9:41
+MERGED from [:anychart] D:\Android_Projects\AnyChart-Android-master\anychart\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\c67f850d5fd10b6737b470239fcb3bf7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\c67f850d5fd10b6737b470239fcb3bf7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\4bbec6273d4467ef42d745725cd59935\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\4bbec6273d4467ef42d745725cd59935\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-28.0.0.aar\4a909777b4bcdfdc806c28a910ca9154\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-28.0.0.aar\4a909777b4bcdfdc806c28a910ca9154\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\cardview-v7-28.0.0.aar\d55bdd7d3c372e19e53ed9ee80211e65\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\cardview-v7-28.0.0.aar\d55bdd7d3c372e19e53ed9ee80211e65\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\cef20db0d0b3a5b5d4ad213a45f00667\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\cef20db0d0b3a5b5d4ad213a45f00667\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\1eafc2c4e4385f595dc9765b9e5d285e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\1eafc2c4e4385f595dc9765b9e5d285e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\497086edb51cc4045c18d9b6ed26195d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\497086edb51cc4045c18d9b6ed26195d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\cd1d384649efd023211939346739ee8c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\cd1d384649efd023211939346739ee8c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-28.0.0.aar\bf0b36090ad5d28681667b37fd210ac0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-28.0.0.aar\bf0b36090ad5d28681667b37fd210ac0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\loader-28.0.0.aar\6a4094d1b10725666fa512e8fa62f9ec\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\loader-28.0.0.aar\6a4094d1b10725666fa512e8fa62f9ec\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\viewpager-28.0.0.aar\a06f537bab0bd13326507b251b05339a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\viewpager-28.0.0.aar\a06f537bab0bd13326507b251b05339a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-28.0.0.aar\a4d0f5d2247362a69145d446163c1190\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-28.0.0.aar\a4d0f5d2247362a69145d446163c1190\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\drawerlayout-28.0.0.aar\d1bda73c1d13913c933e5d49ed7d58dc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\drawerlayout-28.0.0.aar\d1bda73c1d13913c933e5d49ed7d58dc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-28.0.0.aar\449475fadac9db1fb5203772a086051b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-28.0.0.aar\449475fadac9db1fb5203772a086051b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\customview-28.0.0.aar\05c94697d19678c77e46de4c7988a1bc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\customview-28.0.0.aar\05c94697d19678c77e46de4c7988a1bc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-28.0.0.aar\076b4dda603597a599cbf09c4fbd475e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-28.0.0.aar\076b4dda603597a599cbf09c4fbd475e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-28.0.0.aar\18ca6f2fc92cb4098c1d4bb8d6ef5060\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-28.0.0.aar\18ca6f2fc92cb4098c1d4bb8d6ef5060\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\9580a12ef2d77bf0ea8bc57adb71ff7e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\9580a12ef2d77bf0ea8bc57adb71ff7e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\6b2c16e140239a0c2dfe76d3f3b3f5a7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\6b2c16e140239a0c2dfe76d3f3b3f5a7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\8ef9140e1276d2f6d00317f62a301517\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\8ef9140e1276d2f6d00317f62a301517\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\050a7186eb91d9eb5acb88b33615d055\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\050a7186eb91d9eb5acb88b33615d055\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\documentfile-28.0.0.aar\c2f730a3f2243c3058d31a9cf1447667\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\documentfile-28.0.0.aar\c2f730a3f2243c3058d31a9cf1447667\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-28.0.0.aar\af87f5809d13a2c435376fbecc9d8d12\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-28.0.0.aar\af87f5809d13a2c435376fbecc9d8d12\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\print-28.0.0.aar\0183951c991b04b04b3dc66b4748df30\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\print-28.0.0.aar\0183951c991b04b04b3dc66b4748df30\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\a8db0e6122afc6a849bd40a501e8cdaf\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\a8db0e6122afc6a849bd40a501e8cdaf\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\48dca90c6d398f8c5edb5a70d846d189\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\48dca90c6d398f8c5edb5a70d846d189\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\085ea6db175d3625ba3bc768ecbecf4c\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\085ea6db175d3625ba3bc768ecbecf4c\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\b83f7a00612f97c2907cf05849e7d510\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\b83f7a00612f97c2907cf05849e7d510\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\91f60b35f39da49afd27e4a838e0d957\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\Administrator\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\91f60b35f39da49afd27e4a838e0d957\AndroidManifest.xml:20:5-44
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+		ADDED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml
+		INJECTED from D:\Android_Projects\AnyChart-Android-master\sample\src\main\AndroidManifest.xml

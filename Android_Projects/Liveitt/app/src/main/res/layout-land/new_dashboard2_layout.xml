@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:n1="http://schemas.android.com/apk/res/android"
+    n1:id="@id/main_layout"
+    n1:layout_width="fill_parent"
+    n1:layout_height="fill_parent"
+    n1:orientation="vertical">
+
+    <RelativeLayout
+        n1:id="@id/rl_settings"
+        n1:layout_width="fill_parent"
+        n1:layout_height="70.0dip"
+        n1:layout_marginEnd="10.0dip"
+        n1:layout_marginStart="10.0dip"
+        n1:layout_marginTop="10.0dip"
+        n1:visibility="visible">
+
+        <ImageView
+            n1:id="@id/logo"
+            n1:layout_width="77dp"
+            n1:layout_height="70.0dip"
+            n1:layout_alignParentStart="true"
+            n1:layout_alignParentTop="true"
+            n1:src="@drawable/logo" />
+
+        <TextView
+            n1:id="@id/time"
+            n1:layout_width="80dp"
+            n1:layout_height="66dp"
+            n1:layout_alignParentStart="true"
+            n1:layout_alignParentTop="true"
+            n1:layout_marginStart="77dp"
+            n1:gravity="center"
+            n1:text="06:30 am"
+            n1:textColor="@android:color/white"
+            n1:textStyle="bold"
+            n1:textSize="16.0sp" />
+
+        <TextView
+            n1:id="@id/date"
+            n1:layout_width="wrap_content"
+            n1:layout_height="fill_parent"
+            n1:layout_alignParentTop="true"
+            n1:layout_marginEnd="-1dp"
+            n1:layout_toStartOf="@+id/sair_linear"
+            n1:gravity="center"
+            n1:paddingRight="40.0sp"
+            n1:textColor="@android:color/white"
+            n1:textStyle="bold"
+            n1:text="Monday,Janurary 12"
+            n1:textSize="16.0sp" />
+
+        <LinearLayout
+            n1:id="@id/conta_linear"
+            n1:layout_width="100dp"
+            n1:layout_height="35dp"
+            n1:layout_alignParentBottom="true"
+            n1:layout_alignParentEnd="true"
+            n1:layout_marginEnd="138dp"
+            n1:layout_weight="0.3"
+            n1:background="@drawable/riple_green"
+            n1:focusable="true"
+            n1:gravity="center_vertical"
+            n1:orientation="horizontal"
+            n1:tag="3"
+            n1:visibility="gone"
+            n1:weightSum="1.0">
+
+            <ImageView
+                n1:layout_width="wrap_content"
+                n1:layout_height="fill_parent"
+                n1:layout_marginLeft="10.0dip"
+                n1:layout_weight="0.4"
+                n1:contentDescription="@string/app_name"
+                n1:src="@drawable/account_info" />
+
+            <TextView
+                n1:layout_width="fill_parent"
+                n1:layout_height="wrap_content"
+                n1:layout_marginLeft="10.0sp"
+                n1:layout_weight="0.5"
+                n1:gravity="start"
+                n1:paddingRight="20.0sp"
+                n1:text="CONTA"
+                n1:textColor="@android:color/white"
+                n1:textSize="10.0sp"
+                n1:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            n1:id="@id/sair_linear"
+            n1:layout_width="100dp"
+            n1:layout_height="35dp"
+            n1:layout_alignParentEnd="true"
+            n1:layout_alignParentTop="true"
+            n1:layout_marginEnd="137dp"
+            n1:layout_weight="0.3"
+            n1:background="@drawable/riple_green"
+            n1:focusable="true"
+            n1:gravity="center_vertical"
+            n1:orientation="horizontal"
+            n1:tag="4"
+            n1:weightSum="1.0">
+
+            <ImageView
+                n1:layout_width="50dp"
+                n1:layout_height="fill_parent"
+                n1:layout_marginLeft="10.0dip"
+                n1:layout_weight="0.4"
+                n1:contentDescription="@string/app_name"
+                n1:src="@drawable/logout_icon" />
+
+            <TextView
+                n1:layout_width="fill_parent"
+                n1:layout_height="wrap_content"
+                n1:layout_marginLeft="10.0sp"
+                n1:layout_weight="0.5"
+                n1:gravity="start"
+                n1:paddingRight="20.0sp"
+                n1:text="SAIR"
+                n1:textColor="@android:color/white"
+                n1:textSize="10.0sp"
+                n1:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            n1:id="@id/settings_linear"
+            n1:layout_width="130dp"
+            n1:layout_height="35dp"
+            n1:layout_alignParentBottom="true"
+            n1:layout_alignParentEnd="true"
+            n1:layout_weight="0.3"
+            n1:background="@drawable/riple_green"
+            n1:focusable="true"
+            n1:gravity="center_vertical"
+            n1:orientation="horizontal"
+            n1:tag="5"
+            n1:weightSum="1.0">
+
+            <ImageView
+                n1:layout_width="wrap_content"
+                n1:layout_height="fill_parent"
+                n1:layout_marginLeft="10.0dip"
+                n1:layout_weight="0.4"
+                n1:contentDescription="@string/app_name"
+                n1:src="@drawable/gear_white" />
+
+            <TextView
+                n1:layout_width="fill_parent"
+                n1:layout_height="wrap_content"
+                n1:layout_marginLeft="10.0sp"
+                n1:layout_weight="0.5"
+                n1:gravity="start"
+                n1:paddingRight="20.0sp"
+                n1:text="DEFINIÇÕES"
+                n1:textColor="@android:color/white"
+                n1:textSize="10.0sp"
+                n1:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            n1:id="@id/updates_linear"
+            n1:layout_width="130dp"
+            n1:layout_height="35dp"
+            n1:layout_alignParentEnd="true"
+            n1:layout_alignParentTop="true"
+            n1:layout_weight="0.3"
+            n1:background="@drawable/riple_green"
+            n1:focusable="true"
+            n1:gravity="center_vertical"
+            n1:orientation="horizontal"
+            n1:tag="6"
+            n1:weightSum="1.0">
+
+            <ImageView
+                n1:layout_width="wrap_content"
+                n1:layout_height="fill_parent"
+                n1:layout_marginLeft="10.0dip"
+                n1:layout_weight="0.4"
+                n1:contentDescription="@string/app_name"
+                n1:src="@drawable/update_icon" />
+
+            <TextView
+                n1:layout_width="fill_parent"
+                n1:layout_height="wrap_content"
+                n1:layout_marginLeft="10.0sp"
+                n1:layout_weight="0.5"
+                n1:gravity="start"
+                n1:paddingRight="20.0sp"
+                n1:text="ATUALIZAÇÕES"
+                n1:textColor="@android:color/white"
+                n1:textSize="10.0sp"
+                n1:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        n1:layout_width="fill_parent"
+        n1:layout_height="fill_parent"
+        n1:orientation="vertical">
+
+        <LinearLayout
+            n1:layout_width="fill_parent"
+            n1:layout_height="wrap_content"
+            n1:layout_weight="99.0"
+            n1:gravity="center"
+            n1:orientation="horizontal"
+            n1:padding="15dp"
+            n1:weightSum="4.0">
+
+            <LinearLayout
+                n1:id="@id/menu_vod"
+                n1:layout_width="0.0dip"
+                n1:layout_height="150dp"
+                n1:layout_marginEnd="20.0dip"
+                n1:layout_marginLeft="0.0sp"
+                n1:layout_toLeftOf="@id/menu_filmes_app"
+                n1:layout_weight="1"
+                n1:background="@drawable/background_color_gradient_01"
+                n1:focusable="true"
+                n1:gravity="center"
+                n1:orientation="vertical"
+                n1:tag="1">
+
+                <ImageView
+                    n1:layout_width="fill_parent"
+                    n1:layout_height="70.0sp"
+                    n1:contentDescription="@string/app_name"
+                    n1:src="@drawable/vod_icon" />
+
+                <TextView
+                    n1:layout_width="fill_parent"
+                    n1:layout_height="wrap_content"
+                    n1:layout_marginTop="10.0sp"
+                    n1:gravity="center"
+                    n1:text="FILMES APP"
+                    n1:textColor="@android:color/white"
+                    n1:textSize="15.0sp"
+                    n1:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                n1:id="@id/menu_extras"
+                n1:layout_width="0.0dip"
+                n1:layout_height="150dp"
+                n1:layout_marginEnd="20.0dip"
+                n1:layout_marginLeft="0.0sp"
+                n1:layout_weight="1"
+                n1:background="@drawable/background_color_gradient_03"
+                n1:focusable="true"
+                n1:gravity="center"
+                n1:orientation="vertical"
+                n1:tag="3">
+
+                <ImageView
+                    n1:layout_width="fill_parent"
+                    n1:layout_height="70.0sp"
+                    n1:contentDescription="@string/app_name"
+                    n1:scaleType="fitCenter"
+                    n1:src="@drawable/extras_icon" />
+
+                <TextView
+                    n1:layout_width="fill_parent"
+                    n1:layout_height="wrap_content"
+                    n1:layout_marginTop="10.0sp"
+                    n1:gravity="center"
+                    n1:text="EXTRAS"
+                    n1:textColor="@android:color/white"
+                    n1:textSize="15.0sp"
+                    n1:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            n1:layout_width="fill_parent"
+            n1:layout_height="30dp"
+            n1:layout_weight="0"
+            n1:orientation="horizontal"
+            n1:weightSum="3">
+            <TextView
+                n1:id="@id/email_user"
+                n1:layout_width="0.0dip"
+                n1:layout_height="wrap_content"
+                n1:layout_weight="1.2"
+                n1:layout_marginLeft="20dp"
+                n1:layout_marginRight="20dp"
+                n1:layout_marginTop="5.0sp"
+                n1:gravity="left"
+                n1:text=""
+                n1:textSize="16.0sp"
+                n1:textColor="@android:color/white"
+                n1:textStyle="bold"/>
+
+            <TextView
+                n1:id="@id/nome_user"
+                n1:layout_width="0.0dip"
+                n1:layout_height="wrap_content"
+                n1:layout_marginRight="20dp"
+                n1:layout_marginTop="5.0sp"
+                n1:layout_weight="0.9"
+                n1:gravity="end"
+                n1:text=""
+                n1:textSize="16.0sp"
+                n1:textColor="@android:color/white"
+                n1:textStyle="bold"/>
+
+            <TextView
+                n1:id="@id/expiration_date"
+                n1:layout_width="0.0dip"
+                n1:layout_height="wrap_content"
+                n1:layout_marginRight="20.0dp"
+                n1:layout_marginTop="5.0sp"
+                n1:layout_weight="0.9"
+                n1:gravity="end"
+                n1:text=""
+                n1:textAllCaps="false"
+                n1:textSize="16.0sp"
+                n1:textColor="@android:color/white"
+                n1:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

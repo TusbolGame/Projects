@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout n1:id="@id/appbar_toolbar" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+        <android.support.v7.widget.Toolbar n1:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" n1:id="@id/toolbar" n1:background="#ff343d46" n1:visibility="gone" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="50.0dip" n1:minHeight="?actionBarSize" n1:layout_centerInParent="true" n2:popupTheme="@style/ThemeOverlay.AppCompat.Light" xmlns:n2="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <TextView n1:textSize="18.0sp" n1:textStyle="bold" n1:textColor="@color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginTop="10.0dip" n1:layout_marginBottom="7.0dip" n1:text="@string/settings" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+        <LinearLayout n1:orientation="vertical" n1:background="@drawable/settings_screen_bg_tv" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+            <RelativeLayout n1:id="@id/rl_settings" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="50.0dip" n1:layout_marginTop="20.0dip" n1:layout_marginStart="30.0dip" n1:layout_marginEnd="30.0dip">
+                <ImageView n1:id="@id/logo" n1:layout_width="150.0dip" n1:layout_height="50.0dip" n1:src="@drawable/iptv_placeholder" />
+                <TextView n1:textSize="18.0sp" n1:textColor="@color/light_gray" n1:gravity="center" n1:id="@id/separator" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginTop="8.0dip" n1:text="|" n1:layout_toEndOf="@id/logo" />
+                <TextView n1:textSize="18.0sp" n1:textColor="@color/light_gray" n1:gravity="center" n1:id="@id/textView" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="10.0dip" n1:layout_marginTop="8.0dip" n1:text="ARQUIVO | TV" n1:layout_toEndOf="@id/separator" />
+                <TextView n1:textSize="22.0sp" n1:textStyle="bold" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_settings" n1:visibility="gone" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:text="@string/settings" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_bold" />
+                <TextView n1:textSize="22.0sp" n1:textColor="@android:color/white" n1:gravity="center" n1:id="@id/time" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginRight="10.0dip" n1:text="06:30 am" n1:layout_toLeftOf="@id/date" />
+                <TextView n1:textSize="14.0sp" n1:textColor="#ffcccccc" n1:gravity="center" n1:id="@id/date" n1:paddingRight="30.0sp" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginTop="7.0dip" n1:text="Monday,Janurary 12" n1:layout_alignParentEnd="true" />
+            </RelativeLayout>
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <android.support.design.widget.TabLayout n1:id="@id/sliding_tabs" n1:background="#5b000000" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="30.0sp" n1:layout_marginStart="55.0dip" n1:layout_marginEnd="55.0dip" n3:tabBackground="@drawable/tab_color_selector" n3:tabIndicatorColor="@color/white" n3:tabMode="scrollable" n3:tabSelectedTextColor="@color/white" n3:tabTextColor="@color/white" xmlns:n3="http://schemas.android.com/apk/res-auto" />
+                <RelativeLayout n1:id="@id/rl_tv_archive_title" n1:background="@color/colorAccent" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_below="@id/sliding_tabs" />
+                <android.support.v4.view.ViewPager n1:id="@id/viewpager" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_below="@id/sliding_tabs" n1:layout_marginStart="50.0dip" n1:layout_marginEnd="50.0dip" />
+                <TextView n1:textSize="30.0dip" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_no_record_found" n1:visibility="gone" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="20.0dip" n1:text="@string/no_archive_found" n1:layout_below="@id/viewpager" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_thin" />
+                <TextView n1:textSize="20.0sp" n1:textColor="@color/white" n1:id="@id/tv_egp_required" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="60.0dip" n1:layout_marginBottom="50.0dip" n1:text="@string/epg_required_for_archive" n1:layout_alignParentBottom="true" n1:textAlignment="center" n1:paddingStart="30.0dip" n1:paddingEnd="30.0dip" />
+                <ProgressBar n1:theme="@style/whiteLoader" n1:id="@id/pb_loader" n1:visibility="gone" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="50.0dip" n1:indeterminate="true" n1:layout_centerHorizontal="true" />
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+</LinearLayout>

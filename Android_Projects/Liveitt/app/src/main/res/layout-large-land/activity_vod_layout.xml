@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout n1:id="@id/appbar_toolbar" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+        <android.support.v7.widget.Toolbar n1:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" n1:id="@id/toolbar" n1:visibility="visible" n1:fitsSystemWindows="true" n1:layout_width="wrap_content" n1:layout_height="80.0dip" n1:minHeight="?actionBarSize" n1:layout_centerInParent="true" n2:popupTheme="@style/ThemeOverlay.AppCompat.Light" xmlns:n2="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <ImageView n1:id="@id/logo" n1:paddingTop="10.0dip" n1:paddingBottom="10.0dip" n1:layout_width="190.0dip" n1:layout_height="fill_parent" n1:src="@drawable/iptv_placeholder" n1:paddingStart="10.0dip" />
+                <TextView n1:textSize="24.0sp" n1:textStyle="bold" n1:textColor="@color/white" n1:ellipsize="marquee" n1:gravity="center" n1:id="@id/tv_settings" n1:fadingEdge="horizontal" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="@string/live_tv" n1:scrollHorizontally="true" n1:singleLine="true" n1:layout_centerInParent="true" n1:layout_centerHorizontal="true" n1:marqueeRepeatLimit="marquee_forever" n1:fontFamily="@string/font_family_bold" n1:paddingStart="20.0dip" n1:paddingEnd="20.0dip" n1:layout_toEndOf="@id/logo" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+        <RelativeLayout n1:id="@id/rl_settings" n1:background="@color/colorAccent" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="wrap_content" />
+        <RelativeLayout n1:id="@id/rl_sub_cat" n1:paddingLeft="16.0dip" n1:paddingTop="16.0dip" n1:paddingRight="16.0dip" n1:paddingBottom="16.0dip" n1:clickable="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+            <TextView n1:id="@id/tv_view_provider" n1:visibility="invisible" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="gridView" />
+            <android.support.v7.widget.RecyclerView n1:id="@id/my_recycler_view" n1:clickable="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent" />
+            <TextView n1:textSize="30.0dip" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_noStream" n1:visibility="invisible" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="60.0dip" n1:text="@string/no_video_found" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_thin" n1:textAlignment="center" />
+            <ProgressBar n1:id="@id/pb_loader" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="50.0dip" n1:indeterminate="true" n1:layout_below="@id/sliding_tabs" n1:layout_centerHorizontal="true" />
+            <TextView n1:textSize="30.0dip" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_no_record_found" n1:visibility="gone" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="60.0dip" n1:text="@string/no_record_found" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_thin" />
+        </RelativeLayout>
+        <include n1:layout_width="fill_parent" n1:layout_height="fill_parent" layout="@layout/app_bar_drawer" />
+    </android.support.design.widget.AppBarLayout>
+</LinearLayout>

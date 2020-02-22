@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.anychart.anychart"
+    android:versionCode="7"
+    android:versionName="1.4" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="28" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="android.support.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/AppTheme" >
+        <activity android:name="com.anychart.sample.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.anychart.sample.charts.PieChartActivity" />
+        <activity android:name="com.anychart.sample.charts.ColumnChartActivity" />
+        <activity android:name="com.anychart.sample.charts.LineChartActivity" />
+        <activity android:name="com.anychart.sample.charts.VennDiagramActivity" />
+        <activity android:name="com.anychart.sample.charts.HeatMapChartActivity" />
+        <activity android:name="com.anychart.sample.charts.TagCloudActivity" />
+        <activity android:name="com.anychart.sample.charts.WaterfallChartActivity" />
+        <activity android:name="com.anychart.sample.charts.TreeMapChartActivity" />
+        <activity android:name="com.anychart.sample.charts.CircularGaugeActivity" />
+        <activity android:name="com.anychart.sample.charts.ScatterChartActivity" />
+        <activity
+            android:name="com.anychart.sample.charts.ResourceChartActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.anychart.sample.charts.RadarChartActivity" />
+        <activity android:name="com.anychart.sample.charts.PolarChartActivity" />
+        <activity android:name="com.anychart.sample.charts.RangeChartActivity" />
+        <activity android:name="com.anychart.sample.charts.VerticalChartActivity" />
+        <activity android:name="com.anychart.sample.charts.FunnelChartActivity" />
+        <activity android:name="com.anychart.sample.charts.PertChartActivity" />
+        <activity android:name="com.anychart.sample.charts.GanttChartActivity" />
+        <activity android:name="com.anychart.sample.charts.CombinedChartActivity" />
+        <activity android:name="com.anychart.sample.charts.BubbleChartActivity" />
+        <activity android:name="com.anychart.sample.charts.ParetoChartActivity" />
+        <activity android:name="com.anychart.sample.charts.PyramidActivity" />
+        <activity android:name="com.anychart.sample.charts.AreaChartActivity" />
+        <activity android:name="com.anychart.sample.charts.BarChartActivity" />
+        <activity android:name="com.anychart.sample.charts.BoxChartActivity" />
+        <activity android:name="com.anychart.sample.charts.Bar3DChartActivity" />
+        <activity android:name="com.anychart.sample.charts.MosaicChartActivity" />
+        <activity android:name="com.anychart.sample.charts.MekkoChartActivity" />
+        <activity android:name="com.anychart.sample.charts.Column3DChartActivity" />
+        <activity android:name="com.anychart.sample.charts.Area3DChartActivity" />
+        <activity android:name="com.anychart.sample.charts.HiloChartActivity" />
+        <activity android:name="com.anychart.sample.charts.QuadrantChartActivity" />
+        <activity android:name="com.anychart.sample.charts.OHLCChartActivity" />
+        <activity android:name="com.anychart.sample.charts.BubbleMapActivity" />
+        <activity android:name="com.anychart.sample.charts.ChoroplethMapActivity" />
+        <activity android:name="com.anychart.sample.charts.PointMapActivity" />
+        <activity android:name="com.anychart.sample.charts.ConnectorMapActivity" />
+        <activity android:name="com.anychart.sample.charts.SunburstChartActivity" />
+        <activity android:name="com.anychart.sample.charts.ThermometerActivity" />
+        <activity android:name="com.anychart.sample.charts.LinearColorScaleActivity" />
+        <activity android:name="com.anychart.sample.charts.WindSpeedActivity" />
+        <activity android:name="com.anychart.sample.charts.WindDirectionActivity" />
+        <activity android:name="com.anychart.sample.charts.TwoPiesOneColumnActivity" />
+    </application>
+
+</manifest>

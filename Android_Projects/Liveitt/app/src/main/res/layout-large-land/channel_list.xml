@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:id="@id/ll_list_view" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <TextView n1:textSize="20.0sp" n1:textStyle="bold" n1:textColor="@color/white" n1:gravity="center" n1:layout_gravity="start" n1:id="@id/tv_channel_number" n1:paddingBottom="2.0dip" n1:layout_width="50.0dip" n1:layout_height="40.0dip" n1:src="@drawable/logo" n1:textAlignment="center" n1:layout_marginStart="2.0dip" />
+    <ImageView n1:id="@id/tv_logo" n1:paddingTop="2.0dip" n1:paddingBottom="2.0dip" n1:layout_width="50.0dip" n1:layout_height="40.0dip" n1:src="@drawable/logo" n1:layout_marginStart="2.0dip" />
+    <ImageView n1:id="@id/tv_currently_playing" n1:visibility="gone" n1:layout_width="17.0dip" n1:layout_height="39.0dip" n1:src="@drawable/player_play_newflow" n1:layout_marginStart="10.0dip" />
+    <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+        <TextView n1:textSize="20.0sp" n1:textColor="@color/white" n1:ellipsize="marquee" n1:gravity="center_vertical" n1:id="@id/list_view" n1:fadingEdge="horizontal" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:scrollHorizontally="true" n1:singleLine="true" n1:marqueeRepeatLimit="marquee_forever" n1:layout_marginStart="10.0dip" n1:layout_marginEnd="40.0dip" />
+        <ImageView n1:id="@id/iv_favourite" n1:background="@drawable/selector_favourite_vod" n1:visibility="invisible" n1:layout_width="40.0dip" n1:layout_height="30.0dip" n1:layout_marginTop="0.0dip" n1:src="@drawable/favourite_yellow" n1:layout_centerInParent="true" n1:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</LinearLayout>

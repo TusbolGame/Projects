@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:n1="http://schemas.android.com/apk/res/android"
+    n1:id="@id/activity_login"
+    n1:layout_width="fill_parent"
+    n1:layout_height="fill_parent"
+    n1:background="@drawable/splash_new_bg"
+    n1:orientation="horizontal"
+    n1:weightSum="1.0">
+
+    <LinearLayout
+        n1:layout_width="0.0dip"
+        n1:layout_height="fill_parent"
+        n1:layout_marginBottom="20.0dip"
+        n1:layout_marginLeft="50.0dip"
+        n1:layout_marginTop="30.0dip"
+        n1:layout_weight="0.4"
+        n1:orientation="vertical"
+        n1:weightSum="1.0">
+
+        <ImageView
+            n1:id="@id/iv_logo"
+            n1:layout_width="fill_parent"
+            n1:layout_height="wrap_content"
+            n1:layout_marginTop="80.0sp"
+            n1:src="@drawable/logo" />
+        <Button
+            n1:id="@+id/network_button"
+            n1:layout_width="wrap_content"
+            n1:layout_height="wrap_content"
+            n1:layout_gravity="center"
+            n1:text="Network Status" />
+
+        <TextView
+            n1:id="@id/username_password"
+            n1:layout_width="wrap_content"
+            n1:layout_height="wrap_content"
+            n1:layout_marginBottom="30.0dip"
+            n1:layout_marginLeft="45.0sp"
+            n1:layout_marginTop="80.0dip"
+            n1:text="@string/details"
+            n1:textAlignment="textStart"
+            n1:textColor="@color/darker_grey"
+            n1:textSize="16.0sp"
+            n1:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        n1:layout_width="0.0dip"
+        n1:layout_height="fill_parent"
+        n1:layout_marginBottom="30.0dip"
+        n1:layout_marginRight="50.0dip"
+        n1:layout_marginTop="30.0dip"
+        n1:layout_weight="0.6"
+        n1:orientation="vertical"
+        n1:weightSum="6.0">
+
+        <TextView
+            n1:id="@id/tv_enter_credentials"
+            n1:layout_width="fill_parent"
+            n1:layout_height="0.0dip"
+            n1:layout_marginTop="20.0dip"
+            n1:layout_toRightOf="@id/iv_logo"
+            n1:layout_weight="1.0"
+            n1:fontFamily="sans-serif"
+            n1:gravity="center"
+            n1:text="@string/credential_detail"
+            n1:textColor="@color/white"
+            n1:textSize="24.0sp"
+            n1:textStyle="bold" />
+
+        <EditText
+            n1:id="@id/et_email"
+            n1:layout_width="fill_parent"
+            n1:layout_height="0.0dip"
+            n1:layout_below="@id/tv_enter_credentials"
+            n1:layout_marginLeft="90.0dip"
+            n1:layout_marginRight="50.0dip"
+            n1:layout_marginTop="20.0dip"
+            n1:layout_toRightOf="@id/iv_logo"
+            n1:layout_weight="0.9"
+            n1:background="@drawable/selector_login_fields"
+            n1:focusable="true"
+            n1:fontFamily="sans-serif"
+            n1:hint="@string/username"
+            n1:imeOptions="flagNoExtractUi"
+            n1:inputType="textEmailAddress"
+            n1:lines="1"
+            n1:maxLines="1"
+            n1:paddingLeft="20.0dip"
+            n1:paddingRight="20.0dip"
+            n1:singleLine="true"
+            n1:tag="1"
+            n1:textColor="@color/black"
+            n1:textColorHint="@color/white"
+            n1:textCursorDrawable="@null"
+            n1:textSize="22.0sp" />
+
+        <EditText
+            n1:id="@id/et_password"
+            n1:layout_width="fill_parent"
+            n1:layout_height="0.0dip"
+            n1:layout_below="@id/et_email"
+            n1:layout_centerHorizontal="true"
+            n1:layout_marginLeft="90.0dip"
+            n1:layout_marginRight="50.0dip"
+            n1:layout_marginTop="15.0dip"
+            n1:layout_toRightOf="@id/iv_logo"
+            n1:layout_weight="0.9"
+            n1:background="@drawable/selector_login_fields"
+            n1:focusable="true"
+            n1:fontFamily="sans-serif"
+            n1:hint="@string/password"
+            n1:imeOptions="flagNoExtractUi"
+            n1:inputType="textPassword"
+            n1:lines="1"
+            n1:maxLines="1"
+            n1:paddingLeft="20.0dip"
+            n1:paddingRight="20.0dip"
+            n1:singleLine="true"
+            n1:tag="2"
+            n1:textColor="@color/black"
+            n1:textColorHint="@color/white"
+            n1:textCursorDrawable="@null"
+            n1:textSize="22.0sp" />
+
+        <EditText
+
+            n1:id="@id/et_sever_url"
+            n1:layout_width="fill_parent"
+            n1:layout_height="0.0dip"
+            n1:layout_below="@id/et_password"
+            n1:layout_centerHorizontal="true"
+            n1:layout_marginLeft="90.0dip"
+            n1:layout_marginRight="50.0dip"
+            n1:layout_marginTop="15.0dip"
+            n1:layout_toRightOf="@id/iv_logo"
+            n1:layout_weight="0.9"
+            n1:background="@drawable/selector_login_fields"
+            n1:focusable="true"
+            n1:fontFamily="sans-serif"
+            n1:hint="@string/serverurl"
+            n1:imeOptions="flagNoExtractUi"
+            n1:inputType="textUri"
+            n1:lines="1"
+            n1:maxLines="1"
+            n1:paddingLeft="20.0dip"
+            n1:paddingRight="20.0dip"
+            n1:singleLine="true"
+            n1:tag="3"
+            n1:textColor="@color/black"
+            n1:textColorHint="@color/white"
+            n1:textCursorDrawable="@null"
+            n1:textSize="22.0sp"
+            n1:visibility="gone" />
+
+        <Button
+            n1:id="@id/bt_submit"
+            n1:layout_width="fill_parent"
+            n1:layout_height="0.0dip"
+            n1:layout_below="@id/et_sever_url"
+            n1:layout_marginLeft="90.0dip"
+            n1:layout_marginRight="50.0dip"
+            n1:layout_marginTop="15.0dip"
+            n1:layout_toRightOf="@id/iv_logo"
+            n1:layout_weight="0.9"
+            n1:background="@drawable/selector_button"
+            n1:focusable="true"
+            n1:fontFamily="sans-serif"
+            n1:gravity="center"
+            n1:hint="@string/username"
+            n1:lines="1"
+            n1:maxLines="1"
+            n1:paddingLeft="20.0dip"
+            n1:paddingRight="20.0dip"
+            n1:tag="4"
+            n1:text="@string/submit"
+            n1:textColor="@color/black"
+            n1:textColorHint="@color/white"
+            n1:textCursorDrawable="@null"
+            n1:textSize="24.0sp" />
+
+        <CheckBox
+            n1:id="@id/cb_remember_me"
+            n1:layout_width="wrap_content"
+            n1:layout_height="0.0dip"
+            n1:layout_below="@id/bt_submit"
+            n1:layout_marginLeft="85.0dip"
+            n1:layout_marginRight="25.0dip"
+            n1:layout_toRightOf="@id/iv_logo"
+            n1:layout_weight="1.0"
+            n1:checked="true"
+            n1:focusable="true"
+            n1:fontFamily="sans-serif"
+            n1:paddingRight="20.0dip"
+            n1:tag="5"
+            n1:text="@string/remember_me"
+            n1:textColor="@color/white"
+            n1:textColorHint="@color/white"
+            n1:textCursorDrawable="@null"
+            n1:textSize="22.0sp" />
+
+        <!-- <Button
+             n1:id="@+id/btn_lwebsite"
+             n1:layout_width="match_parent"
+             n1:layout_height="2dp"
+             n1:layout_weight="1"
+             n1:background="@drawable/selector_button"
+             n1:focusable="true"
+             n1:focusableInTouchMode="true"
+             n1:textSize="12dp" />-->
+
+         <TextView
+             n1:id="@+id/tv_versao"
+             n1:layout_width="match_parent"
+             n1:layout_height="wrap_content"
+             n1:fontFamily="sans-serif-thin"
+             n1:text=""
+             n1:textAlignment="center"
+             n1:textColor="#ffffff"
+             n1:textSize="20dp"
+             n1:textStyle="bold" />
+
+         <TextView
+             n1:id="@+id/tv_tipologia"
+             n1:layout_width="match_parent"
+             n1:layout_height="wrap_content"
+             n1:fontFamily="sans-serif-thin"
+             n1:text=""
+             n1:textAlignment="center"
+             n1:textColor="#ffffff"
+             n1:textSize="20dp"
+             n1:textStyle="bold" />
+     </LinearLayout>
+ </LinearLayout>

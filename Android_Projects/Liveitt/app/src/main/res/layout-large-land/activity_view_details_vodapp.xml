@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+    xmlns:n1="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout n1:id="@id/appbar_toolbar" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+        <android.support.v7.widget.Toolbar n1:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" n1:id="@id/toolbar" n1:visibility="visible" n1:fitsSystemWindows="true" n1:layout_width="wrap_content" n1:layout_height="80.0dip" n1:minHeight="?actionBarSize" n1:layout_centerInParent="true" n2:popupTheme="@style/ThemeOverlay.AppCompat.Light" xmlns:n2="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <ImageView n1:id="@id/logo" n1:paddingTop="10.0dip" n1:paddingBottom="10.0dip" n1:layout_width="190.0dip" n1:layout_height="fill_parent" n1:src="@drawable/iptv_placeholder" n1:paddingStart="10.0dip" />
+                <TextView n1:textSize="24.0sp" n1:textStyle="bold" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_account_info" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="@string/movie_info" n1:layout_centerInParent="true" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_bold" n1:paddingStart="80.0dip" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+        <RelativeLayout n1:id="@id/rl_account_info" n1:background="@color/colorAccent" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="wrap_content" />
+        <ProgressBar n1:theme="@style/whiteLoader" n1:gravity="center" n1:id="@id/tv_detail_ProgressBar" n1:layout_width="fill_parent" n1:layout_height="30.0dip" n1:layout_marginTop="63.0dip" n1:layout_marginStart="20.0dip" n1:layout_marginEnd="20.0dip" />
+        <ScrollView n1:id="@id/scrollView" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:fillViewport="true">
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+                <LinearLayout n1:id="@id/ll_movie_info_box" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginStart="100.0dip" n1:layout_marginEnd="100.0dip">
+                    <LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                        <LinearLayout n1:layout_width="fill_parent" n1:layout_height="60.0dip">
+                            <TextView n1:textSize="22.0sp" n1:textColor="@color/colorPrimaryFocus" n1:gravity="center" n1:id="@id/tv_movie_name" n1:background="#54000000" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:maxLines="2" n1:textAlignment="center" />
+                        </LinearLayout>
+                        <LinearLayout n1:layout_width="fill_parent" n1:layout_height="300.0dip" n1:weightSum="3.0">
+                            <LinearLayout n1:orientation="horizontal" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:baselineAligned="false" n1:weightSum="3.0">
+                                <LinearLayout n1:gravity="center_vertical" n1:orientation="horizontal" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="0.75">
+                                    <RelativeLayout n1:layout_width="wrap_content" n1:layout_height="wrap_content">
+                                        <ImageView n1:id="@id/iv_movie_image" n1:background="@drawable/tranparentdark" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginTop="5.0dip" n1:scaleType="fitXY" />
+                                        <ImageView n1:id="@id/iv_favourite" n1:background="@drawable/selector_favourite_vod" n1:layout_width="40.0dip" n1:layout_height="40.0dip" n1:layout_marginTop="10.0dip" n1:layout_marginRight="1.0dip" n1:src="@drawable/favourite_yellow" n1:layout_alignParentRight="true" />
+                                    </RelativeLayout>
+                                </LinearLayout>
+                                <LinearLayout n1:orientation="horizontal" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="0.6">
+                                    <LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:weightSum="5.0">
+                                        <LinearLayout n1:id="@id/ll_director_box" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_weight="0.8">
+                                            <TextView n1:textSize="18.0sp" n1:textStyle="bold" n1:textColor="#ffcccccc" n1:id="@id/tv_director" n1:paddingTop="1.0dip" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="Realizador:" n1:paddingStart="30.0dip" />
+                                        </LinearLayout>
+                                        <LinearLayout n1:id="@id/ll_released_box" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_weight="0.8">
+                                            <TextView n1:textSize="18.0sp" n1:textStyle="bold" n1:textColor="#ffcccccc" n1:id="@id/tv_release_date" n1:paddingTop="1.0dip" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="Ano:" n1:paddingStart="30.0dip" />
+                                        </LinearLayout>
+                                        <LinearLayout n1:id="@id/ll_duration_box" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_weight="0.8">
+                                            <TextView n1:textSize="18.0sp" n1:textStyle="bold" n1:textColor="#ffcccccc" n1:id="@id/tv_movie_duration" n1:paddingTop="1.0dip" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="Imdb:" n1:paddingStart="30.0dip" />
+                                        </LinearLayout>
+                                        <LinearLayout n1:id="@id/ll_genre_box" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_weight="0.8">
+                                            <TextView n1:textSize="18.0sp" n1:textStyle="bold" n1:textColor="#ffcccccc" n1:id="@id/tv_movie_genere" n1:paddingTop="1.0dip" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="Género:" n1:paddingStart="30.0dip" />
+                                        </LinearLayout>
+                                        <LinearLayout n1:id="@id/ll_cast_box" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_weight="2.0">
+                                            <TextView n1:textSize="18.0sp" n1:textStyle="bold" n1:textColor="#ffcccccc" n1:id="@id/tv_cast" n1:paddingTop="1.0dip" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="Atores:" n1:paddingStart="30.0dip" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
+                                <LinearLayout n1:orientation="horizontal" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="2.0">
+                                    <LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:weightSum="5.0">
+                                        <LinearLayout n1:id="@id/ll_director_box_info" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="10.0dip" n1:layout_weight="0.8">
+                                            <TextView n1:textSize="18.0sp" n1:textColor="#ffcccccc" n1:id="@id/tv_director_info" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginEnd="100.0dip" />
+                                        </LinearLayout>
+                                        <LinearLayout n1:id="@id/ll_released_box_info" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="10.0dip" n1:layout_weight="0.8">
+                                            <TextView n1:textSize="18.0sp" n1:textColor="#ffcccccc" n1:id="@id/tv_release_date_info" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginEnd="100.0dip" />
+                                        </LinearLayout>
+                                        <LinearLayout n1:id="@id/ll_duration_box_info" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="10.0dip" n1:layout_weight="0.8">
+                                            <TextView n1:textSize="18.0sp" n1:textColor="#ffcccccc" n1:id="@id/tv_movie_duration_info" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginEnd="100.0dip" />
+                                        </LinearLayout>
+                                        <LinearLayout n1:orientation="horizontal" n1:id="@id/ll_genre_box_info" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_weight="0.8">
+                                            <RelativeLayout n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginEnd="100.0dip">
+                                                <TextView n1:textSize="18.0sp" n1:textColor="#ffcccccc" n1:id="@id/tv_genre_info" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginLeft="10.0dip" n1:maxLines="1" />
+                                                <TextView n1:textSize="20.0sp" n1:textStyle="bold" n1:textColor="@color/colorPrimaryFocus" n1:gravity="center" n1:id="@id/tv_readmore_genre" n1:tag="4" n1:focusable="true" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="10.0dip" n1:text="Read more" n1:layout_below="@id/tv_genre_info" n1:fontFamily="@string/font_family_medium" />
+                                            </RelativeLayout>
+                                        </LinearLayout>
+                                        <LinearLayout n1:id="@id/ll_cast_box_info" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_weight="2.0">
+                                            <RelativeLayout n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginEnd="100.0dip">
+                                                <TextView n1:textSize="18.0sp" n1:textColor="#ffcccccc" n1:id="@id/tv_cast_info" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginLeft="10.0dip" n1:maxLines="3" />
+                                                <TextView n1:textSize="20.0sp" n1:textStyle="bold" n1:textColor="@color/colorPrimaryFocus" n1:gravity="center" n1:id="@id/tv_readmore" n1:tag="4" n1:focusable="true" n1:nextFocusDown="@id/tv_play" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="10.0dip" n1:text="Read more" n1:layout_below="@id/tv_cast_info" n1:fontFamily="@string/font_family_medium" />
+                                            </RelativeLayout>
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout n1:id="@id/rating_box" n1:layout_width="fill_parent" n1:layout_height="50.0dip">
+                            <LinearLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:weightSum="2.0">
+                                <LinearLayout n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="0.5">
+                                    <TextView n1:textSize="20.0sp" n1:textStyle="bold" n1:textColor="@color/colorPrimaryFocus" n1:gravity="center" n1:id="@id/tv_rating_num" n1:tag="4" n1:focusable="true" n1:nextFocusDown="@id/tv_play" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="10.0dip" n1:text="Read more" n1:fontFamily="@string/font_family_medium" />
+                                    <RatingBar n1:theme="@style/RatingBar" n1:id="@id/rating" n1:visibility="visible" n1:layout_width="wrap_content" n1:layout_below="@id/tv_rating_num"  n1:layout_height="wrap_content" n1:layout_marginTop="15.0dip" n1:numStars="5" n1:stepSize="0.1" n1:isIndicator="true" n1:layout_marginStart="54.0dip" style="?android:ratingBarStyleSmall" />
+                                </LinearLayout>
+
+                                <LinearLayout n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.5">
+                                    <RelativeLayout n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginLeft="60.0dip">
+                                        <TextView n1:textSize="17.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_play" n1:tag="1" n1:background="@drawable/back_btn_effect" n1:focusable="true" n1:nextFocusUp="@id/tv_readmore" n1:layout_width="120.0dip" n1:layout_height="40.0dip" n1:text="@string/nav_play" n1:fontFamily="@string/font_family_medium" />
+                                        <TextView n1:textSize="17.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_add_to_fav" n1:tag="2" n1:background="@drawable/logout_btn_effect" n1:focusable="true" n1:layout_width="120.0dip" n1:layout_height="40.0dip" n1:text="Trailer" n1:fontFamily="@string/font_family_medium" n1:layout_marginStart="10.0dip" n1:layout_marginEnd="10.0dip" n1:layout_toEndOf="@id/tv_play" />
+                                        <TextView n1:textSize="17.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_add_to_fav_2" n1:tag="3" n1:background="@drawable/blue_btn_effect" n1:focusable="true" n1:layout_width="120.0dip" n1:layout_height="40.0dip" n1:text="@string/add_to_favourite" n1:fontFamily="@string/font_family_medium" n1:layout_marginStart="10.0dip" n1:layout_marginEnd="10.0dip" n1:layout_toEndOf="@id/tv_add_to_fav" />
+                                        <TextView n1:textSize="17.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_detail_back_btn" n1:tag="4" n1:background="@drawable/back_btn_effect" n1:focusable="true" n1:layout_width="120.0dip" n1:layout_height="40.0dip" n1:text="@string/back_button" n1:fontFamily="@string/font_family_medium" n1:layout_toEndOf="@id/tv_add_to_fav_2" />
+                                    </RelativeLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_below="@id/ll_movie_info_box" n1:layout_marginStart="100.0dip" n1:layout_marginEnd="100.0dip">
+                    <TextView n1:textSize="18.0sp" n1:textColor="#ffcccccc" n1:id="@id/tv_movie_info" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="10.0dip" n1:layout_marginBottom="20.0dip" n1:text="A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation.A young Chinese warrior steals a sword from a famed swordsman and then escapes into a world of romantic adventure with a mysterious man in the frontier of the nation." n1:fontFamily="@string/font_family_medium" />
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+        <include n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="fill_parent" layout="@layout/app_bar_drawer" />
+    </android.support.design.widget.AppBarLayout>
+</LinearLayout>

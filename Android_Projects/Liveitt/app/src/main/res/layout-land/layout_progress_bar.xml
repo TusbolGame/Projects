@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout n1:background="@drawable/tranparentdark" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <RelativeLayout n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_centerInParent="true">
+        <TextView n1:textSize="14.0sp" n1:textColor="@android:color/white" n1:id="@id/message" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="10.0dip" n1:text="" n1:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</RelativeLayout>

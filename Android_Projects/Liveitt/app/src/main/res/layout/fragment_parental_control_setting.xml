@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:n1="http://schemas.android.com/apk/res/android"
+    n1:layout_width="fill_parent"
+    n1:layout_height="fill_parent">
+
+    <ScrollView
+        n1:layout_width="fill_parent"
+        n1:layout_height="fill_parent"
+        n1:background="@color/dark_gray">
+
+        <RelativeLayout
+            n1:layout_width="fill_parent"
+            n1:layout_height="fill_parent">
+
+            <RelativeLayout
+                n1:layout_width="fill_parent"
+                n1:layout_height="fill_parent">
+
+                <android.support.v7.widget.CardView xmlns:n2="http://schemas.android.com/apk/res-auto"
+                    n1:layout_width="fill_parent"
+                    n1:layout_height="wrap_content"
+                    n1:layout_margin="20.0dip"
+                    n2:cardBackgroundColor="#ffffffff">
+
+                    <RelativeLayout
+                        n1:layout_width="wrap_content"
+                        n1:layout_height="wrap_content"
+                        n1:layout_marginTop="10.0dip">
+
+                        <TextView
+                            n1:id="@id/tv_lock"
+                            n1:layout_width="wrap_content"
+                            n1:layout_height="wrap_content"
+                            n1:layout_marginLeft="10.0dip"
+                            n1:layout_marginTop="10.0dip"
+                            n1:layout_marginBottom="10.0dip"
+                            n1:drawableLeft="@drawable/parental_security_key"
+                            n1:drawablePadding="7.0dip"
+                            n1:text="@string/lock_category"
+                            n1:textColor="@color/dark_black"
+                            n1:textSize="18.0dip"
+                            n1:textStyle="bold" />
+
+                        <RelativeLayout
+                            n1:id="@id/ll_expandable"
+                            n1:layout_width="fill_parent"
+                            n1:layout_height="wrap_content"
+                            n1:layout_below="@id/tv_lock">
+
+                            <ImageView
+                                n1:id="@id/iv_div"
+                                n1:layout_width="fill_parent"
+                                n1:layout_height="2.0px"
+                                n1:layout_marginTop="5.0dip"
+                                n1:background="@color/black" />
+
+                            <EditText
+                                n1:id="@id/tv_old_password"
+                                n1:layout_width="fill_parent"
+                                n1:layout_height="40.0dip"
+                                n1:layout_below="@id/iv_div"
+                                n1:layout_marginLeft="10.0dip"
+                                n1:layout_marginTop="20.0dip"
+                                n1:layout_marginRight="10.0dip"
+                                n1:background="@drawable/selector_parental_setting"
+                                n1:focusable="true"
+                                n1:fontFamily="@string/font_family_regular"
+                                n1:hint="@string/old_password"
+                                n1:nextFocusDown="@id/tv_new_password"
+                                n1:paddingLeft="10.0dip"
+                                n1:textColorHint="@color/logout_color" />
+
+                            <ImageView
+                                n1:id="@id/iv_div1"
+                                n1:layout_width="fill_parent"
+                                n1:layout_height="1.0px"
+                                n1:layout_below="@id/tv_old_password"
+                                n1:layout_marginLeft="10.0dip"
+                                n1:layout_marginTop="5.0dip"
+                                n1:layout_marginRight="10.0dip"
+                                n1:background="@color/black" />>
+
+                            <EditText
+                                n1:id="@id/tv_new_password"
+                                n1:layout_width="fill_parent"
+                                n1:layout_height="40.0dip"
+                                n1:layout_below="@id/tv_old_password"
+                                n1:layout_marginLeft="10.0dip"
+                                n1:layout_marginTop="12.0dip"
+                                n1:layout_marginRight="10.0dip"
+                                n1:background="@drawable/selector_parental_setting"
+                                n1:focusable="true"
+                                n1:fontFamily="@string/font_family_regular"
+                                n1:hint="@string/new_password"
+                                n1:nextFocusUp="@id/tv_old_password"
+                                n1:nextFocusDown="@id/tv_confirm_password"
+                                n1:paddingLeft="10.0dip"
+                                n1:textColorHint="@color/logout_color" />
+
+                            <ImageView
+                                n1:id="@id/iv_div2"
+                                n1:layout_width="fill_parent"
+                                n1:layout_height="1.0px"
+                                n1:layout_below="@id/tv_new_password"
+                                n1:layout_marginLeft="10.0dip"
+                                n1:layout_marginTop="5.0dip"
+                                n1:layout_marginRight="10.0dip"
+                                n1:background="@color/black" />>
+
+                            <EditText
+                                n1:id="@id/tv_confirm_password"
+                                n1:layout_width="fill_parent"
+                                n1:layout_height="40.0dip"
+                                n1:layout_below="@id/tv_new_password"
+                                n1:layout_marginLeft="10.0dip"
+                                n1:layout_marginTop="12.0dip"
+                                n1:layout_marginRight="10.0dip"
+                                n1:background="@drawable/selector_parental_setting"
+                                n1:focusable="true"
+                                n1:fontFamily="@string/font_family_regular"
+                                n1:hint="@string/confirm_password"
+                                n1:nextFocusUp="@id/tv_new_password"
+                                n1:nextFocusDown="@id/bt_save_password"
+                                n1:paddingLeft="10.0dip"
+                                n1:textColorHint="@color/logout_color" />
+
+                            <ImageView
+                                n1:id="@id/iv_div3"
+                                n1:layout_width="fill_parent"
+                                n1:layout_height="1.0px"
+                                n1:layout_below="@id/tv_confirm_password"
+                                n1:layout_marginLeft="10.0dip"
+                                n1:layout_marginTop="5.0dip"
+                                n1:layout_marginRight="10.0dip"
+                                n1:background="@color/black" />>
+
+                            <Button
+                                n1:id="@id/bt_save_password"
+                                n1:layout_width="155.0dip"
+                                n1:layout_height="wrap_content"
+                                n1:layout_below="@id/tv_confirm_password"
+                                n1:layout_centerHorizontal="true"
+                                n1:layout_marginLeft="20.0dip"
+                                n1:layout_marginTop="30.0dip"
+                                n1:layout_marginBottom="10.0dip"
+                                n1:background="@drawable/selector_save_button"
+                                n1:focusable="true"
+                                n1:nextFocusUp="@id/tv_confirm_password"
+                                n1:text="@string/update_password"
+                                n1:textColor="@drawable/selector_save_color" />>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</FrameLayout>

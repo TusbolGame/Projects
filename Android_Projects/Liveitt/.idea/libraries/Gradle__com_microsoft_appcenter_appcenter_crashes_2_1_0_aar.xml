@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.microsoft.appcenter:appcenter-crashes:2.1.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23f7f5d199c02d03621cb3fdea2d22db/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23f7f5d199c02d03621cb3fdea2d22db/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23f7f5d199c02d03621cb3fdea2d22db/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.microsoft.appcenter/appcenter-crashes/2.1.0/cd7ddfc6515314746062bb89439567bfb7e745eb/appcenter-crashes-2.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:weightSum="3.0"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <LinearLayout n1:orientation="horizontal" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="5.0sp" n1:layout_marginRight="5.0dip" n1:weightSum="3.0" n1:layout_weight="1.0">
+        <LinearLayout n1:gravity="center" n1:orientation="vertical" n1:background="@drawable/background" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.0">
+            <ImageView n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:src="@drawable/vod_icon" n1:contentDescription="@string/app_name" />
+            <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@android:color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="10.0sp" n1:text="Player Selection" />
+        </LinearLayout>
+        <LinearLayout n1:gravity="center" n1:orientation="vertical" n1:background="@drawable/background" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.0">
+            <ImageView n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:src="@drawable/vod_icon" n1:contentDescription="@string/app_name" />
+            <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@android:color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="10.0sp" n1:text="Parental Control" />
+        </LinearLayout>
+        <LinearLayout n1:gravity="center" n1:orientation="vertical" n1:background="@drawable/background" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.0">
+            <ImageView n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:src="@drawable/vod_icon" n1:contentDescription="@string/app_name" />
+            <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@android:color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="10.0sp" n1:text="TV Guide (EPG) Time Shift" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout n1:orientation="horizontal" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="5.0sp" n1:layout_marginRight="5.0dip" n1:weightSum="3.0" n1:layout_weight="1.0">
+        <LinearLayout n1:gravity="center" n1:orientation="vertical" n1:id="@id/on_demand" n1:background="@drawable/background" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.0">
+            <ImageView n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:src="@drawable/vod_icon" n1:contentDescription="@string/app_name" />
+            <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@android:color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="10.0sp" n1:text="Stream Format" />
+        </LinearLayout>
+        <LinearLayout n1:gravity="center" n1:orientation="vertical" n1:background="@drawable/background" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.0">
+            <ImageView n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:src="@drawable/vod_icon" n1:contentDescription="@string/app_name" />
+            <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@android:color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="10.0sp" n1:text="Time Format" />
+        </LinearLayout>
+        <LinearLayout n1:gravity="center" n1:orientation="vertical" n1:background="@drawable/background" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.0">
+            <ImageView n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:src="@drawable/vod_icon" n1:contentDescription="@string/app_name" />
+            <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@android:color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="10.0sp" n1:text="EPG Timeline Settings" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout n1:orientation="horizontal" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="5.0sp" n1:layout_marginRight="5.0dip" n1:weightSum="3.0" n1:layout_weight="1.0">
+        <LinearLayout n1:gravity="center" n1:orientation="vertical" n1:background="@drawable/background" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.0">
+            <ImageView n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:src="@drawable/vod_icon" n1:contentDescription="@string/app_name" />
+            <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@android:color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="10.0sp" n1:text="Layout Selection" />
+        </LinearLayout>
+        <LinearLayout n1:gravity="center" n1:orientation="vertical" n1:background="@drawable/ripple_effect_ondemand" n1:visibility="invisible" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.0">
+            <ImageView n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:src="@drawable/vod_icon" n1:contentDescription="@string/app_name" />
+            <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@android:color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="10.0sp" n1:text="ON DEMAND" />
+        </LinearLayout>
+        <LinearLayout n1:gravity="center" n1:orientation="vertical" n1:background="@drawable/ripple_effect_ondemand" n1:visibility="invisible" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_weight="1.0">
+            <ImageView n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:src="@drawable/vod_icon" n1:contentDescription="@string/app_name" />
+            <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@android:color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="10.0sp" n1:text="ON DEMAND" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

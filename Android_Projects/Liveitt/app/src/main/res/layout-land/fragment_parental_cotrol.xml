@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:n1="http://schemas.android.com/apk/res/android"
+    n1:id="@id/fl_invoices"
+    n1:layout_width="fill_parent"
+    n1:layout_height="fill_parent"
+    n1:background="@color/transparent">
+
+    <RelativeLayout
+        n1:layout_width="fill_parent"
+        n1:layout_height="fill_parent"
+        n1:layout_marginLeft="100.0dip"
+        n1:layout_marginRight="100.0dip"
+        n1:layout_marginTop="20.0dip">
+
+        <RelativeLayout
+            n1:id="@id/rl_my_invoices"
+            n1:layout_width="fill_parent"
+            n1:layout_height="wrap_content">
+
+            <RelativeLayout
+                n1:id="@id/rl_invoices"
+                n1:layout_width="fill_parent"
+                n1:layout_height="wrap_content"
+                n1:background="@color/epg_event_layout_background_selected"
+                n1:visibility="gone">
+
+                <ImageView
+                    n1:id="@id/iv_line"
+                    n1:layout_width="fill_parent"
+                    n1:layout_height="3.0dip"
+                    n1:layout_centerHorizontal="true"
+                    n1:background="@drawable/line_light_gray_small"
+                    n1:visibility="gone" />
+
+                <ImageView
+                    n1:id="@id/iv_back_press"
+                    n1:layout_width="24.0dip"
+                    n1:layout_height="24.0dip"
+                    n1:layout_marginBottom="10.0dip"
+                    n1:layout_marginLeft="15.0dip"
+                    n1:layout_marginTop="10.0dip"
+                    n1:background="?selectableItemBackgroundBorderless"
+                    n1:clickable="true"
+                    n1:focusable="true"
+                    n1:src="@drawable/backspress" />/>
+
+                <TextView
+                    n1:id="@id/tv_my_invoices"
+                    n1:layout_width="wrap_content"
+                    n1:layout_height="wrap_content"
+                    n1:layout_below="@id/iv_line"
+                    n1:layout_centerHorizontal="true"
+                    n1:layout_centerVertical="true"
+                    n1:fontFamily="@string/font_family_regular"
+                    n1:text="@string/parental_contol_setting"
+                    n1:textColor="@color/white"
+                    n1:textSize="16.0dip" />
+
+                <View
+                    n1:id="@id/view_line_my_invoices"
+                    n1:layout_width="fill_parent"
+                    n1:layout_height="3.0dip"
+                    n1:layout_below="@id/tv_my_invoices"
+                    n1:background="@drawable/line_light_gray_small"
+                    n1:visibility="gone" />
+            </RelativeLayout>
+
+            <android.support.design.widget.TabLayout xmlns:n2="http://schemas.android.com/apk/res-auto"
+                n1:id="@id/tab_layout_invoices"
+                n1:layout_width="fill_parent"
+                n1:layout_height="45.0dip"
+                n1:layout_below="@id/rl_invoices"
+                n1:animateLayoutChanges="true"
+                n1:background="#ffffffff"
+                n1:minHeight="?actionBarSize"
+                n1:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                n2:tabBackground="@drawable/tab_color_selector"
+                n2:tabGravity="center"
+                n2:tabIndicatorColor="@color/white"
+                n2:tabMode="fixed"
+                n2:tabSelectedTextColor="@color/black"
+                n2:tabTextColor="@color/black" />
+
+            <View
+                n1:id="@id/line_below_tabs"
+                n1:layout_width="fill_parent"
+                n1:layout_height="0.0dip"
+                n1:layout_below="@id/tab_layout_invoices"
+                n1:background="@drawable/line_services" />
+
+            <android.support.v4.view.ViewPager xmlns:n3="http://schemas.android.com/apk/res-auto"
+                n1:id="@id/pager"
+                n1:layout_width="fill_parent"
+                n1:layout_height="fill_parent"
+                n1:layout_below="@id/line_below_tabs"
+                n3:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout n1:id="@id/appbar_toolbar" n1:background="@drawable/stream_format_background" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+        <android.support.v7.widget.Toolbar n1:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" n1:id="@id/toolbar" n1:background="#ff343d46" n1:visibility="gone" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="50.0dip" n1:minHeight="?actionBarSize" n1:layout_centerInParent="true" n2:popupTheme="@style/ThemeOverlay.AppCompat.Light" xmlns:n2="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginTop="10.0dip" n1:layout_marginBottom="7.0dip" n1:text="@string/account_info" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+        <RelativeLayout n1:id="@id/rl_settings" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="50.0dip" n1:layout_marginTop="20.0dip" n1:layout_marginStart="30.0dip" n1:layout_marginEnd="30.0dip">
+            <ImageView n1:id="@id/logo" n1:layout_width="120.0dip" n1:layout_height="40.0dip" n1:src="@drawable/iptv_placeholder" />
+            <TextView n1:textSize="16.0sp" n1:textColor="@color/light_gray" n1:gravity="center" n1:id="@id/separator" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:text="|" n1:layout_toEndOf="@id/logo" />
+            <TextView n1:textSize="16.0sp" n1:textColor="@color/light_gray" n1:gravity="center" n1:id="@id/textView" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="8.0dip" n1:text="@string/settings_small" n1:layout_toEndOf="@id/separator" />
+            <TextView n1:textSize="16.0sp" n1:textColor="@color/light_gray" n1:gravity="center" n1:id="@id/separator_second" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="8.0dip" n1:text="|" n1:layout_toEndOf="@id/textView" />
+            <TextView n1:textSize="16.0sp" n1:textColor="@color/light_gray" n1:gravity="center" n1:id="@id/textView_second" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="8.0dip" n1:text="@string/stream_format" n1:layout_toEndOf="@id/separator_second" />
+            <TextView n1:textSize="18.0sp" n1:textColor="@android:color/white" n1:gravity="center" n1:id="@id/time" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginRight="10.0dip" n1:text="06:30 am" n1:layout_toLeftOf="@id/date" n1:layout_marginStart="15.0dip" n1:layout_marginEnd="10.0dip" />
+            <TextView n1:textSize="14.0sp" n1:textColor="#ffcccccc" n1:gravity="center" n1:id="@id/date" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginTop="4.0dip" n1:text="Monday,Janurary 12" n1:layout_alignParentEnd="true" />
+        </RelativeLayout>
+        <RelativeLayout n1:background="@color/colorAccent" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="wrap_content" />
+        <ScrollView n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+                    <RelativeLayout n1:background="#802a3543" n1:paddingBottom="67.0dip" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginLeft="55.0dip" n1:layout_marginTop="5.0dip" n1:layout_marginRight="55.0dip">
+                        <RelativeLayout n1:id="@id/rl_account_info" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginBottom="10.0dip">
+                            <TextView n1:textSize="20.0sp" n1:textColor="@color/white" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="12.0dip" n1:layout_marginBottom="12.0dip" n1:text="@string/stream_format" n1:layout_centerHorizontal="true" />
+                        </RelativeLayout>
+                        <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_below="@id/rl_account_info">
+                            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+                                <RadioGroup n1:id="@id/rg_radio" n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+                                    <RadioButton n1:textSize="18.0sp" n1:textColor="@color/white" n1:id="@id/rb_ts" n1:tag="3" n1:padding="10.0dip" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginLeft="40.0dip" n1:text="@string/mpegts_ts" n3:buttonTint="@color/white" xmlns:n3="http://schemas.android.com/apk/res-auto" />
+                                    <RadioButton n1:textSize="18.0sp" n1:textColor="@color/white" n1:id="@id/rb_m3u8" n1:tag="4" n1:padding="10.0dip" n1:nextFocusDown="@id/bt_save_changes" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginLeft="40.0dip" n1:text="@string/hls_m3u8" n4:buttonTint="@color/white" xmlns:n4="http://schemas.android.com/apk/res-auto" />
+                                </RadioGroup>
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                    <LinearLayout n1:orientation="horizontal" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginLeft="55.0dip" n1:layout_marginRight="55.0dip" n1:layout_marginBottom="10.0dip" n1:weightSum="1.0">
+                        <Button n1:textSize="18.0sp" n1:textColor="@color/white" n1:id="@id/bt_save_changes" n1:tag="1" n1:background="@drawable/back_btn_effect" n1:focusable="true" n1:nextFocusUp="@id/rb_m3u8" n1:layout_width="0.0dip" n1:layout_height="50.0sp" n1:layout_margin="20.0dip" n1:text="@string/save_changes" n1:layout_weight="0.5" />
+                        <Button n1:textSize="18.0sp" n1:textColor="@color/white" n1:id="@id/btn_back_playerselection" n1:tag="2" n1:background="@drawable/logout_btn_effect" n1:focusable="true" n1:layout_width="0.0dip" n1:layout_height="50.0sp" n1:layout_margin="20.0dip" n1:text="@string/back_button" n1:layout_weight="0.5" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>><include n1:layout_width="fill_parent" n1:layout_height="fill_parent" layout="@layout/app_bar_drawer" />
+    </android.support.design.widget.AppBarLayout>
+</LinearLayout>

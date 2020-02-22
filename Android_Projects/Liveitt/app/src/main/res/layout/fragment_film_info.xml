@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/vod_backgound"
+    android:fillViewport="false"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.liveitandroid.liveit.activities.VODInfoActivity">
+
+    <LinearLayout
+        android:id="@+id/fragment_my_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:id="@+id/relative_1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="sans-serif-thin"
+                android:text="Nome: "
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/film_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/textView"
+                android:layout_toRightOf="@+id/textView"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_11"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="sans-serif-thin"
+                android:text="Nome EN: "
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/film_title_en"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/textView2"
+                android:layout_toRightOf="@+id/textView2"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/relative_11"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:paddingLeft="10dp">
+
+            <ImageView
+                android:id="@+id/film_logo"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_4"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/trailer_mov"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/tv_username1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:text="Descricao: "
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/tv_username1"
+                android:autoLink="all"
+                android:paddingRight="20dp"
+                android:textColor="#ffffff"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_9"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/relative_4"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/vid_imdb"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:text="IMDB: "
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btn_lwebsite_ind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/vid_imdb"
+                android:layout_toRightOf="@+id/vid_imdb"
+                android:fontFamily="sans-serif-thin"
+                android:text="Não definido."
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relative_9"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/vid_actores"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="sans-serif-thin"
+                android:text="Actores: "
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_atores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/vid_actores"
+                android:paddingRight="20dp"
+                android:paddingTop="1.5dp"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relative_8"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:text="Diretor: "
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_director"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/status"
+                android:paddingRight="20dp"
+                android:paddingTop="1.5dp"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relative_5"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/expire_date"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:text="Rating: "
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/expire_date"
+                android:paddingRight="20dp"
+                android:paddingTop="1.5dp"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relative_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relative_6"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/trail_account"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:text="Categoria: "
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/trail_account"
+                android:paddingTop="1.5dp"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textSize="14dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

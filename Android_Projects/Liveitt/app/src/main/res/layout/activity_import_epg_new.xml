@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:n1="http://schemas.android.com/apk/res/android"
+    n1:layout_width="fill_parent"
+    n1:layout_height="fill_parent"
+    n1:orientation="vertical">
+
+    <RelativeLayout
+        n1:id="@id/rl_import_process"
+        n1:layout_width="fill_parent"
+        n1:layout_height="fill_parent"
+        n1:layout_below="@id/rl_account_info"
+        n1:background="@drawable/splash_new_bg"
+        n1:visibility="visible">
+
+        <ImageView
+            n1:id="@id/iv_logo"
+            n1:layout_width="wrap_content"
+            n1:layout_height="wrap_content"
+            n1:layout_centerHorizontal="true"
+            n1:layout_marginTop="5.0dip"
+            n1:src="@drawable/logo" />
+
+        <ImageView
+            n1:id="@id/iv_divider"
+            n1:layout_width="fill_parent"
+            n1:layout_height="1.0px"
+            n1:layout_below="@id/iv_logo"
+            n1:layout_marginLeft="25.0dip"
+            n1:layout_marginRight="25.0dip"
+            n1:layout_marginTop="10.0dip"
+            n1:background="@color/black" />
+
+        <ImageView
+            n1:id="@id/iv_rocket"
+            n1:layout_width="100.0dip"
+            n1:layout_height="100.0dip"
+            n1:layout_below="@id/iv_divider"
+            n1:layout_centerHorizontal="true"
+            n1:layout_marginTop="10.0dip"
+            n1:src="@drawable/rokect_image" />
+
+        <TextView
+            n1:id="@id/tv_setting_streams"
+            n1:layout_width="wrap_content"
+            n1:layout_height="wrap_content"
+            n1:layout_below="@id/iv_rocket"
+            n1:layout_centerHorizontal="true"
+            n1:layout_marginTop="50.0dip"
+            n1:fontFamily="@string/font_family_condensed"
+            n1:gravity="center"
+            n1:paddingEnd="20.0dip"
+            n1:paddingStart="20.0dip"
+            n1:text="@string/setting_epg_channels_first"
+            n1:textColor="#FFFFFF"
+            n1:textSize="18.0dip"
+            n1:textStyle="bold" />
+
+        <com.liveitandroid.liveit.view.utility.LoadingGearSpinner
+            n1:id="@id/iv_gear_loader"
+            n1:layout_width="70.0dip"
+            n1:layout_height="70.0dip"
+            n1:layout_below="@id/tv_setting_streams"
+            n1:layout_centerInParent="true"
+            n1:layout_gravity="center"
+            n1:layout_marginTop="35.0dip"
+            n1:visibility="gone" />
+
+        <RelativeLayout
+            n1:id="@id/rl_import_layout"
+            n1:layout_width="wrap_content"
+            n1:layout_height="wrap_content"
+            n1:layout_below="@id/tv_setting_streams"
+            n1:layout_marginTop="10.0dip"
+            n1:visibility="visible">
+
+            <TextView
+                n1:id="@id/tv_importing_epg"
+                n1:layout_width="wrap_content"
+                n1:layout_height="wrap_content"
+                n1:layout_centerHorizontal="true"
+                n1:layout_marginStart="30.0dip"
+                n1:fontFamily="@string/font_family_medium"
+                n1:text="@string/downloading_epg"
+                n1:textAppearance="?android:textAppearanceLarge"
+                n1:textColor="#FFFFFF"
+                n1:textSize="18.0dip"
+                n1:textStyle="bold" />
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar xmlns:n2="http://schemas.android.com/apk/res-auto"
+                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+                n1:layout_width="fill_parent"
+                n1:layout_height="20.0dip"
+                n1:layout_below="@id/tv_importing_streams"
+                n1:layout_centerHorizontal="true"
+                n1:layout_marginStart="60.0dip"
+                n1:layout_marginTop="32.0dip"
+                n1:indeterminate="true"
+                n1:visibility="visible"
+                n2:mpb_progressStyle="horizontal" />
+
+            <ProgressBar
+                n1:id="@id/progressBar"
+                style="?android:progressBarStyleHorizontal"
+                n1:layout_width="fill_parent"
+                n1:layout_height="8.0dip"
+                n1:layout_below="@id/tv_importing_epg"
+                n1:layout_centerHorizontal="true"
+                n1:layout_marginStart="60.0dip"
+                n1:layout_marginTop="32.0dip"
+                n1:progressDrawable="@drawable/greenprogress"
+                n1:visibility="gone" />
+
+            <TextView
+                n1:id="@id/tv_percentage"
+                n1:layout_width="wrap_content"
+                n1:layout_height="wrap_content"
+                n1:layout_alignParentStart="true"
+                n1:layout_below="@id/progressBar"
+                n1:layout_marginBottom="42.0dip"
+                n1:layout_marginStart="30.0dip"
+                n1:textAppearance="?android:textAppearanceLarge"
+                n1:textColor="@color/black"
+                n1:textSize="14.0dip" />
+
+            <TextView
+                n1:id="@id/tv_countings"
+                n1:layout_width="wrap_content"
+                n1:layout_height="wrap_content"
+                n1:layout_alignParentEnd="true"
+                n1:layout_below="@id/progressBar"
+                n1:layout_marginBottom="10.0dip"
+                n1:layout_marginEnd="30.0dip"
+                n1:textAppearance="?android:textAppearanceLarge"
+                n1:textColor="@color/black"
+                n1:textSize="14.0dip" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        n1:layout_width="fill_parent"
+        n1:layout_height="wrap_content"
+        n1:layout_alignParentBottom="true"
+        n1:layout_marginBottom="25.0dip">
+
+        <TextView
+            n1:id="@id/tv_tip"
+            n1:layout_width="wrap_content"
+            n1:layout_height="wrap_content"
+            n1:layout_centerHorizontal="true"
+            n1:layout_marginRight="10.0dip"
+            n1:layout_marginTop="20.0dip"
+            n1:drawableLeft="@drawable/tip_icon"
+            n1:gravity="center"
+            n1:text="@string/tip"
+            n1:visibility="visible" />
+
+        <ImageView
+            n1:id="@id/iv_divider1"
+            n1:layout_width="fill_parent"
+            n1:layout_height="1.0px"
+            n1:layout_below="@id/tv_tip"
+            n1:layout_marginLeft="25.0dip"
+            n1:layout_marginRight="25.0dip"
+            n1:layout_marginTop="10.0dip"
+            n1:background="@color/black" />
+
+        <RelativeLayout
+            n1:id="@id/rl_skip"
+            n1:layout_width="fill_parent"
+            n1:layout_height="wrap_content"
+            n1:layout_below="@id/iv_divider1"
+            n1:visibility="invisible">
+
+            <Button
+                n1:id="@id/bt_skip"
+                n1:layout_width="250.0dip"
+                n1:layout_height="wrap_content"
+                n1:layout_centerHorizontal="true"
+                n1:layout_marginTop="5.0dip"
+                n1:background="@drawable/selector_save_button"
+                n1:focusable="true"
+                n1:text="@string/skip_import_epg"
+                n1:textColor="@color/black" />
+
+            <TextView
+                n1:id="@id/tv_skip_hint"
+                n1:layout_width="wrap_content"
+                n1:layout_height="wrap_content"
+                n1:layout_below="@id/bt_skip"
+                n1:layout_centerHorizontal="true"
+                n1:layout_marginTop="10.0dip"
+                n1:gravity="center"
+                n1:text="@string/skip_hint" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

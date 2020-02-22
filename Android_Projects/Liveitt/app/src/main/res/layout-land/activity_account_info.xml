@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout n1:id="@id/appbar_toolbar" n1:background="@drawable/account_background" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+        <android.support.v7.widget.Toolbar n1:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" n1:id="@id/toolbar" n1:background="#ff343d46" n1:visibility="gone" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="50.0dip" n1:minHeight="?actionBarSize" n1:layout_centerInParent="true" n2:popupTheme="@style/ThemeOverlay.AppCompat.Light" xmlns:n2="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <TextView n1:textSize="16.0sp" n1:textStyle="bold" n1:textColor="@color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginTop="10.0dip" n1:layout_marginBottom="7.0dip" n1:text="@string/account_info" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+        <RelativeLayout n1:id="@id/rl_settings" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="50.0dip" n1:layout_marginTop="20.0dip" n1:layout_marginStart="30.0dip" n1:layout_marginEnd="30.0dip">
+            <ImageView n1:id="@id/logo" n1:layout_width="120.0dip" n1:layout_height="40.0dip" n1:src="@drawable/iptv_placeholder" />
+            <TextView n1:textSize="16.0sp" n1:textColor="@color/light_gray" n1:gravity="center" n1:id="@id/separator" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:text="|" n1:layout_toEndOf="@id/logo" />
+            <TextView n1:textSize="16.0sp" n1:textColor="@color/light_gray" n1:gravity="center" n1:id="@id/textView" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="8.0dip" n1:text="@string/account_info_small" n1:layout_toEndOf="@id/separator" />
+            <TextView n1:textSize="18.0sp" n1:textColor="@android:color/white" n1:gravity="center" n1:id="@id/time" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginRight="10.0dip" n1:text="06:30 am" n1:layout_toLeftOf="@id/date" n1:layout_marginStart="15.0dip" n1:layout_marginEnd="10.0dip" />
+            <TextView n1:textSize="14.0sp" n1:textColor="#ffcccccc" n1:gravity="center" n1:id="@id/date" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginTop="4.0dip" n1:text="Monday,Janurary 12" n1:layout_alignParentEnd="true" />
+        </RelativeLayout>
+        <ScrollView n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+            <LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+                <RelativeLayout n1:background="#802a3543" n1:paddingBottom="15.0dip" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginStart="70.0dip" n1:layout_marginEnd="70.0dip">
+                    <RelativeLayout n1:id="@id/rl_account_info" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="8.0dip" n1:layout_marginBottom="12.0dip" n1:text="@string/account_info" n1:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+                    <RelativeLayout n1:id="@id/rl_account_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_below="@id/rl_account_info" n1:layout_marginStart="25.0dip">
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_username_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="@string/account_username" n1:layout_marginStart="50.0dip" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_status_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="5.0dip" n1:text="@string/account_status" n1:layout_below="@id/tv_username_label" n1:layout_marginStart="50.0dip" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_expiry_date_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="5.0dip" n1:text="@string/account_expiry_date" n1:layout_below="@id/tv_status_label" n1:layout_marginStart="50.0dip" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_is_trial_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="5.0dip" n1:text="@string/account_is_trial" n1:layout_below="@id/tv_expiry_date_label" n1:layout_marginStart="50.0dip" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_active_conn_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="5.0dip" n1:text="@string/account_active_connections" n1:layout_below="@id/tv_is_trial_label" n1:layout_marginStart="50.0dip" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_created_at_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="5.0dip" n1:text="@string/account_created_at" n1:layout_below="@id/tv_active_conn_label" n1:layout_marginStart="50.0dip" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_max_connections_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginTop="5.0dip" n1:text="@string/account_max_connections" n1:layout_below="@id/tv_created_at_label" n1:layout_marginStart="50.0dip" />
+                    </RelativeLayout>
+                    <RelativeLayout n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginLeft="40.0dip" n1:layout_below="@id/rl_account_info" n1:layout_toEndOf="@id/rl_account_label">
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_username" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_status" n1:background="#ff0cdc78" n1:paddingLeft="5.0dip" n1:paddingRight="5.0dip" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="5.0dip" n1:layout_below="@id/tv_username" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_expiry_date" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="5.0dip" n1:layout_below="@id/tv_status" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_is_trial" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="5.0dip" n1:layout_below="@id/tv_expiry_date" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_active_conn" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="5.0dip" n1:layout_below="@id/tv_is_trial" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_created_at" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="5.0dip" n1:layout_below="@id/tv_active_conn" />
+                        <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_max_connections" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="20.0dip" n1:layout_marginTop="5.0dip" n1:layout_below="@id/tv_created_at" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+        <include n1:layout_width="fill_parent" n1:layout_height="fill_parent" layout="@layout/app_bar_drawer" />
+    </android.support.design.widget.AppBarLayout>
+</LinearLayout>

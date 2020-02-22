@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector>
+    <item>
+        <selector>
+            <item n1:state_checked="false" n1:drawable="@color/white"
+              xmlns:n1="http://schemas.android.com/apk/res/android" />
+            <item n2:state_checked="true" n2:drawable="@color/white"
+              xmlns:n2="http://schemas.android.com/apk/res/android" />
+            <item n3:drawable="@color/white"
+              xmlns:n3="http://schemas.android.com/apk/res/android" />
+        </selector>
+    </item>
+</selector>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:minWidth="600dp"
+    android:layout_height="wrap_content"
+    android:background="#3E80B4"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/txt_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="** Gravação Programada **"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="#cfcfcf"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+        <EditText
+            android:id="@+id/file_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColorHint="#cfcfcf"
+            android:textColor="#fff"
+            android:maxLines="1"
+            android:tag="1"
+            android:hint="Inserir nome aqui.."/>
+
+        <EditText
+            android:id="@+id/recording_duration_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColorHint="#cfcfcf"
+            android:textColor="#fff"
+            android:inputType="number"
+            android:maxLines="1"
+            android:tag="2"
+            android:hint="Duração (em minutos)"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/file_location"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColorHint="#cfcfcf"
+                android:textColor="#fff"
+                android:enabled="false"
+                android:inputType="none"
+                android:maxLines="1"
+                android:hint="Pasta de Gravação: "/>
+
+            <Button
+                android:id="@+id/choose_rec_dir"
+                android:layout_width="140dp"
+                android:tag="3"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_color_gradient_01"
+                android:textColor="#ffffff"
+                android:text="PROCURAR"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#3E80B4"
+        android:paddingBottom="20dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_start_recording"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:minWidth="160dp"
+            android:background="@drawable/background_color_gradient_02"
+            android:clickable="true"
+            android:text="COMEÇAR"
+            android:textColor="#fff"
+            android:tag="4"
+            android:layout_marginRight="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:minWidth="130dp"
+            android:tag="5"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/background_color_gradient_03"
+            android:clickable="true"
+            android:text="CANCELAR"
+            android:textColor="#fff"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

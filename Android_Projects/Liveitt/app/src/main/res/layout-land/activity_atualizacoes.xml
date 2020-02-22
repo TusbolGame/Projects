@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout n1:id="@id/appbar_toolbar" n1:background="@drawable/account_background" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+        <RelativeLayout n1:id="@id/rl_settings" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="50.0dip" n1:layout_marginTop="20.0dip" n1:layout_marginStart="30.0dip" n1:layout_marginEnd="30.0dip">
+            <ImageView n1:id="@id/logo" n1:layout_width="120.0dip" n1:layout_height="40.0dip" n1:src="@drawable/iptv_placeholder" />
+
+            <TextView
+                n1:id="@id/textView"
+                n1:layout_width="wrap_content"
+                n1:layout_height="fill_parent"
+                n1:layout_alignParentTop="true"
+                n1:layout_toEndOf="@+id/logo"
+                n1:gravity="center"
+                n1:text="Informação de atualizações"
+                n1:textColor="@color/light_gray"
+                n1:textSize="16.0sp" />
+        </RelativeLayout>
+        <ScrollView n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+            <LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+                <RelativeLayout n1:background="#802a3543" n1:paddingBottom="15.0sp" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginTop="20.0sp" n1:layout_marginStart="30.0dip" n1:layout_marginEnd="30.0dip">
+                    <TextView n1:textSize="18.0sp" n1:paddingTop="30dp" n1:textColor="@color/white" n1:id="@id/tv_username_label" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:layout_marginLeft="30.0dip"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+        <include n1:layout_width="fill_parent" n1:layout_height="fill_parent" layout="@layout/app_bar_drawer" />
+    </android.support.design.widget.AppBarLayout>
+</LinearLayout>

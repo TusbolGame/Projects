@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:n1="http://schemas.android.com/apk/res/android"
+    n1:id="@id/main_layout"
+    n1:layout_width="fill_parent"
+    n1:layout_height="fill_parent"
+    n1:fitsSystemWindows="true"
+    n1:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        n1:id="@id/appbar_toolbar"
+        n1:layout_width="fill_parent"
+        n1:layout_height="fill_parent"
+        n1:fitsSystemWindows="true">
+
+        <android.support.v7.widget.Toolbar xmlns:n2="http://schemas.android.com/apk/res-auto"
+            n1:id="@id/toolbar"
+            n1:layout_width="fill_parent"
+            n1:layout_height="35.0dip"
+            n1:layout_centerInParent="true"
+            n1:fitsSystemWindows="true"
+            n1:minHeight="?actionBarSize"
+            n1:visibility="gone"
+            n2:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <RelativeLayout
+                n1:layout_width="fill_parent"
+                n1:layout_height="fill_parent"
+                n1:focusable="true">
+
+                <TextView
+                    n1:id="@id/tv_header_title"
+                    style="bold"
+                    n1:layout_width="wrap_content"
+                    n1:layout_height="wrap_content"
+                    n1:layout_centerHorizontal="true"
+                    n1:layout_centerVertical="true"
+                    n1:layout_gravity="center_horizontal"
+                    n1:focusable="true"
+                    n1:fontFamily="@string/font_family_medium"
+                    n1:text="@string/app_name"
+                    n1:textSize="23.0sp" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <RelativeLayout
+            n1:layout_width="fill_parent"
+            n1:layout_height="fill_parent"
+            n1:layout_below="@id/appbar_toolbar">
+
+            <android.support.design.widget.TabLayout xmlns:n3="http://schemas.android.com/apk/res-auto"
+                n1:id="@id/sliding_tabs"
+                n1:layout_width="fill_parent"
+                n1:layout_height="wrap_content"
+                n1:background="@color/colorAccent"
+                n1:visibility="gone"
+                n3:tabBackground="@drawable/tab_color_selector"
+                n3:tabIndicatorColor="@color/white"
+                n3:tabMode="scrollable"
+                n3:tabSelectedTextColor="@color/white"
+                n3:tabTextColor="@color/white" />
+
+            <LinearLayout
+                n1:id="@id/ll_cat_title"
+                n1:layout_width="fill_parent"
+                n1:layout_height="55.0dip"
+                n1:background="@drawable/background_screen_epg">
+
+                <LinearLayout
+                    n1:id="@id/ll_header"
+                    n1:layout_width="fill_parent"
+                    n1:layout_height="fill_parent"
+                    n1:background="#cf070f1b"
+                    n1:focusable="true">
+
+                    <ImageView
+                        n1:id="@id/logo"
+                        n1:layout_width="120.0dip"
+                        n1:layout_height="45.0dip"
+                        n1:layout_marginEnd="30.0dip"
+                        n1:layout_marginStart="30.0dip"
+                        n1:layout_marginTop="5.0dip"
+                        n1:src="@drawable/iptv_placeholder" />
+
+                    <RelativeLayout
+                        n1:layout_width="wrap_content"
+                        n1:layout_height="fill_parent">
+
+                        <TextView
+                            n1:id="@id/tv_cat_title"
+                            n1:layout_width="fill_parent"
+                            n1:layout_height="fill_parent"
+                            n1:layout_marginEnd="10.0dip"
+                            n1:layout_marginStart="10.0dip"
+                            n1:layout_toStartOf="@id/time"
+                            n1:ellipsize="marquee"
+                            n1:fadingEdge="horizontal"
+                            n1:gravity="center"
+                            n1:marqueeRepeatLimit="marquee_forever"
+                            n1:scrollHorizontally="true"
+                            n1:singleLine="true"
+                            n1:textColor="@color/white"
+                            n1:textSize="16.0sp"
+                            n1:textStyle="bold" />
+
+                        <TextView
+                            n1:id="@id/time"
+                            n1:layout_width="wrap_content"
+                            n1:layout_height="fill_parent"
+                            n1:layout_marginEnd="10.0dip"
+                            n1:layout_marginRight="10.0dip"
+                            n1:layout_marginStart="15.0dip"
+                            n1:layout_marginTop="3.0dip"
+                            n1:layout_toLeftOf="@id/date"
+                            n1:gravity="center"
+                            n1:text="06:30 am"
+                            n1:textColor="@color/white"
+                            n1:textSize="18.0sp" />
+
+                        <TextView
+                            n1:id="@id/date"
+                            n1:layout_width="wrap_content"
+                            n1:layout_height="fill_parent"
+                            n1:layout_alignParentEnd="true"
+                            n1:layout_marginRight="10.0dip"
+                            n1:layout_marginTop="7.0dip"
+                            n1:gravity="center"
+                            n1:text="Monday,Janurary 12"
+                            n1:textColor="#ffcccccc"
+                            n1:textSize="14.0sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                n1:id="@id/test1111"
+                n1:layout_width="fill_parent"
+                n1:layout_height="20.0dip"
+                n1:background="@drawable/selector_checkbox"
+                n1:focusable="true"
+                n1:text="asljkdfklsajflskadf"
+                n1:textColor="@color/white"
+                n1:visibility="gone">
+
+                <requestFocus />
+            </TextView>
+
+            <com.liveitandroid.liveit.view.utility.NonSwipeableViewPager
+                n1:id="@id/viewpager"
+                n1:layout_width="wrap_content"
+                n1:layout_height="wrap_content"
+                n1:layout_below="@id/ll_cat_title"
+                n1:layout_weight="1.0"
+                n1:background="@drawable/background_screen_bottom_epg" />
+
+            <ProgressBar
+                n1:id="@id/pb_loader"
+                n1:layout_width="wrap_content"
+                n1:layout_height="wrap_content"
+                n1:layout_below="@id/sliding_tabs"
+                n1:layout_centerHorizontal="true"
+                n1:layout_marginTop="100.0dip"
+                n1:indeterminate="true"
+                n1:theme="@style/whiteLoader" />
+        </RelativeLayout>
+
+        <include
+            layout="@layout/app_bar_drawer"
+            n1:layout_width="fill_parent"
+            n1:layout_height="fill_parent" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.NavigationView xmlns:n4="http://schemas.android.com/apk/res-auto"
+        n1:id="@id/nav_view"
+        n1:layout_width="wrap_content"
+        n1:layout_height="fill_parent"
+        n1:layout_gravity="start"
+        n1:fitsSystemWindows="true"
+        n1:visibility="visible"
+        n4:headerLayout="@layout/nav_header_drawer"
+        n4:itemBackground="@layout/nav_view_item_background"
+        n4:menu="@menu/menu_dashboard" />
+</LinearLayout>

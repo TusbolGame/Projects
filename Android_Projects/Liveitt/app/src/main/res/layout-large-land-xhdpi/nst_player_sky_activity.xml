@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout n1:id="@id/appbar_toolbar" n1:background="@drawable/background_screen_sky" n1:fitsSystemWindows="true" n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar n1:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" n1:id="@id/toolbar" n1:visibility="visible" n1:fitsSystemWindows="true" n1:layout_width="wrap_content" n1:layout_height="65.0dip" n1:minHeight="?actionBarSize" n1:layout_centerInParent="true" n2:popupTheme="@style/ThemeOverlay.AppCompat.Light" xmlns:n2="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <ImageView n1:id="@id/logo" n1:layout_width="140.0dip" n1:layout_height="fill_parent" n1:src="@drawable/iptv_placeholder"/>
+                <TextView
+                    n1:id="@id/time"
+                    n1:layout_width="wrap_content"
+                    n1:layout_height="fill_parent"
+                    n1:layout_alignParentTop="true"
+                    n1:layout_toEndOf="@+id/logo"
+                    n1:gravity="center"
+                    n1:text="06:30 am"
+                    n1:textColor="@android:color/white"
+                    n1:textSize="16.0sp"
+                    n1:paddingRight="20sp"/>
+
+                <TextView
+                    n1:id="@id/date"
+                    n1:layout_width="wrap_content"
+                    n1:layout_height="fill_parent"
+                    n1:layout_alignParentTop="true"
+                    n1:layout_toEndOf="@+id/time"
+                    n1:gravity="center"
+                    n1:text="Monday,Janurary 12"
+                    n1:textColor="#ffcccccc"
+                    n1:textSize="16.0sp"
+                    n1:paddingRight="20sp"/>
+                <TextView n1:textSize="24.0sp" n1:paddingRight="30sp" n1:layout_toEndOf="@+id/date" n1:textStyle="bold" n1:textColor="@color/white" n1:gravity="center" n1:id="@id/tv_settings" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="@string/live_tv" n1:layout_centerInParent="true" n1:layout_centerHorizontal="true" n1:fontFamily="@string/font_family_bold"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+        <TextView n1:id="@id/tv_video_width" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="450" />
+        <TextView n1:id="@id/tv_video_height" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="290" />
+        <TextView n1:id="@id/tv_video_margin_right" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:text="40" />
+        <LinearLayout n1:orientation="vertical" n1:id="@id/ll_layout_to_hide_1" n1:layout_width="fill_parent" n1:layout_height="12.0dip" />
+        <LinearLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+            <LinearLayout n1:orientation="vertical" n1:id="@id/ll_layout_to_hide_2" n1:layout_width="40.0dip" n1:layout_height="fill_parent" n1:layout_marginBottom="50.0dip" />
+            <RelativeLayout n1:id="@id/rl_layout_to_hide_4" n1:layout_width="400.0dip" n1:layout_height="fill_parent" n1:layout_marginBottom="30.0dip">
+                <LinearLayout n1:id="@id/ll_categories_view" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="wrap_content" n1:layout_marginRight="0.0dip" n1:layout_alignParentRight="true">
+                    <android.support.v7.widget.AppCompatImageView n1:layout_gravity="center" n1:id="@id/btn_category_back" n1:background="#96000000" n1:padding="5.0dip" n1:layout_width="30.0dip" n1:layout_height="50.0dip" n1:foreground="?android:selectableItemBackground" n3:srcCompat="@drawable/left_icon_cat" xmlns:n3="http://schemas.android.com/apk/res-auto" />
+                    <TextView n1:textSize="22.0dip" n1:textStyle="bold" n1:textColor="@color/white" n1:ellipsize="marquee" n1:id="@id/tv_categories_view" n1:background="#96000000" n1:padding="10.0dip" n1:visibility="visible" n1:fadingEdge="horizontal" n1:nextFocusDown="@id/et_search" n1:layout_width="340.0dip" n1:layout_height="50.0dip" n1:scrollHorizontally="true" n1:singleLine="true" n1:layout_alignParentRight="true" n1:marqueeRepeatLimit="marquee_forever" n1:textAlignment="center" />
+                    <android.support.v7.widget.AppCompatImageView n1:layout_gravity="center" n1:id="@id/btn_category_fwd" n1:background="#96000000" n1:padding="5.0dip" n1:layout_width="30.0dip" n1:layout_height="50.0dip" n1:foreground="?android:selectableItemBackground" n4:srcCompat="@drawable/right_icon_cat" xmlns:n4="http://schemas.android.com/apk/res-auto" />
+                </LinearLayout>
+                <EditText n1:textSize="18.0dip" n1:textStyle="bold" n1:textColor="@color/white" n1:textColorHint="@color/white" n1:id="@id/et_search" n1:background="@drawable/selector_search_fields" n1:padding="10.0dip" n1:visibility="gone" n1:nextFocusDown="@id/lv_ch" n1:layout_width="400.0dip" n1:layout_height="40.0dip" n1:layout_marginTop="2.0dip" n1:hint="Search" n1:layout_below="@id/ll_categories_view" n1:layout_alignParentRight="true" n1:imeOptions="flagNoExtractUi" />
+                <ListView n1:id="@id/lv_ch" n1:background="#96000000" n1:focusable="true" n1:visibility="visible" n1:nextFocusUp="@id/et_search" n1:layout_width="600.0dip" n1:layout_height="fill_parent" n1:listSelector="@drawable/bg_key" n1:layout_below="@id/et_search" n1:layout_alignParentRight="true">
+                    <requestFocus />
+                </ListView>
+            </RelativeLayout>
+            <LinearLayout n1:orientation="vertical" n1:id="@id/ll_layout_to_hide_3" n1:layout_width="30.0dip" n1:layout_height="fill_parent" n1:layout_marginBottom="50.0dip" />
+            <RelativeLayout n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                <RelativeLayout n1:id="@id/rl_nst_player_sky_layout" n1:layout_width="450.0dip" n1:layout_height="290.0dip" n1:layout_marginRight="40.0dip">
+                    <include n1:layout_width="fill_parent" n1:layout_height="fill_parent" layout="@layout/nst_player_sky" />
+                </RelativeLayout>
+                <RelativeLayout n1:id="@id/rl_layout_to_hide_5" n1:background="#6a000000" n1:layout_width="450.0dip" n1:layout_height="fill_parent" n1:layout_marginTop="10.0dip" n1:layout_marginBottom="30.0dip" n1:layout_below="@id/rl_nst_player_sky_layout">
+                    <LinearLayout n1:orientation="horizontal" n1:visibility="visible" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                        <LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:weightSum="4.3">
+                            <LinearLayout n1:orientation="horizontal" n1:id="@id/ll_epg1_box" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="5.0dip" n1:layout_marginTop="5.0dip" n1:layout_marginRight="5.0dip" n1:layout_weight="1.0">
+                                <LinearLayout n1:gravity="center_vertical" n1:orientation="horizontal" n1:id="@id/ll_epg1_date" n1:tag="4" n1:focusable="true" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_marginLeft="0.0sp" n1:layout_weight="0.4" n1:layout_toRightOf="@id/live_tv" n1:layout_below="@id/on_demand">
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/colorPrimaryFocus" n1:id="@id/tv_epg1_date" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="5.0dip" />
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/colorPrimaryFocus" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="10.0dip" n1:text="=>" />
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/colorPrimaryFocus" n1:ellipsize="marquee" n1:id="@id/tv_epg1_program" n1:fadingEdge="horizontal" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginLeft="10.0dip" n1:scrollHorizontally="true" n1:singleLine="true" n1:marqueeRepeatLimit="marquee_forever" />
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout n1:orientation="horizontal" n1:id="@id/ll_epg2_box" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="5.0dip" n1:layout_marginRight="5.0dip" n1:layout_weight="1.0">
+                                <LinearLayout n1:gravity="center_vertical" n1:orientation="horizontal" n1:id="@id/ll_epg2_date" n1:tag="4" n1:focusable="true" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_marginLeft="0.0sp" n1:weightSum="1.0" n1:layout_weight="0.4" n1:layout_toRightOf="@id/live_tv" n1:layout_below="@id/on_demand">
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_epg2_date" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="5.0dip" />
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="10.0sp" n1:text="=>" />
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:ellipsize="marquee" n1:id="@id/tv_epg2_program" n1:fadingEdge="horizontal" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginLeft="10.0sp" n1:scrollHorizontally="true" n1:singleLine="true" n1:marqueeRepeatLimit="marquee_forever" />
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout n1:orientation="horizontal" n1:id="@id/ll_epg3_box" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="5.0dip" n1:layout_marginRight="5.0dip" n1:layout_weight="1.0">
+                                <LinearLayout n1:gravity="center_vertical" n1:orientation="horizontal" n1:id="@id/ll_epg3_date" n1:tag="4" n1:focusable="true" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_marginLeft="0.0sp" n1:weightSum="1.0" n1:layout_weight="0.4" n1:layout_toRightOf="@id/live_tv" n1:layout_below="@id/on_demand">
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_epg3_date" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="5.0dip" />
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="10.0sp" n1:text="=>" />
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:ellipsize="marquee" n1:id="@id/tv_epg3_program" n1:fadingEdge="horizontal" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginLeft="10.0sp" n1:scrollHorizontally="true" n1:singleLine="true" n1:marqueeRepeatLimit="marquee_forever" />
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout n1:orientation="horizontal" n1:id="@id/ll_epg4_box" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="0.0dip" n1:layout_marginLeft="5.0dip" n1:layout_marginRight="5.0dip" n1:layout_weight="1.0">
+                                <LinearLayout n1:gravity="center_vertical" n1:orientation="horizontal" n1:id="@id/ll_epg4_date" n1:tag="4" n1:focusable="true" n1:layout_width="0.0dip" n1:layout_height="fill_parent" n1:layout_marginLeft="0.0sp" n1:weightSum="1.0" n1:layout_weight="0.4" n1:layout_toRightOf="@id/live_tv" n1:layout_below="@id/on_demand">
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:id="@id/tv_epg4_date" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="5.0dip" />
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_marginLeft="10.0sp" n1:text="=>" />
+                                    <TextView n1:textSize="16.0sp" n1:textColor="@color/white" n1:ellipsize="marquee" n1:id="@id/tv_epg4_program" n1:fadingEdge="horizontal" n1:layout_width="fill_parent" n1:layout_height="fill_parent" n1:layout_marginLeft="10.0sp" n1:scrollHorizontally="true" n1:singleLine="true" n1:marqueeRepeatLimit="marquee_forever" />
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout n1:id="@id/ll_no_guide" n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+                                <TextView n1:textSize="18.0sp" n1:textColor="@color/white" n1:gravity="center" n1:layout_width="fill_parent" n1:layout_height="fill_parent" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView n1:visibility="gone" n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+        <LinearLayout n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+            <TextView n1:id="@id/tv_speed" n1:layout_width="wrap_content" n1:layout_height="wrap_content" />
+            <LinearLayout n1:orientation="horizontal" n1:layout_width="wrap_content" n1:layout_height="wrap_content">
+                <EditText n1:gravity="center|left|top" n1:id="@id/et_url" n1:layout_width="0.0px" n1:layout_height="wrap_content" n1:layout_margin="8.0dip" n1:text="http://p5.giffy.be:8080/movie/amantestapp/amantestapp/33415.mp4" n1:maxLines="4" n1:layout_weight="1.0" />
+                <Button n1:id="@id/btn_play" n1:layout_width="wrap_content" n1:layout_height="fill_parent" n1:layout_margin="8.0dip" n1:text="play" />
+            </LinearLayout>
+            <LinearLayout n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+                <Button n1:id="@id/btn_pause" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="pause" />
+                <Button n1:id="@id/btn_start" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="start" />
+                <Button n1:id="@id/btn_toggle" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="toggleFullScreen" />
+            </LinearLayout>
+            <LinearLayout n1:layout_width="fill_parent" n1:layout_height="wrap_content">
+                <Button n1:id="@id/btn_forward" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="forward" />
+                <Button n1:id="@id/btn_back" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="back" />
+                <Button n1:id="@id/btn_toggle_ratio" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="toggleRatio" />
+            </LinearLayout>
+            <Button n1:id="@id/btn_play_sample_1" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="play sample 1" />
+            <Button n1:id="@id/btn_play_sample_2" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="play sample 2" />
+            <Button n1:id="@id/btn_play_sample_3" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="play sample 3(https)" />
+            <Button n1:id="@id/btn_open" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="play by out of the box player" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
