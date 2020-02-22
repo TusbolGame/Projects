@@ -1,0 +1,11 @@
+D:\Egypt_Projects\CSharp_AsyncTcpSockets-master\Common\bin\Debug\Common.dll
+D:\Egypt_Projects\CSharp_AsyncTcpSockets-master\Common\bin\Debug\Common.pdb
+D:\Egypt_Projects\CSharp_AsyncTcpSockets-master\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\Egypt_Projects\CSharp_AsyncTcpSockets-master\Common\obj\Debug\Common.dll
+D:\Egypt_Projects\CSharp_AsyncTcpSockets-master\Common\obj\Debug\Common.pdb
+D:\Egypt_Projects\Server_Client\Common\bin\Debug\Common.dll
+D:\Egypt_Projects\Server_Client\Common\bin\Debug\Common.pdb
+D:\Egypt_Projects\Server_Client\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\Egypt_Projects\Server_Client\Common\obj\Debug\Common.dll
+D:\Egypt_Projects\Server_Client\Common\obj\Debug\Common.pdb
+D:\Egypt_Projects\Server_Client\Common\obj\Debug\Common.csprojAssemblyReference.cache
