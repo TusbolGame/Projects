@@ -1,0 +1,114 @@
+name: QlipQlop
+description: TikTok Mini App
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  camera: ^0.5.7+2
+  path_provider: ^1.5.1
+  video_player: ^0.10.5+1
+  image_picker: ^0.6.0+9
+  cached_network_image: ^2.0.0
+  http: ^0.12.0+2
+  fluttertoast: ^3.0.4
+  avatar_glow: ^0.1.0
+  bottom_navy_bar: ^3.0.0
+  shared_preferences: ^0.5.2
+  collection: any
+  screenshot: ^0.1.1
+  intl: ^0.16.1
+  progress_dialog: ^1.2.0
+  flutter_launcher_icons: ^0.7.4
+  screen: ^0.0.5
+  wakelock: ^0.1.3+3
+  http_parser: ^3.1.3
+  url_launcher: ^5.4.1
+  audioplayers: ^0.14.0
+  provider: ^3.0.0+1
+  flutter_swiper: ^1.1.6
+  flutter_webview_plugin: ^0.3.10+1
+  transparent_image: ^0.1.0
+  share: ^0.6.3+5
+  carousel_slider: ^1.4.1
+  timeline_list: ^0.0.5
+
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  youtube_player_flutter:
+    path: youtube_plugin
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+    # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/avatar.png
+    - assets/images/logo.png
+    - assets/images/challenge.png
+    - assets/images/ic_camera_preview.png
+    - assets/images/ic_flutter_devs_logo.png
+    - assets/images/ic_no_video.png
+    - assets/images/ic_play.png
+    - assets/images/ic_powered_by.png
+    - assets/images/ic_stop_video.png
+    - assets/images/ic_switch_camera_3.png
+    - assets/images/ic_video_icon.png
+    - assets/images/ic_video_shutter.png
+    - assets/images/ic_no_image.png
+    - assets/images/ic_shutter_1.png
+    - assets/images/bg_uit.jpg
+    - assets/images/ic_avatar.png
+    - assets/images/ic_camera.png
+    - assets/images/gold_prize.png
+    - assets/images/silver_prize.png
+    - assets/images/bronze_prize.png
+    - assets/images/prize_icon.png
+
+  fonts:
+    - family:  TikTokIcons
+      fonts:
+        - asset: assets/fonts/TikTokIcons.ttf
+    - family:  fa-brands-400
+      fonts:
+        - asset: assets/fonts/fa-brands-400.ttf
+    - family:  fa-solid-900
+      fonts:
+        - asset: assets/fonts/fa-solid-900.ttf
+
