@@ -1,0 +1,6 @@
+This is made by pyqt5.
+This script was made by Indian client.
+
+Purpose is getting cricket inning data and storing them in excel file.
+
+in this script, I used multithreading to increase scraping speed.
