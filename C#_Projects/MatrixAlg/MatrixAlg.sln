@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixAlg", "MatrixAlg\MatrixAlg.csproj", "{A9EA4146-B187-4DD6-9103-F6FAF97C001D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfServer", "WcfServer\WcfServer.csproj", "{99D3A321-1C63-4A6D-BAA0-370183F0BF05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "WcfService\WcfService.csproj", "{498C65DC-1BD0-4B51-9870-8DBBB2B160F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9EA4146-B187-4DD6-9103-F6FAF97C001D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9EA4146-B187-4DD6-9103-F6FAF97C001D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9EA4146-B187-4DD6-9103-F6FAF97C001D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9EA4146-B187-4DD6-9103-F6FAF97C001D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99D3A321-1C63-4A6D-BAA0-370183F0BF05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D3A321-1C63-4A6D-BAA0-370183F0BF05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D3A321-1C63-4A6D-BAA0-370183F0BF05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D3A321-1C63-4A6D-BAA0-370183F0BF05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{498C65DC-1BD0-4B51-9870-8DBBB2B160F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{498C65DC-1BD0-4B51-9870-8DBBB2B160F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{498C65DC-1BD0-4B51-9870-8DBBB2B160F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{498C65DC-1BD0-4B51-9870-8DBBB2B160F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2A623F6-63C7-4AF2-948C-B5CB52D3FBE2}
+	EndGlobalSection
+EndGlobal

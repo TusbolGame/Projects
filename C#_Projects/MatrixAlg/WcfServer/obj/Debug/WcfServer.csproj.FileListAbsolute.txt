@@ -1,0 +1,13 @@
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\bin\Debug\WcfServer.exe.config
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\bin\Debug\WcfServer.exe
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\bin\Debug\WcfServer.pdb
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\bin\Debug\MathNet.Numerics.dll
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\bin\Debug\WcfService.dll
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\bin\Debug\WcfService.pdb
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\bin\Debug\WcfService.dll.config
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\bin\Debug\MathNet.Numerics.xml
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\obj\Debug\WcfServer.csprojAssemblyReference.cache
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\obj\Debug\WcfServer.csproj.CoreCompileInputs.cache
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\obj\Debug\WcfServer.csproj.CopyComplete
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\obj\Debug\WcfServer.exe
+D:\C#_Projects\Lao_Project\MatrixAlg\WcfServer\obj\Debug\WcfServer.pdb
