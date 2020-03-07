@@ -1,0 +1,419 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth\\Auth.csproj": {}
+  },
+  "projects": {
+    "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Common\\Auth.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Common\\Auth.Common.csproj",
+        "projectName": "Auth.Common",
+        "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Common\\Auth.Common.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Dal\\Auth.Dal.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Dal\\Auth.Dal.csproj",
+        "projectName": "Auth.Dal",
+        "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Dal\\Auth.Dal.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Dal\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Common\\Auth.Common.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Common\\Auth.Common.csproj"
+              },
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\Infra.Bl.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\Infra.Bl.csproj"
+              },
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj"
+              },
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra\\Infra.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra\\Infra.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth\\Auth.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth\\Auth.csproj",
+        "projectName": "Auth",
+        "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth\\Auth.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Common\\Auth.Common.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Common\\Auth.Common.csproj"
+              },
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Dal\\Auth.Dal.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Auth.Dal\\Auth.Dal.csproj"
+              },
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\Infra.Bl.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\Infra.Bl.csproj"
+              },
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj"
+              },
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra\\Infra.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra\\Infra.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.AspNetCore.Mvc.DataAnnotations": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[5.6.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[5.6.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\Infra.Bl.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\Infra.Bl.csproj",
+        "projectName": "Infra.Bl",
+        "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\Infra.Bl.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj",
+        "projectName": "Infra.Common",
+        "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra\\Infra.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra\\Infra.csproj",
+        "projectName": "Infra",
+        "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra\\Infra.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\Infra.Bl.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Bl\\Infra.Bl.csproj"
+              },
+              "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj": {
+                "projectPath": "D:\\Israel_Projects\\feedback_system\\feedback-system\\feedback-system\\Infra.Common\\Infra.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
