@@ -1,0 +1,38 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "name": "FantasticDev",
+      "avatar": "http://www.lte-esafety.co.uk/wp-content/uploads/2015/06/avatar.png",
+      "level_title": "Beginner",
+      "info": {
+        "level": 1,
+        "rate": 1,
+        "followers": 0,
+        "next_title": 0,
+        "question_comprate": "35%",
+        "nation": "/images/usa_flag.png",
+        "comment": "Comment",
+        "score": 0,
+        "win_counter": 0
+      }
+    },
+    {
+      "id": 2,
+      "name": "Atomic Player",
+      "avatar": "http://www.lte-esafety.co.uk/wp-content/uploads/2015/06/avatar.png",
+      "level_title": "Expert",
+      "info":
+        {
+          "level": 2,
+          "rate": 2,
+          "followers": 20,
+          "next_title": 5,
+          "question_comprate": "75%",
+          "nation": "/images/russia_flag.png",
+          "score": 0,
+          "win_counter": 2
+        }
+    }
+  ]
+}

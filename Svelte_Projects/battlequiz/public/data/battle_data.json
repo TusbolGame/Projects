@@ -1,0 +1,67 @@
+{
+  "battle_title": "Basic Math",
+  "battle_subtitle": "Why was 6 afraid of 7 ?",
+  "battle_image": "https://cdn10.bigcommerce.com/s-tlhfp/products/664/images/675/shutterstock_238835767__63959.1435347171.1280.1280.jpg?c=2",
+  "questions":[
+    {
+      "id": 1,
+      "question": "If you burn 100 calories by climbing 100 stairs, how many calories do you burn climbing 50 stairs?",
+      "candidates":[25, 150, 50, 10],
+      "answer": 50
+    },
+    {
+      "id": 2,
+      "question": "What is 72 divided by 6?",
+      "candidates":[25, 34, 66, 12],
+      "answer": 12
+    },
+    {
+      "id": 3,
+      "question": "What is 6 x 4?",
+      "candidates":[46, 24, 64, 10],
+      "answer": 24
+    },
+    {
+      "id": 4,
+      "question": "A football is $15. If you buy 10 balls, then how much will you pay?",
+      "candidates":[120, 25, 150, 200],
+      "answer": 150
+    },
+    {
+      "id": 5,
+      "question": "What is 73 - 37?",
+      "candidates":[37, 36, 35, 33],
+      "answer": 36
+    },
+    {
+      "id": 6,
+      "question": "If you burn 100 calories by climbing 100 stairs, how many calories do you burn climbing 50 stairs?",
+      "candidates":[25, 150, 50, 10],
+      "answer": 50
+    },
+    {
+      "id": 7,
+      "question": "What is 72 divided by 6?",
+      "candidates":[25, 34, 66, 12],
+      "answer": 12
+    },
+    {
+      "id": 8,
+      "question": "What is 6 x 4?",
+      "candidates":[46, 24, 64, 10],
+      "answer": 24
+    },
+    {
+      "id": 9,
+      "question": "A football is $15. If you buy 10 balls, then how much will you pay?",
+      "candidates":[120, 25, 150, 200],
+      "answer": 150
+    },
+    {
+      "id": 10,
+      "question": "What is 73 - 37?",
+      "candidates":[37, 36, 35, 33],
+      "answer": 36
+    }
+  ]
+}
