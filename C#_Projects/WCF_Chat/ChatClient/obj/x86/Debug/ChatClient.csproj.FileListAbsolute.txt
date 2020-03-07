@@ -1,0 +1,15 @@
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\bin\Debug\ChatClient.exe.config
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\bin\Debug\ChatClient.exe
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\bin\Debug\ChatClient.pdb
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\bin\Debug\WcfChat.dll
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\bin\Debug\WcfChat.pdb
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\bin\Debug\WcfChat.dll.config
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\obj\x86\Debug\ChatClient.csprojAssemblyReference.cache
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\obj\x86\Debug\ChatClient.LoginForm.resources
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\obj\x86\Debug\ChatClient.MainForm.resources
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\obj\x86\Debug\ChatClient.Properties.Resources.resources
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\obj\x86\Debug\ChatClient.csproj.GenerateResource.cache
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\obj\x86\Debug\ChatClient.csproj.CoreCompileInputs.cache
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\obj\x86\Debug\ChatClient.csproj.CopyComplete
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\obj\x86\Debug\ChatClient.exe
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatClient\obj\x86\Debug\ChatClient.pdb

@@ -1,0 +1,11 @@
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\bin\Debug\ChatServer.exe.config
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\bin\Debug\ChatServer.exe
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\bin\Debug\ChatServer.pdb
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\bin\Debug\WcfChat.dll
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\bin\Debug\WcfChat.pdb
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\bin\Debug\WcfChat.dll.config
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\obj\x86\Debug\ChatServer.csprojAssemblyReference.cache
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\obj\x86\Debug\ChatServer.csproj.CoreCompileInputs.cache
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\obj\x86\Debug\ChatServer.csproj.CopyComplete
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\obj\x86\Debug\ChatServer.exe
+D:\C#_Projects\wcfsimplechat\sourceCode\wcfsimplechat\ChatServer\obj\x86\Debug\ChatServer.pdb
