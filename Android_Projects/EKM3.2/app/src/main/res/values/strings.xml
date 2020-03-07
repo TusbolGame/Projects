@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">EvilKingMedia</string>
+
+    <string name="fa_icon_user">&#xf0e0;</string>
+    <string name="fa_icon_setting">&#xf013;</string>
+    <string name="fa_icon_off">&#xf011;</string>
+    <string name="fa_icon_info">&#xf05a;</string>
+    <string name="fa_icon_record">&#xf03d;</string>
+    <string name="fa_icon_history">&#xf1da;</string>
+    <string name="title_activity_sports_server5">SportsActivityServer5</string>
+    <string name="title_activity_cartoon_category">CartoonCategoryActivity</string>
+
+    <string name="ads_app_id">ca-app-pub-4680523224254053~6361457393</string>
+    <string name="banner_ads_unit_id">ca-app-pub-4680523224254053/6169885702</string>
+    <string name="notification_channel_id">ekm_notification</string>
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "973769800728",
+    "firebase_url": "https://ekmchat-d27d2.firebaseio.com",
+    "project_id": "ekmchat-d27d2",
+    "storage_bucket": "ekmchat-d27d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973769800728:android:35749db3ef52e87c",
+        "android_client_info": {
+          "package_name": "com.evilkingmedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973769800728-919ujua1159393l14s8ttmgghe1u2j4u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.evilkingmedia",
+            "certificate_hash": "3b02016e6bdfd0783e65160457630f02e63ff1a8"
+          }
+        },
+        {
+          "client_id": "973769800728-9sh75lqrufnl2506brum96gf2dc7hlu5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMrJYYWZovcfvm5Zsbep3v3EBvRJUPl6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973769800728-9sh75lqrufnl2506brum96gf2dc7hlu5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
