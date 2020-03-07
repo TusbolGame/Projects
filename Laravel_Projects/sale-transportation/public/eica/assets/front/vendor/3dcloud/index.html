@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feel - A Digital Solutions Business</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+  <link rel="stylesheet" href="css/ionicons.css">
+  <link rel="stylesheet" href="css/bootstrap-extended.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script type="text/javascript" src="js/three.min.js" defer></script>
+  <script type="text/javascript" src="js/detector.js" defer></script>
+  <script id="vs" type="x-shader/x-vertex" defer>
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    }
+  </script>
+
+  <script id="fs" type="x-shader/x-fragment" defer>
+    uniform sampler2D map;
+    uniform vec3 fogColor;
+    uniform float fogNear;
+    uniform float fogFar;
+
+    varying vec2 vUv;
+    void main() {
+
+      float depth = gl_FragCoord.z / gl_FragCoord.w;
+      float fogFactor = smoothstep( fogNear, fogFar, depth );
+
+      gl_FragColor = texture2D( map, vUv );
+      gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+      gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+    }
+  </script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" defer></script>
+  <script type="text/javascript">window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous" defer></script>
+  <script src="js/jquery.main.js" defer></script>
+
+
+</head>
+<body class="homepage" data-spy="scroll" data-target="#nav">
+  <div id="wrapper">
+    <main id="main" role="main">
+      <section class="top-inforamtiom">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 column">
+              <div class="text-block">
+                <div class="text-wrapper">
+                  <div class="holder">
+                    <!--h1>We build transformative experiences</h1-->
+                    <h1>asdfasdfasdfasdf</h1>
+                    <p>asdfasdfasdfasdfasdfasd</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <canvas id="canvas"></canvas>
+      </section>
+      <section class="content-cols" id="What-we-do">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-5 col-sm-offset-1 title-col">
+              <h2>We're a digital solutions business made up by tech misfits, passionate creatives and<br> curious humans.</h2>
+            </div>
+            <div class="col-xs-12 col-sm-5 description">
+              	<p>We work with entrepreneurs and forward-looking companies to transform ideas into products that HELP, CHALLENGE, and INSPIRE.</p>
+  				<p>From design through to code, we delight in finding simple solutions to complex challenges. And by
+				collaborating with our clients to form rewarding relationships, we help their companies grow and evolve.<br><br>
+				This process is further fuelled by our integrated approach to strategy, design and development, which allows us to
+				help deliver ideas from concept to launch, and beyond.</p>
+				<p>Not in a rush? Here’s a bit more about <a href="about">who we are.</a><br></p>
+            </div>
+          </div>
+        </div>
+        <div id="clouds"></div>
+        <div class="cloud-holder">
+         <img src="images/clouds.png" alt="image description" width="1768" height="522">
+       </div>
+      </section>
+      <div class="container" id="How-we-do-it">
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <div class="intro-section">
+              <h2>Put simply, we are nerds.</h2>
+              <ul class="abbr-list list-unstyled">
+                <li>
+                  <span class="letter">N</span>
+                  <span class="letter-explanation">NAVIGATE</span>
+                  <p>We start by exploring your business, objectives and what makes it all tick.</p>
+                </li>
+                <li>
+                  <span class="letter">e</span>
+                  <span class="letter-explanation">EXPLODE</span>
+                  <p>We pull it apart in search of all opportunities. We love good ol' blue sky thinking.</p>
+                </li>
+                <li>
+                  <span class="letter">r</span>
+                  <span class="letter-explanation">REFINE</span>
+                  <p>After some hustling and huddling, we refine our ideas into elegant solutions.</p>
+                </li>
+                <li>
+                  <span class="letter">d</span>
+                  <span class="letter-explanation">DEFINE</span>
+                  <p>Lastly we craft user-centric products for you to take on the world. And win.</p>
+                </li>
+              </ul>
+  <p><br></p><p>Somewhat curious? Here’s a bit more about the <a href="howwework">uncommon way we work </a>and <a href="whatwedo">what we do.</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+
+
+
+</body>
+</html>

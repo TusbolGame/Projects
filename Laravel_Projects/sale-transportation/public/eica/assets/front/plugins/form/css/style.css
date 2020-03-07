@@ -1,0 +1,165 @@
+body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #222;
+  font-weight: 400;
+  font-family: 'Roboto Slab';
+  margin: 0px;
+  background-image: url("../../../img/effects/light04.png"), linear-gradient(#222, #222, #000);
+  background-size:100% 100px, 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: right top, left top;
+  height:auto;
+  min-height: 100vh;
+}
+
+.card-body h2{
+  text-align: center;
+}
+
+.card-body li {
+  font-size: 16px;
+}
+.card-body {
+  padding: 50px;
+}
+.paymentMethod ul li{
+  display: inline-block;
+  float: left;
+}
+.paymentMethod ul li img {
+  width: 100px;
+  float: left;
+  display: inline-block;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  box-shadow: 2px 2px 4px grey;
+}
+.progress{
+  position: fixed;
+  top: 10px;
+  z-index: 1000;
+}
+
+.progress-bar{
+  background-image: linear-gradient(blue, lightskyblue, blue)!important;
+}
+
+.pageTitle{
+  text-align: center;
+  font-weight: bold;
+  font-family: Sans-serif;
+  color: darkgreen;
+}
+
+.titleImg{
+  width: 100%;
+}
+
+.tileImg{
+  width: 100px;
+}
+
+.formStep{
+  font-family: Sans-serif;
+  font-size: 30px;
+  font-weight: bolder;
+  color:silver;
+}
+
+.center{
+  margin: auto;
+}
+
+.form-group .selectGender img{
+  width: 80px;
+  opacity: 0.5;
+  margin: 15px;
+}
+
+.form-group .selectGender img:hover,
+.form-group .selectGender .active
+{
+  width: 80px;
+  opacity: 1;
+  margin: 15px;
+}
+
+input {
+  width: auto;
+}
+
+.inputfile{
+  opacity: 0!important;
+}
+.box h5{
+  font-weight: bolder;
+  color: #555;
+}
+
+.inputfile-5 + label figure::before {
+  border-top: 20px solid lightpink!important;
+  border-left: 20px solid transparent;
+}
+.fileFields{
+  background: lightpink;
+  opacity: 1;
+  border-radius: 10px;
+  padding-bottom: 40px;
+}
+
+.brightText {
+  color: #00ffff;
+  font-style: normal;
+  font-weight: 800;
+  text-align: center;
+  text-transform: inherit;
+  line-height: normal;
+  letter-spacing: normal;
+  text-shadow: 0 0 1em #00ffff, 0 0 1em #00ffff, 0 0 1em #00ffff;
+}
+
+.brightButton{
+  display: block;
+  color: #ffffff;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: normal;
+  letter-spacing: normal;
+  padding: 10px 25px !important;
+
+}
+
+
+
+.brightRed{
+  color: #f11b1b;
+  font-style: normal;
+  font-weight: 800;
+  text-align: center;
+  text-transform: inherit;
+  line-height: normal;
+  letter-spacing: normal;
+  text-shadow: 0 0 1em #f11b1b, 0 0 1em #f11b1b, 0 0 1em #f11b1b;
+}
+
+.btn-brightText{
+  color: #00ffff;
+  font-style: normal;
+  font-weight: 800;
+  text-align: center;
+  text-transform: inherit;
+  line-height: normal;
+  letter-spacing: normal;
+  text-shadow: 0 0 1em #00ffff, 0 0 1em #00ffff, 0 0 1em #00ffff;
+}
+.imgBright {
+  width: 30vw;
+  margin-left: 25vw;
+}
