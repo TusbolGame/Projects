@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a4b96880-52c8-4773-860b-bf2e83e34dfb" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1UOKZZzw8AbRot5hmmSFzcOLsK4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Shyna_PocketsphinxTrainned" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Shyna_speech" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Shyna_PocketsphinxTrainned.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Shyna_PocketsphinxTrainned" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a4b96880-52c8-4773-860b-bf2e83e34dfb" name="Default Changelist" comment="" />
+      <created>1575222258216</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575222258216</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="664" y="146" width="642" height="794" key="#Shyna_PocketsphinxTrainned" timestamp="1575868503682">
+      <screen x="70" y="27" width="1834" height="941" />
+    </state>
+    <state x="664" y="146" key="#Shyna_PocketsphinxTrainned/70.27.1834.941@70.27.1834.941" timestamp="1575868503682" />
+    <state x="669" y="160" width="642" height="794" key="#Shyna_PocketsphinxTrainned/70.27.1850.1053@70.27.1850.1053" timestamp="1575833757546" />
+    <state x="703" y="302" width="557" height="397" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1575868530972">
+      <screen x="70" y="27" width="1834" height="941" />
+    </state>
+    <state x="703" y="302" width="557" height="397" key="#com.intellij.fileTypes.FileTypeChooser/70.27.1834.941@70.27.1834.941" timestamp="1575868530972" />
+    <state width="1367" height="238" key="GridCell.Tab.0.bottom" timestamp="1576081722107">
+      <screen x="70" y="27" width="1850" height="957" />
+    </state>
+    <state width="1367" height="238" key="GridCell.Tab.0.bottom/70.27.1850.957@70.27.1850.957" timestamp="1576081722107" />
+    <state width="1367" height="238" key="GridCell.Tab.0.center" timestamp="1576081722102">
+      <screen x="70" y="27" width="1850" height="957" />
+    </state>
+    <state width="1367" height="238" key="GridCell.Tab.0.center/70.27.1850.957@70.27.1850.957" timestamp="1576081722102" />
+    <state width="1367" height="238" key="GridCell.Tab.0.left" timestamp="1576081722100">
+      <screen x="70" y="27" width="1850" height="957" />
+    </state>
+    <state width="1367" height="238" key="GridCell.Tab.0.left/70.27.1850.957@70.27.1850.957" timestamp="1576081722100" />
+    <state width="1367" height="238" key="GridCell.Tab.0.right" timestamp="1576081722105">
+      <screen x="70" y="27" width="1850" height="957" />
+    </state>
+    <state width="1367" height="238" key="GridCell.Tab.0.right/70.27.1850.957@70.27.1850.957" timestamp="1576081722105" />
+    <state x="480" y="171" width="1004" height="737" key="SettingsEditor" timestamp="1575882206437">
+      <screen x="70" y="27" width="1833" height="941" />
+    </state>
+    <state x="480" y="171" key="SettingsEditor/70.27.1833.941@70.27.1833.941" timestamp="1575882206437" />
+    <state x="480" y="171" width="1004" height="737" key="SettingsEditor/70.27.1834.941@70.27.1834.941" timestamp="1575875260897" />
+    <state x="484" y="188" width="1022" height="737" key="SettingsEditor/70.27.1850.1053@70.27.1850.1053" timestamp="1575833184770" />
+    <state x="646" y="328" key="com.intellij.ide.util.TipDialog" timestamp="1575878057236">
+      <screen x="70" y="27" width="1833" height="941" />
+    </state>
+    <state x="646" y="328" key="com.intellij.ide.util.TipDialog/70.27.1833.941@70.27.1833.941" timestamp="1575878057236" />
+    <state x="646" y="328" key="com.intellij.ide.util.TipDialog/70.27.1834.941@70.27.1834.941" timestamp="1575868292702" />
+    <state x="651" y="333" key="com.intellij.ide.util.TipDialog/70.27.1850.957@70.27.1850.957" timestamp="1575831226337" />
+  </component>
+</project>
