@@ -1,0 +1,39 @@
+body {
+  margin: 20px;
+  font-family: 'Arial';
+}
+
+.button {
+	border: 1px solid;
+	border-color: black;
+	border-radius: 8px;
+	padding: 4px 12px;
+	text-align: center;
+	font-size: 0.8em;
+}
+
+a.button {
+	text-decoration: none;
+	color: #000;
+}
+
+.button.edit, .button.apply {
+	color: gray;
+	border-color: gray;
+}
+
+.button.delete, .button.cancel{
+	color: darkred;
+	border-color: darkred;
+}
+
+.button.save{
+	color: darkgreen;
+	border-color: darkgreen;
+}
+
+input[type=text] {
+	height: 20px;
+	font-size: 18px;
+}
+

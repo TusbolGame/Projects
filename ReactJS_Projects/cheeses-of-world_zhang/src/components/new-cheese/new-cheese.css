@@ -1,0 +1,17 @@
+.new-cheese {
+
+}
+
+.new-cheese .title {
+	color: #c3a648;
+}
+
+.new-cheese .form {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
+
+.new-cheese .form *{
+	margin-bottom: 8px;
+}

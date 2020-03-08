@@ -1,0 +1,42 @@
+.cheese-item {
+	border: 1px solid;
+	border-left-width: 1px;
+	border-bottom-width: 1px;
+	border-right-width: 1px;
+	border-top-width: 0px;
+	border-color: lightgray;
+
+	display: flex;
+	padding: 16px;
+	min-height: 82px;
+}
+
+.cheese-item .info {
+	flex-grow: 1;
+	flex-direction: column;
+}
+
+.cheese-item .info .cheese-name{
+	font-size: 20px;
+	color: #333;
+}
+
+.cheese-item .info .cheese-nation{
+	font-size: 16px;
+	font-weight: lighter;
+	color: grey;
+}
+
+.cheese-item .buttons {
+	flex-grow: 0;
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: column;
+}
+.cheese-item .buttons * {
+	margin-bottom: 8px;
+}
+
+.cheese-item input[name=cheeseName] {
+	margin-bottom: 16px;
+}
