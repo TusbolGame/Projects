@@ -1,0 +1,37 @@
+@CHARSET "utf-8";
+
+#figures {
+	display: inline-block;
+	margin-left: 15px;
+	margin-top:  25px;
+}
+
+#week_selector {
+	padding:10px;
+}
+
+#week_select {
+	width:150px;
+	float: left;
+	margin-right:10px;
+}
+
+.figures-table {
+	padding-left:10px;
+}
+
+.figures_buttons {
+	margin-left:10px;
+}
+
+.positive_number {
+	color: #089000;
+}
+
+.negative_number {
+	color: red;
+}
+
+.account {
+	color: #0896ff;
+}

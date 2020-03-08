@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:security="http://www.springframework.org/schema/security"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans      
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/security 
+        http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<!-- Stateless RESTful services use BASIC authentication -->
+	<!-- <security:http pattern="/restapi/user" security="none"/> -->
+    <security:http create-session="stateless" use-expressions="false" auto-config="false" entry-point-ref="unauthorizedEntryPoint" authentication-manager-ref="authenticationManager">
+    	<security:intercept-url pattern="/batch/user" method="POST" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<security:intercept-url pattern="/batch/login" method="POST" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<security:intercept-url pattern="/**" access="ROLE_REST"/>
+        <security:custom-filter position="BASIC_AUTH_FILTER" ref="basicAuthenticationFilter" />
+        <security:csrf disabled="true"/>
+    </security:http>
+ 
+    <security:authentication-manager id="authenticationManager">
+    	<security:authentication-provider ref="ticketAdvantageAuthenticationProvider" />
+    </security:authentication-manager>
+
+	<beans:bean id="basicAuthenticationFilter" class="com.ticketadvantage.services.security.TicketAdvantageBasicAuthenticationFilter">
+  		<beans:property name="authenticationManager" ref="authenticationManager"/>
+  		<beans:property name="authenticationEntryPoint" ref="unauthorizedEntryPoint"/>
+	</beans:bean>
+
+	<beans:bean id="unauthorizedEntryPoint" class="com.ticketadvantage.services.security.UnauthorizedEntryPoint" />
+    <beans:bean id="ticketAdvantageAuthenticationProvider" class="com.ticketadvantage.services.security.TicketAdvantageAuthenticationProvider" />
+</beans:beans>

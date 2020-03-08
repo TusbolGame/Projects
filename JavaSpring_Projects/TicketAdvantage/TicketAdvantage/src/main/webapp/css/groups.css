@@ -1,0 +1,177 @@
+@CHARSET "utf-8";
+
+/* padding-top padding-right padding-bottom padding-left */
+
+.group {
+	height: 100%;
+	margin: 10px 0 0 0;
+	overflow: hidden;
+}
+	.group_left {
+		/* display: inline-block; */
+		float: left;
+		width: 50%;
+		overflow: hidden;
+	}
+		.group_info {
+			border: 1px solid #555555;
+			float: left;
+			font-size: 15px;
+			height: auto;
+			margin: 0 10px;
+			padding: 2px;
+		}
+			.group_field {
+				color: #111111;
+				padding: 5px 0;
+			}
+				.group_settings {
+					font-size: 22px;
+				    font-weight: bold;
+				}
+				.group_row_left {
+					display: inline-block;
+					width: 100px;
+				}
+				.group_row_right {
+				 	-moz-border-bottom-colors: none;
+				    -moz-border-left-colors: none;
+				    -moz-border-right-colors: none;
+				    -moz-border-top-colors: none;
+				    border-color: #949494 #a6a6a6 #a6a6a6;
+				    border-image: none;
+				    border-radius: 0.3rem;
+				    border-style: solid;
+				    border-width: 0.1rem;
+				    box-shadow: 0 0.1rem 0 rgba(255, 255, 255, 0.5), 0 0.1rem 0 rgba(0, 0, 0, 0.07) inset;
+				    display: inline-block;
+				    outline: 0 none;
+				}
+					.group_row_right input {
+					   	background-color: transparent;
+					    border: 0 none;
+					    box-shadow: none;
+					    box-sizing: border-box;
+					    float: none;
+					    font-size: 100%;
+					    height: 1.5rem;
+					    line-height: 1;
+					    margin: 0.2rem 0 0;
+					    padding: 0 1.1rem;
+					    width: 100%;
+					}
+			.group_buttons button {
+				background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #f7f8fa, #e7e9ec) repeat scroll 0 0;
+			    border-color: #adb1b8 #a2a6ac #8d9096;
+			    border-radius: 0.2rem;
+			    border-style: solid;
+			    border-width: 0.1rem;
+			    box-shadow: 0 0.1rem 0 rgba(255, 255, 255, 0.6) inset;
+			    color: #111111;
+			    cursor: pointer;
+			    font-family: Arial,sans-serif;
+			    font-size: 1.0rem;
+				line-height: 1.35;
+			    margin: 10px 5px;
+			    outline: 0 none;
+			    padding: 2px;
+			    text-align: center;
+			    text-decoration: none;
+			    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);
+			    white-space: normal;
+			    width: 5.0em;
+			}
+				.group_buttons button:hover {
+			    	border-color: #0896ff;
+				}
+				.group_buttons button:active {
+					background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #0896ff, #0896ff) repeat scroll 0 0;
+			    	color: #ffffff;
+				}
+	.group_right {
+		/* display: inline-block;*/
+		float: right;
+		height: 100%; 
+		padding-top: 10px;
+		width: 50%;
+		overflow: hidden;
+	}
+		.group_listing {
+			padding: 0 5px;
+		}
+			#group-list-nav {
+			    background: #0896ff none repeat scroll 0 0;
+			    color: #ffffff;
+			    text-shadow: none;
+			}
+		.group_right ul {
+			list-style: outside none none;
+			padding-left: 0px;
+			padding-top: 10px;
+		}
+		.group_list li a {
+		    display: block;
+		    color: #003580;
+		    padding: 5px 0px;
+		    text-decoration: none;
+		    width: 100%;
+		}
+			.group_list li a:hover {
+			    background: #d0d0d0 none repeat scroll 0 0;
+			    border: 0;
+			    color: #003580;
+			    display: block;
+			    font-weight: bold;
+			    padding: 5px 0;
+			    width:100%;
+			}
+			.group_list li a:active {
+			    background: #0896ff none repeat scroll 0 0;
+			    color: #ffffff;
+			}
+		.group_list_odd {
+			background: #ffffff none repeat scroll 0 0;
+		}
+		.group_list_even {
+			background: #f3f3f3 none repeat scroll 0 0;
+		}
+		.group-list-label {
+			color: #003580;
+			font-size: 22px;
+		    font-weight: bold;
+			margin: 15px;
+			text-align: center
+		}
+		.ln-letters {
+			overflow: auto;
+		    width: 100%;
+		}
+		.ln-letters a {
+		    background: #0896ff none repeat scroll 0 0;
+		    border-right: 1px solid #0896ff;
+		    color: #ffffff;
+		    display: table-cell;
+		    position: relative;
+		    text-align: center;
+		    text-decoration: none;
+		}
+@media screen and (max-width: 1286px) {
+	.ln-letters a {
+		padding: 5px 3px;
+	}
+}
+@media screen and (max-width: 1024px) {		
+	.group_left {
+		display: block;
+		float: none;
+		width: 100%;
+	}
+	.group_right {
+		display: block;
+		float: none;
+		width: 100%;
+	}
+	.ln-letters a {
+    	padding: 8px 15px;
+	}
+}

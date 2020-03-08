@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Login</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+		<meta content="width=100%; initial-scale=1; maximum-scale=1; minimum-scale=1; user-scalable=no;" name="viewport"/>
+		<link media="screen" type="text/css" href="css/jquery-ui/11.4.1/jquery-ui.min.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/common.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/menu.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/login.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/footer.css" rel="stylesheet"/>
+
+		<script type="text/javascript" src="js/jquery/2.2.3/jquery.min.js"></script>
+		<script type="text/javascript" src="js/login.js"></script>
+		<script type='text/javascript'>
+			var postLogin  = "ticketadvantage.html";
+			var authCookie;
+			var i, x, y, ARRcookies = document.cookie.split(";");
+			for (i = 0; i < ARRcookies.length; i++) {
+				x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+				y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+				x = x.replace(/^\s+|\s+$/g, "");
+				if (x == 'BasicAuth') {
+					authCookie = unescape(y);
+				}
+			}
+
+			// Check for a valid authentication
+			if (typeof console != 'undefined') {
+				console.log('authCookie: ' + authCookie);
+			}
+			if (typeof authCookie != 'undefined' && authCookie != null && authCookie != '' && authCookie != 'null') {
+				if (typeof console != 'undefined') {
+					console.log('Calling ticketadvantage.html');
+				}
+				window.document.location = 'ticketadvantage.html';
+			} else {
+				if (typeof console != 'undefined') {
+					console.log('AuthCookie is invalid');
+				}
+			}
+		</script>
+	</head>
+	<body style="position: relative; overflow-y: auto; margin: 0px;">
+		<div id="overlay-back" class="overlay_back">
+			<img alt="PageLoading" src="img/glassLoadingAnimation.gif"/>
+		</div>
+		<div id="background" class="background"></div>
+		<div id="popup" class="popup"></div>
+		<div id="background-popup-error" class="background_popup_error"></div>
+		<div id="error-message" class="error_message">
+			<div class="error_header">
+				<h1>Message</h1>
+			</div>
+			<div class="error_body">
+				<h1 id="error-body"></h1>
+			</div>
+			<div class="error_button">
+				<div class="float_right">
+					<button id="error-button" class="km_button" onclick="$.fn.errorButtonFunc();" tabindex="1" type="button" name="error-button-message" title="Ok" accesskey="S">
+						<span>
+							<span class="error_underline">O</span>k
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div id="menuwrapper" class="menu-wrapper">
+			<div class="menu_logo_login">
+				<span class="ticket_info">Ticket</span><span class="advantage_info">Advantage</span>
+			</div>
+		</div>
+		<div id="mainwrapper" class="login_main_wrapper">
+			<div class="login_wrapper">
+				<div class="login_group">
+					<label id="label_username" for="username">Username</label>
+					<input id="username" type="text" name="username" value=""/>
+				</div>
+				<br />
+				<div class="login_group">
+					<label id="label_password" for="password">
+						Password
+						<a title="Forget your password?" href="login.html">Forget your password?</a>
+					</label>
+					<input id="password" type="password" name="password" value=""/>
+				</div>
+				<br />
+				<div class="show_password">
+					<label>
+						<input id="show-password" type="checkbox" onchange="document.getElementById('password').type = this.checked ? 'text' : 'password'" />
+						<span>Show password</span>
+					</label>
+				</div>
+				<button id="login-button" type="submit">
+					<span>Sign in</span>
+				</button>
+			</div>
+		</div>
+		<div class="footer_wrapper">
+			© 2016 TicketAdvantage | All Rights Reserved
+		</div>
+	</body>
+</html>

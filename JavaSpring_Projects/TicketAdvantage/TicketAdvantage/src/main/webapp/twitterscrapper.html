@@ -1,0 +1,736 @@
+<div id="scrapper" class="scrappers">
+	<div class="scrapper_upper">
+		<div class="scrapper_upper_row">
+			<div class="scrapper_left">
+				<div class="scrapper_field">
+					<label class="scrapper_settings" for="scrappername">Twitter Scrapper Settings</label>
+				</div>
+				<div class="scrapper_info">
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="scrappername">Name</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="scrappername" type="text" name="scrappername" value=""/>
+							<input id="scrappernameid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="spreadlineadjustment">Spread Line Adjustment</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="spreadlineadjustment" type="text" name="spreadlineadjustment" value=""/>
+							<input id="spreadlineadjustmentid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="spreadjuiceindicator">Spread Juice Indicator</label>
+						</div>
+						<div class="scrapper_row_right_dropdown">
+							<select id="spreadjuiceindicator" name="spreadjuiceindicator">
+								<option value="+">+</option>
+								<option selected="selected" value="-">-</option>
+							</select> 
+							<input id="spreadjuiceindicatorid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="spreadjuice">Spread Juice Value</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="spreadjuice" type="text" name="spreadjuice" />
+							<input id="spreadjuiceid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label style="color: #ff0000;"><b>OR</b></label>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="spreadjuiceadjustment">Spread Juice Adjustment</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="spreadjuiceadjustment" type="text" name="spreadjuiceadjustment" />
+							<input id="spreadjuiceadjustmentid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="spreadmaxamount">Spread Max Amount</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="spreadmaxamount" type="text" name="spreadmaxamount" value=""/>
+							<input id="spreadmaxamountid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="totallineadjustment">Total Line Adjustment</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="totallineadjustment" type="text" name="totallineadjustment" value=""/>
+							<input id="totallineadjustmentid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="totaljuiceindicator">Total Juice Indicator</label>
+						</div>
+						<div class="scrapper_row_right_dropdown">
+							<select id="totaljuiceindicator" name="totaljuiceindicator">
+								<option value="+">+</option>
+								<option selected="selected" value="-">-</option>
+							</select> 
+							<input id="totaljuiceindicatorid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="totaljuice">Total Juice</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="totaljuice" type="text" name="totaljuice" value=""/>
+							<input id="totaljuiceid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label style="color: #ff0000;"><b>OR</b></label>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="totaljuiceadjustment">Total Juice Adjustment</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="totaljuiceadjustment" type="text" name="totaljuiceadjustment" value=""/>
+							<input id="totaljuiceadjustmentid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="totalmaxamount">Total Max Amount</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="totalmaxamount" type="text" name="totalmaxamount" value=""/>
+							<input id="totalmaxamountid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mlindicator">Money Line Indicator</label>
+						</div>
+						<div class="scrapper_row_right_dropdown">
+							<select id="mlindicator" name="mlindicator">
+								<option value="+">+</option>
+								<option selected="selected" value="-">-</option>
+							</select> 
+							<input id="mlindicatorid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mlline">Money Line</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="mlline" type="text" name="mlline" value=""/>
+							<input id="mllineid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label style="color: #ff0000;"><b>OR</b></label>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mllineadjustment">Money Line Adjustment</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="mllineadjustment" type="text" name="mllineadjustment" value=""/>
+							<input id="mllineadjustmentid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mlmaxamount">Money Line Max Amount</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="mlmaxamount" type="text" name="mlmaxamount" value=""/>
+							<input id="mlmaxamountid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="pullinginterval">Pulling Interval (seconds)</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="pullinginterval" type="text" name="pullinginterval" value=""/>
+							<input id="pullingintervalid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mobiletext">Mobile Text</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="mobiletext" type="text" name="mobiletext" value=""/>
+							<input id="mobiletextid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="telegramnumber">Telegram Number</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="telegramnumber" type="text" name="telegramnumber" value=""/>
+							<input id="telegramnumberid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="servernumber">Server Number</label>
+						</div>
+						<div class="scrapper_row_right">
+							<select id="servernumber" name="servernumber" style="height: 25px; width: 219px;">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+							<input id="servernumberid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="enableretry">Retry</label>
+						</div>
+						<label class="switch">
+							<input id="enableretry" type="checkbox" name="enableretry"/>
+							<div class="slider round"></div>
+							<input id="enableretryid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="fullfill">Fullfill Order</label>
+						</div>
+						<label class="switch">
+							<input id="fullfill" type="checkbox" name="fullfill"/>
+							<div class="slider round"></div>
+							<input id="fullfillid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="bestprice">Check Best Price</label>
+						</div>
+						<label class="switch">
+							<input id="bestprice" type="checkbox" name="bestprice"/>
+							<div class="slider round"></div>
+							<input id="bestpriceid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="orderamount">Order Amount</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="orderamount" type="text" name="orderamount" value=""/>
+							<input id="orderamountid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="middlerules">Enable Middle Rules</label>
+						</div>
+						<label class="switch">
+							<input id="middlerules" type="checkbox" name="middlerules"/>
+							<div class="slider round"></div>
+							<input id="middlerulesid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="checkdupgame">Check Duplicate Game</label>
+						</div>
+						<label class="switch">
+							<input id="checkdupgame" type="checkbox" name="checkdupgame"/>
+							<div class="slider round"></div>
+							<input id="checkdupgameid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="playotherside">Play Other Side</label>
+						</div>
+						<label class="switch">
+							<input id="playotherside" type="checkbox" name="playotherside"/>
+							<div class="slider round"></div>
+							<input id="playothersideid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="sendtextforaccount">Send Text for Account</label>
+						</div>
+						<label class="switch">
+							<input id="sendtextforaccount" type="checkbox" name="sendtextforaccount"/>
+							<div class="slider round"></div>
+							<input id="sendtextforaccountid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="sendtextforgame">Send Text for Game</label>
+						</div>
+						<label class="switch">
+							<input id="sendtextforgame" type="checkbox" name="sendtextforgame"/>
+							<div class="slider round"></div>
+							<input id="sendtextforgameid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="onoff">Scrapper Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="onoff" type="checkbox" name="onoff"/>
+							<div class="slider round"></div>
+							<input id="onoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="gameonoff">Game Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="gameonoff" type="checkbox" name="gameonoff"/>
+							<div class="slider round"></div>
+							<input id="gameonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="firstonoff">First Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="firstonoff" type="checkbox" name="firstonoff"/>
+							<div class="slider round"></div>
+							<input id="firstonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="secondonoff">Second Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="secondonoff" type="checkbox" name="secondonoff"/>
+							<div class="slider round"></div>
+							<input id="secondonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="thirdonoff">Third Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="thirdonoff" type="checkbox" name="thirdonoff"/>
+							<div class="slider round"></div>
+							<input id="thirdonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="nflspreadonoff">NFL Spread Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="nflspreadonoff" type="checkbox" name="nflspreadonoff"/>
+							<div class="slider round"></div>
+							<input id="nflspreadonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="nfltotalonoff">NFL Total Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="nfltotalonoff" type="checkbox" name="nfltotalonoff"/>
+							<div class="slider round"></div>
+							<input id="nfltotalonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="nflmlonoff">NFL ML Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="nflmlonoff" type="checkbox" name="nflmlonoff"/>
+							<div class="slider round"></div>
+							<input id="nflmlonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="ncaafspreadonoff">NCAAF Spread Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="ncaafspreadonoff" type="checkbox" name="ncaafspreadonoff"/>
+							<div class="slider round"></div>
+							<input id="ncaafspreadonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="ncaaftotalonoff">NCAAF Total Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="ncaaftotalonoff" type="checkbox" name="ncaaftotalonoff"/>
+							<div class="slider round"></div>
+							<input id="ncaaftotalonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="ncaafmlonoff">NCAAF ML Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="ncaafmlonoff" type="checkbox" name="ncaafmlonoff"/>
+							<div class="slider round"></div>
+							<input id="ncaafmlonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="nbaspreadonoff">NBA Spread Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="nbaspreadonoff" type="checkbox" name="nbaspreadonoff"/>
+							<div class="slider round"></div>
+							<input id="nbaspreadonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="nbatotalonoff">NBA Total Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="nbatotalonoff" type="checkbox" name="nbatotalonoff"/>
+							<div class="slider round"></div>
+							<input id="nbatotalonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="nbamlonoff">NBA ML Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="nbamlonoff" type="checkbox" name="nbamlonoff"/>
+							<div class="slider round"></div>
+							<input id="nbamlonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="ncaabspreadonoff">NCAAB Spread Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="ncaabspreadonoff" type="checkbox" name="ncaabspreadonoff"/>
+							<div class="slider round"></div>
+							<input id="ncaabspreadonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="ncaabtotalonoff">NCAAB Total Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="ncaabtotalonoff" type="checkbox" name="ncaabtotalonoff"/>
+							<div class="slider round"></div>
+							<input id="ncaabtotalonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="ncaabmlonoff">NCAAB ML Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="ncaabmlonoff" type="checkbox" name="ncaabmlonoff"/>
+							<div class="slider round"></div>
+							<input id="ncaabmlonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="wnbaspreadonoff">WNBA Spread Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="wnbaspreadonoff" type="checkbox" name="wnbaspreadonoff"/>
+							<div class="slider round"></div>
+							<input id="wnbaspreadonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="wnbatotalonoff">WNBA Total Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="wnbatotalonoff" type="checkbox" name="wnbatotalonoff"/>
+							<div class="slider round"></div>
+							<input id="wnbatotalonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="wnbamlonoff">WNBA ML Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="wnbamlonoff" type="checkbox" name="wnbamlonoff"/>
+							<div class="slider round"></div>
+							<input id="wnbamlonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="nhlspreadonoff">NHL Spread Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="nhlspreadonoff" type="checkbox" name="nhlspreadonoff"/>
+							<div class="slider round"></div>
+							<input id="nhlspreadonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="nhltotalonoff">NHL Total Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="nhltotalonoff" type="checkbox" name="nhltotalonoff"/>
+							<div class="slider round"></div>
+							<input id="nhltotalonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="nhlmlonoff">NHL ML Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="nhlmlonoff" type="checkbox" name="nhlmlonoff"/>
+							<div class="slider round"></div>
+							<input id="nhlmlonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mlbspreadonoff">MLB Spread Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="mlbspreadonoff" type="checkbox" name="mlbspreadonoff"/>
+							<div class="slider round"></div>
+							<input id="mlbspreadonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mlbtotalonoff">MLB Total Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="mlbtotalonoff" type="checkbox" name="mlbtotalonoff"/>
+							<div class="slider round"></div>
+							<input id="mlbtotalonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mlbmlonoff">MLB ML Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="mlbmlonoff" type="checkbox" name="mlbmlonoff"/>
+							<div class="slider round"></div>
+							<input id="mlbmlonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="intbaseballspreadonoff">International Baseball Spread Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="intbaseballspreadonoff" type="checkbox" name="intbaseballspreadonoff"/>
+							<div class="slider round"></div>
+							<input id="intbaseballspreadonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="intbaseballtotalonoff">International Baseball Total Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="intbaseballtotalonoff" type="checkbox" name="intbaseballtotalonoff"/>
+							<div class="slider round"></div>
+							<input id="intbaseballtotalonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="intbaseballmlonoff">International Baseball ML Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="intbaseballmlonoff" type="checkbox" name="intbaseballmlonoff"/>
+							<div class="slider round"></div>
+							<input id="intbaseballmlonoffid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="keynumber">Keynumbers Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="keynumber" type="checkbox" name="keynumber"/>
+							<div class="slider round"></div>
+							<input id="keynumberid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="humanspeed">Human Speed Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="humanspeed" type="checkbox" name="humanspeed"/>
+							<div class="slider round"></div>
+							<input id="humanspeedid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="unitsenabled">Units Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="unitsenabled" type="checkbox" name="unitsenabled"/>
+							<div class="slider round"></div>
+							<input id="unitsenabledid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="spreadunit">Amount per Unit Spread</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="spreadunit" type="text" name="spreadunit" value=""/>
+							<input id="spreadunitid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="totalunit">Amount per Unit Total</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="totalunit" type="text" name="totalunit" value=""/>
+							<input id="totalunitid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mlunit">Amount per Unit ML</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="mlunit" type="text" name="mlunit" value=""/>
+							<input id="mlunitid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="leanssenabled">Leans Off/On</label>
+						</div>
+						<label class="switch">
+							<input id="leanssenabled" type="checkbox" name="leanssenabled"/>
+							<div class="slider round"></div>
+							<input id="leanssenabledid" type="hidden" value=""/>
+						</label>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="spreadlean">Spread Lean Amount</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="spreadlean" type="text" name="spreadlean" value=""/>
+							<input id="spreadleanid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="totallean">Total Lean Amount</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="totallean" type="text" name="totallean" value=""/>
+							<input id="totalleanid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div class="scrapper_field">
+						<div class="scrapper_row_left">
+							<label for="mllean">ML Lean Amount</label>
+						</div>
+						<div class="scrapper_row_right">
+							<input id="mllean" type="text" name="mllean" value=""/>
+							<input id="mlleanid" type="hidden" value=""/>
+						</div>
+					</div>
+					<div id="scrapper-buttons" class="scrapper_buttons">
+						<button id="button-add-scrapper" type="submit">
+							<span class="btn-menu-text">Add</span>
+						</button>
+						<button id="button-update-scrapper" type="submit">
+							<span class="btn-menu-text">Update</span>
+						</button>
+						<button id="button-delete-scrapper" type="submit">
+							<span class="btn-menu-text">Delete</span>
+						</button>
+						<button id="button-reset-scrapper" type="submit">
+							<span class="btn-menu-text">Reset</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="scrapper_right">
+				<div class="scrapper_field">
+					<label class="scrapper_settings" for="scrappername">Twitter Scrapper List</label>
+				</div>
+				<div class="scrapper_listing">
+					<div id="scrapper-list-nav"></div>
+					<ul id="scrapper-list" class="scrapper_list"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="scrapper_lower">
+		<div class="acctgrpwrapper">
+			<div class="acctwrapper">
+				<div class="group_management_headers">Source Accounts:</div>
+				<div class="account_listing" style="margin-top: 13px;">
+					<div id="source-account-list" class="account_list" style="margin-top: 13px; padding-left: 0px;"></div>
+				</div>
+			</div>
+			<div id="destination-accounts" class="acctwrapper">
+				<div class="group_management_headers">Destination Accounts:</div>
+				<div class="account_listing" style="margin-top: 13px;">
+					<div id="destination-account-list" class="account_list" style="margin-top: 13px; padding-left: 0px;"></div>
+				</div>
+			</div>
+			<div id="middle-accounts" class="middlewrapper">
+				<div class="group_management_headers">Middle Accounts:</div>
+				<div class="account_listing" style="margin-top: 13px;">
+					<div id="middle-account-list" class="account_list" style="margin-top: 13px; padding-left: 0px;"></div>
+				</div>
+			</div>
+			<div id="orderaccounts" class="acctwrapper">
+				<div class="group_management_headers">Order Accounts:</div>
+				<div class="account_listing" style="margin-top: 13px;">
+					<div id="order-account-list" class="account_list" style="margin-top: 13px; padding-left: 0px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

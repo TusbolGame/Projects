@@ -1,0 +1,297 @@
+@CHARSET "utf-8";
+
+/* padding-top padding-right padding-bottom padding-left */
+
+/* Games */
+.team-logo {
+    height: 48px;
+    margin: 0 auto 10px;
+    width: 68px;
+}
+.game-events-date-div {
+	display: inline-block;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+}
+.game-team-name1-ou {
+    color: #003580;
+    float: left;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: left;
+    width: 40%;
+}
+.game-team-ou {
+    color: #003580;
+    display: inline-block;
+    float: none;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 10px 2px;
+    text-align: center;
+    width: 20%;
+}
+.game-team-name2-ou {
+    color: #003580;
+    float: right;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: right;
+    width: 40%;
+}
+.game-line-div {
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin: 2px 0;
+    padding: 2px;
+}
+.game-linetype-div {
+    color: #0896ff;
+    font-weight: bold;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 30px;
+    padding: 10px;
+    text-align: center;
+}
+.game-line-group-info {
+	padding: 10px 2px;
+}
+.game-line-teams {
+	border-top: 4px solid #dedede;
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+.game_id_span {
+	color: #0896ff;
+	font-weight: bold;
+}
+.game-line-team-name {
+    border-radius: 0 0 7px 7px;
+    display: inline-block;
+    float: left;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: left;
+}
+.game-line-team-name-2 {
+    border-radius: 0 0 7px 7px;
+    display: inline-block;
+    float: left;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: left;
+}
+.game-line-team-over {
+    border-radius: 0 0 7px 7px;
+    display: inline-block;
+    float: left;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: left;
+}
+.game-line-team-under {
+    border-radius: 0 0 7px 7px;
+    display: inline-block;
+    float: left;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: left;
+}
+.game-line-odds {
+    font-weight: bold;
+    padding: 5px 5px 5px;
+    text-align: right;
+}
+.game-line-odds-2 {
+    font-weight: bold;
+    padding: 5px 5px 5px;
+    text-align: right;
+}
+input[type="checkbox"] {
+    background: none repeat scroll 0 0 #fff;
+    border: 2px solid #555;
+    border-radius: 5px;
+    height: 25px;
+    width: 25px;
+  	margin:0;
+  	vertical-align: middle;
+  	position: relative;
+  	*overflow: hidden;
+}
+.game-line-teams input {
+	size: 5;
+}
+.badge {
+    background-color: #e21e25;
+    border-radius: 12px;
+    color: white;
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: normal;
+    margin: 0 1px 0 70px;
+    min-width: 10px;
+    padding: 0 4px 1px;
+    position: relative;
+    text-align: center;
+    top: -30px;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+/*				background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #f7f8fa, #e7e9ec) repeat scroll 0 0;
+			    border-color: #adb1b8 #a2a6ac #8d9096;
+			    border-radius: 0.2rem;
+			    border-style: solid;
+			    border-width: 0.1rem;
+			    box-shadow: 0 0.1rem 0 rgba(255, 255, 255, 0.6) inset;
+			    color: #111111;
+			    cursor: pointer;
+			    font-family: Arial,sans-serif;
+			    font-size: 1.0rem;
+				line-height: 1.35;
+			    margin: 10px 5px;
+			    outline: 0 none;
+			    padding: 2px;
+			    text-align: center;
+			    text-decoration: none;
+			    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);
+			    white-space: normal;
+			    width: 5.0em;
+*/
+.spread_button, .total_button, .ml_button, .continue_button {
+	background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #f7f8fa, #e7e9ec) repeat scroll 0 0;
+	border-color: #adb1b8 #a2a6ac #8d9096;
+	border-radius: 0.2rem;
+	border-style: solid;
+	border-width: 0.1rem;
+	box-shadow: 0 0.1rem 0 rgba(255, 255, 255, 0.6) inset;
+	color: #111111;
+	cursor: pointer;
+    display: block;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 auto 10px;
+    outline: 0 none;
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 10em;
+}
+				.spread_button:hover, .total_button:hover, .ml_button:hover, .continue_button:hover {
+			    	border-color: #0896ff;
+				}
+				.spread_button:active, .total_button:active, .ml_button:active, .continue_button:active {
+					background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #0896ff, #0896ff) repeat scroll 0 0;
+			    	color: #ffffff;
+				}
+
+.ui-widget-header {
+/*    background: #0896ff url("../img/ui-bg_gloss-wave_35_f6a828_500x100_blue.png") repeat-x scroll 50% 50%; */
+	background: #0896ff;
+    border: 1px solid #0896ff;
+    color: #fff;
+    font-weight: bold;
+}
+.ui-state-default .ui-icon {
+    background-image: url("../img/ui-icons_228ef1_256x240.png");
+}
+.ui-dialog .ui-dialog-buttonpane button {
+	background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #f7f8fa, #e7e9ec) repeat scroll 0 0;
+    border-color: #adb1b8 #a2a6ac #8d9096;
+    border-radius: 0.2rem;
+    border-style: solid;
+    border-width: 0.1rem;
+    box-shadow: 0 0.1rem 0 rgba(255, 255, 255, 0.6) inset;
+    color: #111111;
+    cursor: pointer;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px;
+    outline: 0 none;
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 7em;
+}
+	.ui-dialog .ui-dialog-buttonpane button:hover {
+		border-color: #0896ff;
+	}
+	.ui-dialog .ui-dialog-buttonpane button:active {
+		background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #0896ff, #0896ff) repeat scroll 0 0;
+		color: #ffffff;
+	}
+	.ui-button-text-only .ui-button-text {
+	    font-weight: bold;
+	    padding: 0.1em;
+	}
+/* End Games */
+
+/* Media Queries */
+@media screen and (max-width: 1024px) {
+	body {
+	    overflow-y: initial;
+	}
+	.game-line-team-name {
+	    border-radius: 0 0 7px 7px;
+	    display: block;
+	    float: none;
+	    font-family: Geneva,Arial,Helvetica,sans-serif;
+	    font-size: 11px;
+	    padding: 10px 2px;
+	    text-align: left;
+	}
+	.game-line-team-name-2 {
+	    border-radius: 0 0 7px 7px;
+	    display: block;
+	    float: none;
+	    font-family: Geneva,Arial,Helvetica,sans-serif;
+	    font-size: 11px;
+	    padding: 10px 2px;
+	    text-align: left;
+	}
+	.game-line-odds {
+		text-align: left;
+	}
+	.game-line-team-over {
+	    border-radius: 0 0 7px 7px;
+	    display: block;
+	    float: none;
+	    font-family: Geneva,Arial,Helvetica,sans-serif;
+	    font-size: 11px;
+	    padding: 10px 2px;
+	    text-align: left;
+	}
+	.game-line-team-under {
+	    border-radius: 0 0 7px 7px;
+	    display: block;
+	    float: none;
+	    font-family: Geneva,Arial,Helvetica,sans-serif;
+	    font-size: 11px;
+	    padding: 10px 2px;
+	    text-align: left;
+	}
+	.spread_button, .total_button, .ml_button, .continue_button {
+		margin: 10px 10px;
+	}
+	.risk_type {
+	}
+	.risk_win {
+		display: block;
+	}
+	.label_dandt {
+		display: block;
+	}
+}

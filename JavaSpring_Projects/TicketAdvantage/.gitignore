@@ -1,0 +1,8 @@
+.recommenders/
+.metadata/
+RemoteSystemsTempFiles
+Servers
+.DS_Store
+.project
+.tern-project
+.log

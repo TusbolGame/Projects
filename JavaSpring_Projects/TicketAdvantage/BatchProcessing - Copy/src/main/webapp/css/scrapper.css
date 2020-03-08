@@ -1,0 +1,59 @@
+@CHARSET "utf-8";
+/* padding-top padding-right padding-bottom padding-left */
+
+.scrapper_header {
+	background-color: #111111;
+	box-sizing: border-box;
+	color: #ffffff;
+	font-size: 16px;
+	line-height: 30px;
+	overflow: auto;
+}
+	.scrapper_header_border {
+		border-right: 1px solid #ffffff;
+	}
+.scrapper_data {	
+}
+	.scrapper_data_header {
+		line-height: 25px;
+		width: 100%;
+	}
+	.scrapper_data_odd {
+		background-color: #f3f3f3;
+		overflow: auto;
+	}
+		.scrapper_data_header_accountid {
+			box-sizing: border-box;
+			display: inline-block;
+			float:left;
+			padding-left: 5px;
+			width: 20%;
+		}
+		.scrapper_data_header_team {
+			box-sizing: border-box;
+			display: inline-block;
+			float:left;
+			padding-left: 5px;
+			width: 20%;
+		}
+		.scrapper_data_header_wager {
+			box-sizing: border-box; 
+			display: inline-block;
+			float:left;
+			padding-left: 5px;
+			width: 20%;
+		}
+		.scrapper_data_header_risk {
+			box-sizing: border-box;
+			display: inline-block;
+			float:left;
+			padding-left: 5px;
+			width: 20%;
+		}
+		.scrapper_data_header_win {
+			box-sizing: border-box;
+			display: inline-block;
+			float:left;
+			padding-left: 5px;
+			width: 20%;
+		}

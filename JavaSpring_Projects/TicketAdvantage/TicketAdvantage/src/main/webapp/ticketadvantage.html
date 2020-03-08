@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ticket Advantage</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width, minimumscale=1.0, maximum-scale=1.0" />
+		<link media="screen" type="text/css" href="css/jquery-ui/11.4.1/jquery-ui.min.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/jquery-ui/jquery-ui-timepicker-addon.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/common.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/ionicons.min.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/main.css" rel="stylesheet" />
+		<link media="screen" type="text/css" href="css/menu.css" rel="stylesheet" />
+		<link media="screen" type="text/css" href="css/footer.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/listnav.css" rel="stylesheet" />
+		<link media="screen" type="text/css" href="css/games.css" rel="stylesheet" />
+		<link media="screen" type="text/css" href="css/accounts.css" rel="stylesheet" />
+		<link media="screen" type="text/css" href="css/groups.css" rel="stylesheet" />
+		<link media="screen" type="text/css" href="css/groupmanagement.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/events.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/eventdetails.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/eventselector.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/figures.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/footable.standalone.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/tahome.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/transactions.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/scrapper.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/betpreview.css" rel="stylesheet"/>
+		<link media="screen" type="text/css" href="css/betpreviewlines.css" rel="stylesheet"/>
+
+		<script type='text/javascript' src="js/jquery/2.2.3/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui/11.4.1/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui/jquery-ui-timepicker-addon.js"></script>
+		<script type="text/javascript" src="js/jquery-ui/jquery-ui-sliderAccess.js"></script>
+		<script type="text/javascript" src="js/jquery/jquery-listnav.js"></script>
+		<script type="text/javascript" src="js/jquery/jquery-cookie.js"></script>
+		<script type="text/javascript" src="js/history.min.js"></script>
+		<script type='text/javascript' src="js/footable.js"></script>
+		<script type='text/javascript' src="js/footable.striping.js"></script>
+		<script type='text/javascript' > 
+			var historyPushEnabled = true;
+			var defaultTitle = 'Ticket Advantage';
+	
+			// Check for history support
+			if (history.pushState && history.replaceState) {
+				// use the built in support
+				if (typeof console != 'undefined') {
+					console.log('Using built-in pushState support');
+				}
+			} else {
+				// Turn on pushState
+				(function(eventInfo) {
+					var location = window.history.location || window.location;
+				}) (window.addEventListener ? ['addEventListener', ''] : ['attachEvent', 'on']);
+			}	
+		</script>
+		<script type='text/javascript' src="js/common.js"></script>
+		<script type="text/javascript" src="js/menu.js"></script>
+		<script type="text/javascript" src="js/games.js"></script>
+		<script type="text/javascript" src="js/accounts.js"></script>
+		<script type="text/javascript" src="js/emailaccounts.js"></script>
+		<script type="text/javascript" src="js/emailscrapper.js"></script>
+		<script type="text/javascript" src="js/twitteraccounts.js"></script>
+		<script type="text/javascript" src="js/twitterscrapper.js"></script>
+		<script type="text/javascript" src="js/figures.js"></script>
+		<script type="text/javascript" src="js/groups.js"></script>
+		<script type="text/javascript" src="js/groupmanagement.js"></script>
+		<script type="text/javascript" src="js/events.js"></script>
+		<script type="text/javascript" src="js/eventdetails.js"></script>
+		<script type="text/javascript" src="js/eventselector.js"></script>
+		<script type="text/javascript" src="js/tahome.js"></script>
+		<script type="text/javascript" src="js/transactions.js"></script>
+		<script type="text/javascript" src="js/scrapper.js"></script>
+		<script type="text/javascript" src="js/reports.js"></script>
+		<script type="text/javascript" src="js/jstz.min.js"></script>
+		<script type="text/javascript" src="js/moment.js"></script>
+		<script type="text/javascript" src="js/date.js"></script>
+		<script type="text/javascript" src="js/betpreview.js"></script>
+		<script type="text/javascript" src="js/betpreviewlines.js"></script>
+		<script type="text/javascript" src="js/placetransaction.js"></script>
+	</head>
+	<body style="position: relative;">
+		<div id="overlay-back" class="overlay_back">
+			<img alt="PageLoading" src="img/glassLoadingAnimation.gif">
+		</div>
+		<div id="background" class="background"></div>
+		<div id="popup" class="popup"></div>
+		<div id="background-popup-error" class="background_popup_error"></div>
+		<div id="error-message" class="error_message">
+			<div class="error_header">
+				<h1>Message</h1>
+			</div>
+			<div class="error_body">
+				<h1 id="error-body"></h1>
+			</div>
+			<div class="error_button">
+				<div class="float_right">
+					<button id="error-button" class="km_button" onclick="$.fn.errorButtonFunc();" tabindex="1" type="button" name="error-button-message" title="Ok" accesskey="S">
+						<span>
+							<span class="error_underline">O</span>k
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<section class="menu_header">
+			<div class="menu_top">
+				<div class="menu_logo">
+					<span class="ticket_info">Ticket</span><span class="advantage_info">Advantage</span>
+				</div>
+				<div class="menu_info">
+					<span class="menu_name" id="widgetHeader-name"></span>
+					<button id="widget-logout" title="Logout"></button>
+				</div>
+				<div class="menu_search">
+					<div id="search-wrapper" class="search_wrapper">
+						<div class="search_box">
+							<input id="search-text" class="search_text" type="text" maxlength="150" placeholder="Search Games" title="Search Games" tabindex="1"/>
+							<button id="search-button" class="search_button"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="menu_bottom">
+				<div class="menu_buttom_left">
+				</div>
+				<div class="menu_buttom_right">
+					<nav>
+						<ul>
+							<li id="menureports">
+								<a id="button-reports" title="Reports" href="javascript:void(0);">Reports</a>
+							</li>
+							<li id="menubetpreview">
+								<a id="button-betpreview-line" title="Preview" href="javascript:void(0);">Bet/Preview</a>
+							</li>
+							<li id="menuwagers">
+								<a id="button-games" title="Wagers" href="javascript:void(0);">Games</a>
+							</li>
+							<li id="menuaccounts">
+								<a id="button-accounts" title="Accounts" href="javascript:void(0);">Accounts</a>
+							</li>
+							<li id="menuemailaccounts">
+								<a id="button-emailaccounts" title="Email Accounts" href="javascript:void(0);">Email Accounts</a>
+							</li>
+							<li id="menutwitteraccounts">
+								<a id="button-twitteraccounts" title="Twitter Accounts" href="javascript:void(0);">Twitter Accounts</a>
+							</li>
+							<li id="menugroups">
+								<a id="button-groups" title="Groups" href="javascript:void(0);">Groups</a>
+							</li>
+							<li id="menumanage">
+								<a id="button-manage" title="Manage" href="javascript:void(0);">Manage</a>
+							</li>
+							<li id="menutransactions">
+								<a id="button-transactions" title="Transactions" href="javascript:void(0);">Transactions</a>
+							</li>
+							<li id="webscrapper-id">
+								<a id="button-webscrapper" title="Web Scrapper" href="javascript:void(0);">Web Scrapper</a>
+							</li>
+							<li id="emailscrapper-id" style="display: inline-block;">
+								<a id="button-emailscrapper" title="Email Scrapper" href="javascript:void(0);">Email Scrapper</a>
+							</li>
+							<li id="twitterscrapper-id" style="display: inline-block;">
+								<a id="button-twitterscrapper" title="Twitter Scrapper" href="javascript:void(0);">Twitter Scrapper</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</section>
+		<section id="app-container" style="display: none; height: 100%;">
+		</section>
+		<section id="playaudio" style="display: none; height: 100%;">
+			<audio id="play-audio" controls><source src="audio/Ding-sound.mp3" type="audio/mpeg"/></audio>
+		</section>		
+		<section class="footer_wrapper">© 2019 TicketAdvantage | All Rights Reserved</section>
+	</body>
+	<script type='text/javascript'>
+		var uId;
+
+		if (typeof basicAuth != 'undefined' && basicAuth) {
+			$('#app-container').css('display', 'block');
+		} else {
+			$.cookie('BasicAuth', null, { path: '/' });
+			$.cookie('AgentInfo', null, { path: '/' });
+			basicAuth = '';
+			$('#widgetHeader-name').html('');
+			window.document.location = 'login.html';
+		}
+	
+		// UserInfo
+		var agentInfo = $.fn.getCookie('UserInfo');
+		if (agentInfo != null && agentInfo != '') {
+			var userData = agentInfo.split(':');
+			$('#widgetHeader-name').html('Hi ' + userData[1]);
+			uId = userData[0];
+			
+			// Get the user information
+			$.fn.getUserInfo();
+
+			log('uId: ' + uId);
+			if (uId === '5' || uId === '15' || uId === '17' || uId === '18') {
+				log('setting display to none');
+				var cId = $.fn.getParameterByName('showtabs');
+				log('cId: ' + cId);
+				if (typeof cId != 'undefined' && cId != null && cId != 'null' && cId != '') {
+					log('showing tabs');
+				} else {
+					$('#menureports').css('display','none');
+					$('#menubetpreview').css('display','none');
+					$('#menuwagers').css('display','none');
+					$('#menuaccounts').css('display','none');
+					$('#menuemailaccounts').css('display','none');
+					$('#menugroups').css('display','none');
+					$('#menumanage').css('display','none');
+					$('#webscrapper-id').css('display','none');
+					$('#emailscrapper-id').css('display','none');
+				}
+			} else if (uId === '10') {
+				log('setting display to none');
+				var cId = $.fn.getParameterByName('showtabs');
+				log('cId: ' + cId);
+				if (typeof cId != 'undefined' && cId != null && cId != 'null' && cId != '') {
+					log('showing tabs');
+				} else {
+					$('#menureports').css('display','none');
+					$('#menuaccounts').css('display','none');
+					$('#menuemailaccounts').css('display','none');
+					$('#menugroups').css('display','none');
+					$('#menumanage').css('display','none');
+					$('#webscrapper-id').css('display','none');
+					$('#emailscrapper-id').css('display','none');
+				}
+			} else {
+				// var startDelay = setInterval($.fn.initialDelay, 5000);
+			}
+		}
+
+		// Logout button
+		// NOTE: This needs to be improved as the cookie is not actually being deleted
+		$('#widget-logout').on('click', function() {
+			$.cookie('BasicAuth', null, { path: '/' });
+			$.cookie('AgentInfo', null, { path: '/' });
+			basicAuth = '';
+			$('#widgetHeader-name').html('');
+			window.document.location = 'login.html';
+		});
+	</script>
+</html>

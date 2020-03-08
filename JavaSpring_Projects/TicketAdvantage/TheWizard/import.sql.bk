@@ -1,0 +1,219 @@
+﻿DROP TABLE public.accountevent;
+DROP TABLE public.accountsta;
+DROP TABLE public.groupaccounts;
+DROP TABLE public.groupsaccounts;
+DROP TABLE public.groupsta;
+DROP TABLE public.hibernate_sequences;
+DROP TABLE public.mlrecordevents;
+DROP TABLE public.spreadrecordevents;
+DROP TABLE public.totalrecordevents;
+DROP TABLE public.usersaccounts;
+DROP TABLE public.usersgroups;
+DROP TABLE public.usersta;
+
+DROP SEQUENCE public.pkaccounteventseq;
+DROP SEQUENCE public.pkaccountstaseq;
+DROP SEQUENCE public.pkgroupstaseq;
+DROP SEQUENCE public.pkmlrecordeventsseq;
+DROP SEQUENCE public.pkspreadrecordeventsseq;
+DROP SEQUENCE public.pktotalrecordeventsseq;
+DROP SEQUENCE public.pkuserstaseq;
+
+CREATE SEQUENCE public.pkaccounteventseq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 999999999
+  START 1
+  CACHE 1;
+ALTER TABLE public.pkaccounteventseq
+  OWNER TO ticketadvantage;
+
+CREATE SEQUENCE public.pkaccountstaseq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 999999999
+  START 1
+  CACHE 1;
+ALTER TABLE public.pkaccountstaseq
+  OWNER TO ticketadvantage;
+
+CREATE SEQUENCE public.pkgroupstaseq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 999999999
+  START 1
+  CACHE 1;
+ALTER TABLE public.pkgroupstaseq
+  OWNER TO ticketadvantage;
+
+CREATE SEQUENCE public.pkmlrecordeventsseq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 999999999
+  START 1
+  CACHE 1;
+ALTER TABLE public.pkmlrecordeventsseq
+  OWNER TO ticketadvantage;
+  
+CREATE SEQUENCE public.pkspreadrecordeventsseq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 999999999
+  START 1
+  CACHE 1;
+ALTER TABLE public.pkspreadrecordeventsseq
+  OWNER TO ticketadvantage;
+
+CREATE SEQUENCE public.pktotalrecordeventsseq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 999999999
+  START 1
+  CACHE 1;
+ALTER TABLE public.pktotalrecordeventsseq
+  OWNER TO ticketadvantage;
+  
+CREATE SEQUENCE public.pkuserstaseq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 999999999
+  START 1
+  CACHE 1;
+ALTER TABLE public.pkuserstaseq
+  OWNER TO ticketadvantage;
+
+
+create table public.accountevent (id bigint not null DEFAULT nextval('pkaccounteventseq'::regclass), accountconfirmation varchar(4000), accounthtml TEXT, accountid bigint not null, amount varchar(20), actualamount varchar(20), attempts integer not null, attempttime timestamp, currentattempts integer, datecreated timestamp not null, datemodified timestamp not null, errorcode integer, errorexception varchar(4000), errormessage varchar(4000), eventdatetime timestamp not null, eventid integer, eventname varchar(100) not null, groupid bigint not null, iscompleted boolean, maxspreadamount integer, maxtotalamount integer, maxmlamount integer, mlindicator varchar(10), timezone varchar(100), ml float, mlid bigint, mljuice float, name varchar(100) not null, ownerpercentage integer, partnerpercentage integer, proxy varchar(255), sport varchar(100) not null, spreadindicator varchar(10), spread float, spreadid bigint, spreadjuice float, total float, totalid bigint, totalindicator varchar(10), totaljuice float, type varchar(100) not null, userid bigint not null, wagertype varchar(10), primary key (id))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.accountevent
+  OWNER TO ticketadvantage;
+GRANT SELECT(id), UPDATE(id), INSERT(id), REFERENCES(id) ON public.accountevent TO public;
+CREATE UNIQUE INDEX accountid_idx ON public.accountevent (accountid);
+CREATE UNIQUE INDEX datecreated_idx ON public.accountevent (datecreated);
+CREATE UNIQUE INDEX userid_idx ON public.accountevent (userid);
+
+create table public.accountsta (id bigint not null DEFAULT nextval('pkaccountstaseq'::regclass), datecreated timestamp not null, datemodified timestamp not null, isactive boolean not null, spreadlimitamount integer, totallimitamount integer, mllimitamount integer, name varchar(100) not null, timezone varchar(100), ownerpercentage integer, partnerpercentage integer, password varchar(100), proxylocation varchar(200), sitetype varchar(255), url varchar(200) not null, username varchar(100), primary key (id))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.accountsta
+  OWNER TO ticketadvantage;
+GRANT SELECT(id), UPDATE(id), INSERT(id), REFERENCES(id) ON public.accountsta TO public;
+CREATE UNIQUE INDEX isactive_idx ON public.accountsta (isactive);
+CREATE UNIQUE INDEX name_idx ON public.accountsta (name);
+
+create table groupaccounts (groupid bigint not null, accountid bigint not null, primary key (groupid, accountid))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.groupaccounts
+  OWNER TO ticketadvantage;
+GRANT SELECT(groupid), UPDATE(groupid), INSERT(groupid), REFERENCES(groupid) ON public.groupaccounts TO public;
+
+create table groupsaccounts (groupsid bigint not null, accountsid bigint not null, primary key (groupsid, accountsid))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.groupsaccounts
+  OWNER TO ticketadvantage;
+GRANT SELECT(groupsid), UPDATE(groupsid), INSERT(groupsid), REFERENCES(groupsid) ON public.groupsaccounts TO public;
+
+create table groupsta (id bigint not null DEFAULT nextval('pkgroupstaseq'::regclass), datecreated timestamp not null, datemodified timestamp not null, isactive boolean not null, name varchar(100) not null, primary key (id))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.groupsta
+  OWNER TO ticketadvantage;
+GRANT SELECT(id), UPDATE(id), INSERT(id), REFERENCES(id) ON public.groupsta TO public;
+CREATE UNIQUE INDEX isactive_idx ON public.groupsta (isactive);
+CREATE UNIQUE INDEX name_idx ON public.groupsta (name);
+
+create table mlrecordevents (id bigint not null DEFAULT nextval('pkmlrecordeventsseq'::regclass), accountid bigint, amount varchar(10), attempts integer not null, attempttime timestamp, currentattempts integer, datecreated timestamp not null, datemodified timestamp, datentime timestamp not null, eventdatetime timestamp not null, eventid integer not null, eventid1 integer, eventid2 integer, eventname varchar(100), eventteam1 varchar(100), eventteam2 varchar(100), eventtype varchar(100) not null, groupid bigint, iscompleted boolean not null, sport varchar(100) not null, userid bigint not null, wtype varchar(10), mlinputfirstone varchar(255), mlinputfirsttwo varchar(255), mlinputsecondone varchar(255), mlinputsecondtwo varchar(255), mlplusminusfirstone varchar(255), mlplusminusfirsttwo varchar(255), mlplusminussecondone varchar(255), mlplusminussecondtwo varchar(255), primary key (id, datecreated, datentime, eventdatetime, eventid, userid))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.mlrecordevents
+  OWNER TO ticketadvantage;
+GRANT SELECT(id), UPDATE(id), INSERT(id), REFERENCES(id) ON public.mlrecordevents TO public;
+
+create table spreadrecordevents (id bigint not null DEFAULT nextval('pkspreadrecordeventsseq'::regclass), accountid bigint, amount varchar(10), attempts integer not null, attempttime timestamp, currentattempts integer, datecreated timestamp not null, datemodified timestamp, datentime timestamp not null, eventdatetime timestamp not null, eventid integer not null, eventid1 integer, eventid2 integer, eventname varchar(100), eventteam1 varchar(100), eventteam2 varchar(100), eventtype varchar(100) not null, groupid bigint, iscompleted boolean not null, sport varchar(100) not null, userid bigint not null, wtype varchar(10), spreadinputfirstone varchar(255), spreadinputfirsttwo varchar(255), spreadinputjuicefirstone varchar(255), spreadinputjuicefirsttwo varchar(255), spreadinputjuicesecondone varchar(255), spreadinputjuicesecondtwo varchar(255), spreadinputsecondone varchar(255), spreadinputsecondtwo varchar(255), spreadjuiceplusminusfirstone varchar(255), spreadjuiceplusminusfirsttwo varchar(255), spreadjuiceplusminussecondone varchar(255), spreadjuiceplusminussecondtwo varchar(255), spreadplusminusfirstone varchar(255), spreadplusminusfirsttwo varchar(255), spreadplusminussecondone varchar(255), spreadplusminussecondtwo varchar(255), primary key (id, datecreated, datentime, eventdatetime, eventid, userid))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.spreadrecordevents
+  OWNER TO ticketadvantage;
+GRANT SELECT(id), UPDATE(id), INSERT(id), REFERENCES(id) ON public.spreadrecordevents TO public;
+
+create table totalrecordevents (id bigint not null DEFAULT nextval('pktotalrecordeventsseq'::regclass), accountid bigint, amount varchar(10), attempts integer not null, attempttime timestamp, currentattempts integer, datecreated timestamp not null, datemodified timestamp, datentime timestamp not null, eventdatetime timestamp not null, eventid integer not null, eventid1 integer, eventid2 integer, eventname varchar(100), eventteam1 varchar(100), eventteam2 varchar(100), eventtype varchar(100) not null, groupid bigint, iscompleted boolean not null, sport varchar(100) not null, userid bigint not null, wtype varchar(10), totalinputfirstone varchar(255), totalinputfirsttwo varchar(255), totalinputjuicefirstone varchar(255), totalinputjuicefirsttwo varchar(255), totalinputjuicesecondone varchar(255), totalinputjuicesecondtwo varchar(255), totalinputsecondone varchar(255), totalinputsecondtwo varchar(255), totaljuiceplusminusfirstone varchar(255), totaljuiceplusminusfirsttwo varchar(255), totaljuiceplusminussecondone varchar(255), totaljuiceplusminussecondtwo varchar(255), primary key (id, datecreated, datentime, eventdatetime, eventid, userid))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.totalrecordevents
+  OWNER TO ticketadvantage;
+GRANT SELECT(id), UPDATE(id), INSERT(id), REFERENCES(id) ON public.totalrecordevents TO public;
+
+create table usersaccounts (usersid bigint not null, accountsid bigint not null, primary key (usersid, accountsid))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.usersaccounts
+  OWNER TO ticketadvantage;
+GRANT SELECT(usersid), UPDATE(usersid), INSERT(usersid), REFERENCES(usersid) ON public.usersaccounts TO public;
+
+create table usersgroups (usersid bigint not null, groupsid bigint not null, primary key (usersid, groupsid))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.usersgroups
+  OWNER TO ticketadvantage;
+GRANT SELECT(usersid), UPDATE(usersid), INSERT(usersid), REFERENCES(usersid) ON public.usersgroups TO public;
+
+create table usersta (id bigint not null DEFAULT nextval('pkuserstaseq'::regclass), datecreated timestamp not null, datemodified timestamp not null, email varchar(100), isactive boolean not null, mobilenumber varchar(16), password varchar(50), username varchar(50) not null, primary key (id, isactive, username))
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.usersta
+  OWNER TO ticketadvantage;
+GRANT SELECT(id), UPDATE(id), INSERT(id), REFERENCES(id) ON public.usersta TO public;
+
+create table hibernate_sequences (sequence_name varchar(255),  sequence_next_hi_value integer)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.hibernate_sequences
+  OWNER TO ticketadvantage;
+GRANT SELECT(sequence_name), UPDATE(sequence_name), INSERT(sequence_name), REFERENCES(sequence_name) ON public.hibernate_sequences TO public;
+
+INSERT INTO public.usersta(datecreated, datemodified, email, isactive, mobilenumber, password, username) VALUES ('2016-10-20 18:15:16.785', '2016-10-20 18:15:16.785', 'j@h.com',TRUE,'8885551212','3id39d','jhmojax');
+
+INSERT INTO public.usersta(datecreated, datemodified, email, isactive, mobilenumber, password, username) VALUES ('2016-10-20 18:15:16.785', '2016-10-20 18:15:16.785', 'j@m.com',TRUE,'8885551212','password','jmiller');
+
+INSERT INTO public.usersta(datecreated, datemodified, email, isactive, mobilenumber, password, username) VALUES ('2016-10-20 18:15:16.785', '2016-10-20 18:15:16.785', 't@v.com',TRUE,'8885551212','vegas5432','tommy');
+
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (1, '2016-10-20 18:15:16.785', '2016-10-20 18:15:16.785', true, 1000, 1000, 1000, 'ABC Grand', 'ET', 100, 0, 'Utah', 'Baltimore', 'TDSports', 'http://www.abcgrand.ag', 'q3913');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (2, '2016-10-20 18:16:31.252', '2016-10-20 18:16:31.252', true, 2500, 2500, 1000, 'Vision Wager', 'ET', 100, 0, '69', 'Asheville', 'TDSports', 'http://www.visionwager.com', 'Me232');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (3, '2016-10-20 18:17:30.65', '2016-10-20 18:21:05.914', true, 1000, 1000, 1000, 'Play the Dog', 'ET', 100, 0, 'pat', 'Asheville', 'TDSports', 'http://www.playthedog.net', 'Hd114');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (4, '2016-10-20 18:25:06.278', '2016-10-20 18:25:06.278', true, 500, 500, 500, 'Sun Wager', 'ET', 100, 0, 'John', 'Phoenix', 'Metallica', 'http://www.sunwager.com', '4488');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (5, '2016-10-20 18:27:09.842', '2016-10-20 18:27:09.842', true, 1000, 1000, 1000, 'Toby Sports', 'ET', 100, 0, 'pgf', 'Chicago', 'BetBuckeye', 'http://www.tobysports.net', 'Orc101');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (6, '2016-10-20 18:27:50.975', '2016-10-20 18:27:50.975', true, 2000, 1000, 1000, 'Bet Buckeye', 'ET', 100, 0, 'red3', 'Chicago', 'BetBuckeye', 'http://betbuckeyesports.com', 'zt8219');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (7, '2016-10-20 18:30:20.652', '2016-10-20 18:30:20.652', true, 200, 200, 200, 'Sliding Home', 'ET', 100, 0, 'flyers', 'Baltimore', 'AGSoftware', 'http://www.slidinghome.com', 'Pa1547');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (8, '2016-10-20 18:33:41.731', '2016-10-20 18:33:41.731', true, 500, 500, 250, 'Rustic Lodge', 'ET', 100, 0, 'Denver', 'Dallas', 'LineTracker', 'http://rusticlodge.club', 'Kb408');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (9, '2016-10-20 18:47:51.488', '2016-10-20 18:47:51.488', true, 1000, 1000, 1000, 'Game Day Play', 'ET', 100, 0, 'jags', 'Chicago', 'TDSportsNew', 'http://www.gamedayplay.net', 'Pc1795');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (10, '2016-10-20 18:59:04.516', '2016-10-20 18:59:04.516', true, 500, 250, 300, 'Green Isle Club', 'ET', 100, 0, 'Iowa', 'Dallas', 'Metallica', 'http://www.greenisle.club', 'Go508');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (11, '2016-10-20 19:09:31.552', '2016-10-20 19:09:31.552', true, 100, 100, 100, 'Betting 4 Entertainment', 'ET', 100, 0, 'ap6', 'Baltimore', 'AGSoftware', 'http://www.betting4entertainment.com', '51336');
+INSERT INTO accountsta (id, datecreated, datemodified, isactive, spreadlimitamount, totallimitamount, mllimitamount, name, timezone, ownerpercentage, partnerpercentage, password, proxylocation, sitetype, url, username) VALUES (12, '2016-10-20 19:12:06.96', '2016-10-20 19:12:06.96', true, 500, 500, 500, 'Bet Windy City', 'ET', 100, 0, 'Phillies', 'Chicago', 'Metallica', 'http://www.betwindycity.com', 'w102');
+
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 1);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 2);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 3);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 4);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 5);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 6);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 7);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 8);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 9);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 10);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 11);
+INSERT INTO usersaccounts (usersid, accountsid) VALUES (3, 12);

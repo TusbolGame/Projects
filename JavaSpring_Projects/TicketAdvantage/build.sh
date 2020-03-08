@@ -1,0 +1,12 @@
+cd /Users/jmiller/Documents/TicketAdvantage/workspace/CommonPackage
+mvn clean
+mvn install
+cd /Users/jmiller/Documents/TicketAdvantage/workspace/SiteProcessing
+mvn clean
+mvn install
+cd /Users/jmiller/Documents/TicketAdvantage/workspace/LambdaInterface
+mvn clean
+mvn package
+cd /Users/jmiller/Documents/TicketAdvantage/workspace/TicketAdvantage
+mvn clean
+mvn install

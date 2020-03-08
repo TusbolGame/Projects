@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- Templates -->
+	<definition name="layout.basic" template="/WEB-INF/tiles/layout/basic.jsp">
+		<put-attribute name="title" value="Spring Web MVC with Tiles 3" />
+		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
+	</definition>
+
+	<!-- Pages -->	
+	<definition name="site.home" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/home.jsp" />
+	</definition>
+	<definition name="site.airduct" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaning Services | Air Duct Cleaning Las Vegas"/>
+		<put-attribute name="meta" value="Las Vegas air duct cleaning services - We offer residential air duct cleaning services for Las Vegas. Our LV Air Duct Care professionals have 5* services rating."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/airduct.jsp" />
+	</definition>
+	<definition name="site.dryerduct" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Best Dryer Vent Cleaning Services Las Vegas, NV"/>
+		<put-attribute name="meta" value="Residential dryer vent cleaning services in Las Vegas, NV. Get Las Vegas dryer vent cleaning services for your residential and commercial properties."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/dryerduct.jsp" />
+	</definition>
+	<definition name="site.chimney" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Chimney Cleaning Las Vegas | Residential Chimney Clean Sweep"/>
+		<put-attribute name="meta" value="We provide chimney cleaning and chimney clean sweep services in Las Vegas. Our chimney sweep cleaners are experts with more than 5+ years in the industry."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/chimney.jsp" />
+	</definition>
+	<definition name="site.residential" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/residential.jsp" />
+	</definition>
+	<definition name="site.residentialairductcleaning" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/residential_air_duct_cleaning.jsp" />
+	</definition>
+	<definition name="site.residentialdryerventcleaning" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/residential_dryer_vent_cleaning.jsp" />
+	</definition>
+	<definition name="site.residentialductrepairservices" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/residential_duct_repair_services.jsp" />
+	</definition>
+	<definition name="site.residentialfurnacecleaning" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/residential_furnace_cleaning.jsp" />
+	</definition>
+	<definition name="site.indoorairquality" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/indoor_air_quality.jsp" />
+	</definition>
+	<definition name="site.exhaustfancleaning" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/exhaust_fan_cleaning.jsp" />
+	</definition>
+	<definition name="site.commercialairductcleaning" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/commercial_air_duct_cleaning.jsp" />
+	</definition>
+	<definition name="site.commercialdryerventcleaning" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Cleaners | Cleaning Services Las Vegas Nevada"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/commercial_dryer_vent_cleaning.jsp" />
+	</definition>
+	<definition name="site.locations" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Locations"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/locations.jsp" />
+	</definition>
+	<definition name="site.lasvegasairductcare" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Las Vegas Air Duct Care"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/lasvegas_air_duct_care.jsp" />
+	</definition>
+	<definition name="site.bouldercityairductcare" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Boulder City Air Duct Care"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/bouldercity_air_duct_care.jsp" />
+	</definition>
+	<definition name="site.hendersonairductcare" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Henderson Air Duct Care"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/henderson_air_duct_care.jsp" />
+	</definition>
+	<definition name="site.laughlinairductcare" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Laughlin Air Duct Care"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/laughlin_air_duct_care.jsp" />
+	</definition>
+	<definition name="site.mesquiteairductcare" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Mesquite Air Duct Care"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/mesquite_air_duct_care.jsp" />
+	</definition>
+	<definition name="site.nlasvegasairductcare" extends="layout.basic">
+		<put-attribute name="pageTitle" value="North Las Vegas Air Duct Care"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/nlasvegas_air_duct_care.jsp" />
+	</definition>
+	<definition name="site.pahrumpairductcare" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Pahrump Air Duct Care"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/pahrump_air_duct_care.jsp" />
+	</definition>
+	<definition name="site.summerlinairductcare" extends="layout.basic">
+		<put-attribute name="pageTitle" value="Summerlin Air Duct Care"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/summerlin_air_duct_care.jsp" />
+	</definition>
+	<definition name="site.contact" extends="layout.basic">
+		<put-attribute name="pageTitle" value="LV Air Duct Care Contact"/>
+		<put-attribute name="meta" value="We provide the best air duct cleaning services in Las Vegas, NV. Our professional air duct cleaners are ready to perform the highest quality work and maintenance in the Las Vegas area."/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/contact.jsp" />
+	</definition>
+</tiles-definitions>

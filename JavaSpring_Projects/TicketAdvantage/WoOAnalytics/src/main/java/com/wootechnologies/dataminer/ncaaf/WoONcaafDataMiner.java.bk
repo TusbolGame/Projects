@@ -1,0 +1,3444 @@
+/**
+ * 
+ */
+package com.wootechnologies.dataminer.ncaaf;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
+import com.ticketadvantage.services.dao.sites.espn.EspnFootballGameData;
+import com.ticketadvantage.services.dao.sites.espn.EspnSite;
+import com.ticketadvantage.services.dao.sites.masseyratings.MasseyRatingsNcaafData;
+import com.ticketadvantage.services.dao.sites.masseyratings.MasseyRatingsSite;
+import com.ticketadvantage.services.dao.sites.teamrankings.TeamRankingsSite;
+import com.ticketadvantage.services.dao.sites.teamrankings.TeamRankingsSos;
+import com.ticketadvantage.services.dao.sites.usatoday.SagarinNcaafData;
+import com.ticketadvantage.services.dao.sites.usatoday.UsaTodaySite;
+import com.ticketadvantage.services.dao.sites.vegasinsider.VegasInsiderGame;
+import com.ticketadvantage.services.dao.sites.vegasinsider.VegasInsiderParser;
+import com.ticketadvantage.services.dao.sites.vegasinsider.VegasInsiderProcessSite;
+import com.ticketadvantage.services.errorhandling.BatchException;
+import com.wootechnologies.dataminer.WoODataMiner;
+import com.wootechnologies.dataminer.db.ncaaf.NcaafDataMinerDB;
+import com.wootechnologies.dataminer.model.Efficiencies;
+import com.wootechnologies.dataminer.model.FloatData;
+import com.wootechnologies.dataminer.model.XandYObject;
+
+/**
+ * @author jmiller
+ *
+ */
+public class WoONcaafDataMiner extends WoODataMiner  {
+	private static final Logger LOGGER = Logger.getLogger(WoONcaafDataMiner.class);
+	private static final EspnSite espnSite = new EspnSite();
+	private static final MasseyRatingsSite mrs = new MasseyRatingsSite();
+	private static final TeamRankingsSite trs = new TeamRankingsSite();
+	private static final UsaTodaySite usa = new UsaTodaySite();
+	private static final VegasInsiderProcessSite vips = new VegasInsiderProcessSite();
+	private static final NcaafDataMinerDB DATAMINERDB = new NcaafDataMinerDB();
+
+	private final List<Double> thirddownefflist = new ArrayList<Double>();
+	private final List<Double> oppthirddownefflist = new ArrayList<Double>();
+	private final List<Double> fourthdownefflist = new ArrayList<Double>();
+	private final List<Double> oppfourthdownefflist = new ArrayList<Double>();
+	private final List<Double> pointslist = new ArrayList<Double>();
+	private final List<Double> firstdownslist = new ArrayList<Double>();
+	private final List<Double> totalyardslist = new ArrayList<Double>();
+	private final List<Double> rushingyardslist = new ArrayList<Double>();
+	private final List<Double> rushingattemptslist = new ArrayList<Double>();
+	private final List<Double> yardsperrushlist = new ArrayList<Double>();
+	private final List<Double> passingyardslist = new ArrayList<Double>();
+	private final List<Double> passingcompletionslist = new ArrayList<Double>();
+	private final List<Double> passingattemptslist = new ArrayList<Double>();
+	private final List<Double> yardsperpasslist = new ArrayList<Double>();
+	private final List<Double> turnoverslist = new ArrayList<Double>();
+	private final List<Double> possessionlist = new ArrayList<Double>();
+	private final Map<String, Float> masseyLatestRatings = new HashMap<String, Float>();
+	private final Map<String, String> espnTeams = new HashMap<String, String>();
+	private final Map<String, String> vegasInsiderTeams = new HashMap<String, String>();
+	private final Map<String, String> masseyTeams = new HashMap<String, String>();
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		final WoONcaafDataMiner woODataMiner = new WoONcaafDataMiner();
+//		woODataMiner.getNcaafTeamData(2017, 8, 14);
+//		woODataMiner.setupNcaafWeeklyData(2017);
+		// Starting 2018
+//		LOGGER.error("year: " + 2018);
+		woODataMiner.getNcaafTeamData(2018, 9, 9);
+		woODataMiner.setupNcaafWeeklyData(2018);
+		woODataMiner.determineSpreads(9, 9, 2018, "/Users/jmiller/Documents/WoOTechnology/footballpicksweekallweek2.csv");
+//		woODataMiner.gameRankings(2, 2, 2018, "/Users/jmiller/Documents/WoOTechnology/footballpicksrankingsweek2.csv");
+//		woODataMiner.graphGames(3, 3, 2018, "~/Documents/WoOTechnology/footballpicksweekallv3.csv");
+//		woODataMiner.getAllFCSTeams();
+	}
+
+	/**
+	 * 
+	 */
+	public void getAllFCSTeams() {
+//		final List<MasseyRatingsNcaafData> mrnd = mrs.getNcaafFCSGameData(2018, 0, 0, 7, false);
+//		for (MasseyRatingsNcaafData mr : mrnd) {
+//			System.out.println(mr.getTeam());
+//		}
+//		final List<String> fcsTeams = espnSite.getNcaafFCSTeamData();
+//		for (String ng : fcsTeams) {
+//			System.out.println(ng);
+//		}	
+		final List<String> fcsTeams = vips.getNcaafFCSGameData();
+		for (String ng : fcsTeams) {
+			System.out.println(ng);
+		}
+	}
+
+	/**
+	 * 
+	 * @param year
+	 * @param startweek
+	 * @param endweek
+	 */
+	public void getNcaafTeamData(Integer year, Integer startweek, Integer endweek) {
+		LOGGER.info("Entering getNcaafTeamData()");
+		List<MasseyRatingsNcaafData> mrnd = null;
+		List<TeamRankingsSos> tsos = null;
+		List<SagarinNcaafData> sag = null;
+
+		try {
+			Integer endweekformassey = null;
+			if (year == 2017) {
+				endweekformassey = 15;
+			} else {
+				endweekformassey = 7;
+			}
+			mrnd = mrs.getNcaafGameData(year, startweek - 1, endweek, endweekformassey, false);
+			LOGGER.debug("mrnd: " + mrnd);
+			sag = usa.getSagarinNcaafRatings();
+		} catch (Throwable t) {
+			LOGGER.error(t.getMessage(), t);
+		}
+
+		// Open the connection
+		DATAMINERDB.start();
+
+		for (int x = startweek; x <= endweek; x++) {
+			tsos = trs.getSos(x, year);
+			final List<EspnFootballGameData> ncaafGames = espnSite.getNcaafTeamData(year, x, x, true);
+
+			for (EspnFootballGameData ncaafGame : ncaafGames) {
+				try {
+					LOGGER.debug("ncaafGame: " + ncaafGame);
+					if (ncaafGame.getYear() == null || ncaafGame.getYear().floatValue() == 0) {
+						ncaafGame.setYear(year);
+					}
+
+					for (SagarinNcaafData sg : sag) {
+						LOGGER.debug("SagarinNcaafData: " + sg);
+						if (sg.getTeam().toUpperCase().equals(ncaafGame.getAwaycollegename().toUpperCase())) {
+							LOGGER.debug("away found");
+							ncaafGame.setAwaysagrinrating(sg.getMean());
+						} else if (sg.getTeam().toUpperCase().equals(ncaafGame.getHomecollegename().toUpperCase())) {
+							LOGGER.debug("home found");
+							ncaafGame.setHomesagrinrating(sg.getMean());
+						}
+					}
+
+					for (MasseyRatingsNcaafData mr : mrnd) {
+						LOGGER.debug("MasseyRatingsNcaafData: " + mr);
+						if (mr.getTeam().toUpperCase().equals(ncaafGame.getAwaycollegename().toUpperCase()) &&
+							mr.getWeek().intValue() == ncaafGame.getWeek().intValue() && 
+							mr.getYear().intValue() == ncaafGame.getYear().intValue()) {
+							LOGGER.debug("away found");
+							ncaafGame.setAwaymasseyrating(mr.getMean());
+						} else if (mr.getTeam().toUpperCase().equals(ncaafGame.getHomecollegename().toUpperCase()) &&
+								mr.getWeek().intValue() == ncaafGame.getWeek().intValue() && 
+								mr.getYear().intValue() == ncaafGame.getYear().intValue()) {
+							LOGGER.debug("home found");
+							ncaafGame.setHomemasseyrating(mr.getMean());
+						}
+					}
+
+					if (ncaafGame.getAwaymasseyrating() == null || ncaafGame.getAwaymasseyrating().floatValue() == 0) {
+						LOGGER.debug("MISSING: " + ncaafGame.getAwaycollegename().toUpperCase());
+						LOGGER.debug("ncaafGame: " + ncaafGame);
+					}
+					if (ncaafGame.getHomemasseyrating() == null || ncaafGame.getHomemasseyrating().floatValue() == 0) {
+						LOGGER.debug("MISSING: " + ncaafGame.getHomecollegename().toUpperCase());
+						LOGGER.debug("ncaafGame: " + ncaafGame);
+					}
+
+					for (TeamRankingsSos ts : tsos) {
+						if (ts.getTeam().toUpperCase().equals(ncaafGame.getAwaycollegename().toUpperCase()) &&
+							ts.getWeek().intValue() == ncaafGame.getMonth().intValue() && 
+							ts.getYear().intValue() == ncaafGame.getYear().intValue()) {
+							ncaafGame.setAwaysos(ts.getRating());
+						} else if (ts.getTeam().toUpperCase().equals(ncaafGame.getHomecollegename().toUpperCase()) &&
+								ts.getWeek().intValue() == ncaafGame.getMonth().intValue() && 
+								ts.getYear().intValue() == ncaafGame.getYear().intValue()) {
+							ncaafGame.setHomesos(ts.getRating());
+						}
+					}
+
+					if (ncaafGame.getAwaysos() == null || ncaafGame.getAwaysos().floatValue() == 0) {
+						for (SagarinNcaafData sg : sag) {
+							LOGGER.debug("SagarinNcaafData: " + sg);
+							if (sg.getTeam().toUpperCase().equals(ncaafGame.getAwaycollegename().toUpperCase())) {
+								LOGGER.debug("away found");
+								ncaafGame.setAwaysos(sg.getSchedulestrength());
+							}
+						}
+					}
+					if (ncaafGame.getHomesos() == null || ncaafGame.getHomesos().floatValue() == 0) {
+						for (SagarinNcaafData sg : sag) {
+							LOGGER.debug("SagarinNcaafData: " + sg);
+							if (sg.getTeam().toUpperCase().equals(ncaafGame.getHomecollegename().toUpperCase())) {
+								LOGGER.debug("away found");
+								ncaafGame.setHomesos(sg.getSchedulestrength());
+							}
+						}
+					}
+
+					// Check for a valid game
+					if (ncaafGame.getAwayfinalscore() != 0 || ncaafGame.getHomefinalscore() != 0) {
+						DATAMINERDB.persistEspnNcaafGameData(ncaafGame);
+					}
+				} catch (Throwable t) {
+					LOGGER.error(t.getMessage(), t);
+				}
+			}
+		}
+
+		// Close the connection
+		DATAMINERDB.complete();
+
+		LOGGER.info("Exiting getNcaafTeamData()");
+	}
+
+	/**
+	 * 
+	 * @param year
+	 */
+	public void setupNcaafWeeklyData(Integer year) {
+		LOGGER.info("Entering setupNcaafWeeklyData()");
+
+		// Open the connection
+		DATAMINERDB.start();
+
+		try {
+			final List<EspnFootballGameData> week0 = DATAMINERDB.getEspnNcaafGameDataByWeek(0, year);
+			final List<EspnFootballGameData> week1 = DATAMINERDB.getEspnNcaafGameDataByWeek(1, year);
+			final List<EspnFootballGameData> week2 = DATAMINERDB.getEspnNcaafGameDataByWeek(2, year);
+			final List<EspnFootballGameData> week3 = DATAMINERDB.getEspnNcaafGameDataByWeek(3, year);
+			final List<EspnFootballGameData> week4 = DATAMINERDB.getEspnNcaafGameDataByWeek(4, year);
+			final List<EspnFootballGameData> week5 = DATAMINERDB.getEspnNcaafGameDataByWeek(5, year);
+			final List<EspnFootballGameData> week6 = DATAMINERDB.getEspnNcaafGameDataByWeek(6, year);
+			final List<EspnFootballGameData> week7 = DATAMINERDB.getEspnNcaafGameDataByWeek(7, year);
+			final List<EspnFootballGameData> week8 = DATAMINERDB.getEspnNcaafGameDataByWeek(8, year);
+			final List<EspnFootballGameData> week9 = DATAMINERDB.getEspnNcaafGameDataByWeek(9, year);
+			final List<EspnFootballGameData> week10 = DATAMINERDB.getEspnNcaafGameDataByWeek(10, year);
+			final List<EspnFootballGameData> week11 = DATAMINERDB.getEspnNcaafGameDataByWeek(11, year);
+			final List<EspnFootballGameData> week12 = DATAMINERDB.getEspnNcaafGameDataByWeek(12, year);
+			final List<EspnFootballGameData> week13 = DATAMINERDB.getEspnNcaafGameDataByWeek(13, year);
+			final List<EspnFootballGameData> week14 = DATAMINERDB.getEspnNcaafGameDataByWeek(14, year);
+//			List<EspnFootballGameData> week15 = DATAMINERDB.getEspnNcaafGameDataByWeek(15);
+
+			for (EspnFootballGameData game : week0) {
+				storeGameData(game, 1, year);
+			}
+			for (EspnFootballGameData game : week1) {
+				storeGameData(game, 1, year);
+			}
+			for (EspnFootballGameData game : week2) {
+				storeGameData(game, 1, year);
+			}
+			for (EspnFootballGameData game : week3) {
+				storeGameData(game, 2, year);
+			}
+			for (EspnFootballGameData game : week4) {
+				storeGameData(game, 3, year);
+			}
+			for (EspnFootballGameData game : week5) {
+				storeGameData(game, 4, year);
+			}
+			for (EspnFootballGameData game : week6) {
+				storeGameData(game, 5, year);
+			}
+			for (EspnFootballGameData game : week7) {
+				storeGameData(game, 6, year);
+			}
+			for (EspnFootballGameData game : week8) {
+				storeGameData(game, 7, year);
+			}
+			for (EspnFootballGameData game : week9) {
+				storeGameData(game, 8, year);
+			}
+			for (EspnFootballGameData game : week10) {
+				storeGameData(game, 9, year);
+			}
+			for (EspnFootballGameData game : week11) {
+				storeGameData(game, 10, year);
+			}
+			for (EspnFootballGameData game : week12) {
+				storeGameData(game, 11, year);
+			}
+			for (EspnFootballGameData game : week13) {
+				storeGameData(game, 12, year);
+			}
+			for (EspnFootballGameData game : week14) {
+				storeGameData(game, 13, year);
+			}
+		} catch (Throwable t) {
+			LOGGER.error(t.getMessage(), t);
+		}
+
+		// Close the connection
+		DATAMINERDB.complete();
+
+		LOGGER.info("Exiting setupNcaafWeeklyData()");
+	}
+
+	/**
+	 * 
+	 * @param weekstart
+	 * @param weekend
+	 * @param year
+	 * @param filename
+	 */
+	public void gameRankings(Integer weekstart, Integer weekend, Integer year, String filename) {
+		LOGGER.info("Entering gameRankings()");
+		LOGGER.error("weekstart: " + weekstart);
+		LOGGER.error("weekend: " + weekend);
+		LOGGER.error("year: " + year);
+
+		// Open the connection
+		DATAMINERDB.start();
+
+		PrintWriter printWriter = null;
+		List<MasseyRatingsNcaafData> mrnd = null;
+
+		try {
+			final FileWriter fileWriter = new FileWriter(filename);
+			printWriter = new PrintWriter(fileWriter);
+
+			mrnd = mrs.getNcaafGameData(year, weekend-1, weekend-1, 7, false);
+			for (MasseyRatingsNcaafData mrd : mrnd) {
+				masseyLatestRatings.put(mrd.getTeam().toUpperCase(), mrd.getMean());
+			}
+		} catch (Throwable t) {
+			LOGGER.error(t.getMessage(), t);
+		}
+		
+		// Header
+		printWriter.print("Game, AwayAwayRating, AwayHomeRating, HomeAwayRating, HomeHomeRating, AwayRating, HomeRating, Away Score, Home Score, Game Delta, Line Favorite, Line, WoO Spread, WoO Real Spread, Week, Win/Loss\n");
+
+		
+//		final List<EspnFootballPowerIndex> powerIndexes = espnSite.getNcaafPowerIndexes();
+//		final List<EspnFootballTeamEfficiencies> teamEfficiencies = espnSite.getNcaafTeamEfficiencies();
+//		final List<EspnFootballGameData> ncaafGames = espnSite.getNcaafTeamDataForBets(year, weekstart, weekend, true);
+		final List<VegasInsiderGame> vigs = vips.getNcaafGameData(year, weekstart, weekend, false);
+
+		for (VegasInsiderGame ncaafGame : vigs) {
+			try {
+				LOGGER.error("ncaafGame: " + ncaafGame);
+				final String awayname = ncaafGame.getAwayteamdata().getTeamname().toUpperCase(); 
+				final String homename = ncaafGame.getHometeamdata().getTeamname().toUpperCase();
+				final boolean awayfound = foundTeam(awayname);
+				final boolean homefound = foundTeam(homename);
+				final boolean awayisfbs = ncaafGame.getAwayteamdata().getIsfbs();
+				final boolean homeisfbs = ncaafGame.getAwayteamdata().getIsfbs();
+
+				if ((awayname != null || homename != null) && (awayfound || homefound)) {
+					thirddownefflist.clear();
+					oppthirddownefflist.clear();
+					fourthdownefflist.clear();
+					oppfourthdownefflist.clear();
+					pointslist.clear();
+					firstdownslist.clear();
+					totalyardslist.clear();
+					rushingyardslist.clear();
+					rushingattemptslist.clear();
+					yardsperrushlist.clear();
+					passingyardslist.clear();
+					passingcompletionslist.clear();
+					passingattemptslist.clear();
+					yardsperpasslist.clear();
+					turnoverslist.clear();
+					possessionlist.clear();
+
+					final Double spread = runGameAlgorithm(ncaafGame.getWeek(), ncaafGame.getYear(), ncaafGame.getAwayteamdata().getTeamname(), ncaafGame.getHometeamdata().getTeamname(), awayisfbs, homeisfbs);
+					LOGGER.error("spread: " + spread);
+					if (spread == null) {
+						LOGGER.debug("Cannot get spread for " + ncaafGame.getAwayteamdata().getTeamname() + " " + ncaafGame.getHometeamdata().getTeamname() + " " + ncaafGame.getAwayteamdata().getFinalscore() + " " + ncaafGame.getHometeamdata().getFinalscore()
+						+ " Line: " + ncaafGame.getLinefavorite() + " " + ncaafGame.getLine() + " week: " + ncaafGame.getWeek());
+					} else {
+						LOGGER.debug("ncaafGame.getHomeshortname(): " + ncaafGame.getHometeamdata().getTeamname());
+						LOGGER.debug("ncaafGame.getAwayshortname(): " + ncaafGame.getAwayteamdata().getTeamname());
+						LOGGER.debug("ncaafGame.getLinefavorite(): " + ncaafGame.getLinefavorite());
+						final Integer homefinalscore = ncaafGame.getHometeamdata().getFinalscore();
+						final Integer awayfinalscore = ncaafGame.getAwayteamdata().getFinalscore();
+
+						// Determine if spread was covered
+						boolean won = didWinSpread(awayfinalscore, homefinalscore, spread, ncaafGame);
+
+						// Get score delta
+						final Integer gamedelta = determineScoreDelta(homefinalscore, awayfinalscore, ncaafGame);
+						
+						final List<EspnFootballGameData> games = DATAMINERDB.getEspnNcaafGameDataByWeek(weekstart - 1, year);
+						final Map<String, Float> ratings = getTeamRatingsForGame(true, ncaafGame.getAwayteamdata().getTeamname(), ncaafGame.getHometeamdata().getTeamname(), games);
+						final Float awaymassey = ratings.get("away");
+						final Float homemassey = ratings.get("home");
+
+						// Get teams games
+						final Map<String, EspnFootballGameData> lastGame = getPastGames(ncaafGame.getAwayteamdata().getTeamname(), ncaafGame.getHometeamdata().getTeamname(), awayisfbs, homeisfbs, weekstart - 1, year, games);
+						final EspnFootballGameData awayGame = lastGame.get("away");
+						final EspnFootballGameData homeGame = lastGame.get("home");
+						LOGGER.error("awayGame: " + awayGame);
+						LOGGER.error("homeGame: " + homeGame);
+
+						Float awaygameawaymasseyrating = null;
+						Float awaygamehomemasseyrating = null;
+						Float homegameawaymasseyrating = null;
+						Float homegamehomemasseyrating = null;
+
+						if (awayGame != null && homeGame != null) {
+							final Map<String, Float> lastGameRatings = lastGameRatings(true, awayGame, homeGame);
+							awaygameawaymasseyrating = lastGameRatings.get("awayaway");
+							awaygamehomemasseyrating = lastGameRatings.get("awayhome");
+							homegameawaymasseyrating = lastGameRatings.get("homeaway");
+							homegamehomemasseyrating = lastGameRatings.get("homehome");
+						}
+						
+						printWriter.print(ncaafGame.getAwayteamdata().getTeamname() + " vs " + ncaafGame.getHometeamdata().getTeamname() + 
+								", " + awaygameawaymasseyrating + ", " + awaygamehomemasseyrating + ", " + homegameawaymasseyrating + ", " + homegamehomemasseyrating + 
+								", " + awaymassey + ", " + homemassey + ", " + awayfinalscore + ", " + homefinalscore + ", " + gamedelta + 
+								", " + ncaafGame.getLinefavorite() + ", " + ncaafGame.getLine() + ", " + spread + ", " + (Math.abs(spread) * -1) + ", " + ncaafGame.getWeek() + "," + (won ? "W":"L") + "\n");
+					}
+				} else {
+					LOGGER.error("Could not find away: " + awayname + " home: " + homename); 
+				}
+			} catch (Throwable t) {
+				LOGGER.debug("Cannot get spread for " + ncaafGame.getAwayteamdata().getTeamname() + " " + ncaafGame.getHometeamdata().getTeamname() + " " + ncaafGame.getAwayteamdata().getFinalscore() + " " + ncaafGame.getHometeamdata().getFinalscore()
+				+ " Line: " + ncaafGame.getLinefavorite() + " " + ncaafGame.getLine() + " week: " + ncaafGame.getWeek());
+				LOGGER.error(t.getMessage(), t);
+			}
+		}
+
+		// Close the connection
+		printWriter.close();
+		DATAMINERDB.complete();
+
+		LOGGER.info("Exiting gameRankings()");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.wootechnologies.dataminer.WoODataMiner#determineSpreads(java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String)
+	 */
+	@Override
+	public void determineSpreads(Integer weekstart, Integer weekend, Integer year, String filename) {
+		LOGGER.info("Entering determineSpreads()");
+		LOGGER.error("weekstart: " + weekstart);
+		LOGGER.error("weekend: " + weekend);
+		LOGGER.error("year: " + year);
+
+		// Open the connection
+		DATAMINERDB.start();
+
+		PrintWriter printWriter = null;
+		List<MasseyRatingsNcaafData> mrnd = null;
+
+		try {
+			final FileWriter fileWriter = new FileWriter(filename);
+			printWriter = new PrintWriter(fileWriter);
+
+			mrnd = mrs.getNcaafGameData(year, weekend-1, weekend-1, 7, false);
+			for (MasseyRatingsNcaafData mrd : mrnd) {
+				masseyLatestRatings.put(mrd.getTeam().toUpperCase(), mrd.getMean());
+			}
+		} catch (Throwable t) {
+			LOGGER.error(t.getMessage(), t);
+		}
+		
+//		final List<EspnFootballPowerIndex> powerIndexes = espnSite.getNcaafPowerIndexes();
+//		final List<EspnFootballTeamEfficiencies> teamEfficiencies = espnSite.getNcaafTeamEfficiencies();
+//		final List<EspnFootballGameData> ncaafGames = espnSite.getNcaafTeamDataForBets(year, weekstart, weekend, true);
+		final List<VegasInsiderGame> vigs = vips.getNcaafGameData(year, weekstart, weekend, false);
+
+		// Header
+		printWriter.print("Game, Away Score, Home Score, Game Delta, Line Favorite, Line, WoO Spread, WoO Real Spread, Week, Win/Loss\n");
+
+		for (VegasInsiderGame ncaafGame : vigs) {
+			try {
+				LOGGER.error("ncaafGame: " + ncaafGame);
+				final String awayname = ncaafGame.getAwayteamdata().getTeamname().toUpperCase(); 
+				final String homename = ncaafGame.getHometeamdata().getTeamname().toUpperCase();
+				final boolean awayfound = foundTeam(awayname);
+				final boolean homefound = foundTeam(homename);
+				final boolean awayisfbs = ncaafGame.getAwayteamdata().getIsfbs();
+				final boolean homeisfbs = ncaafGame.getAwayteamdata().getIsfbs();
+
+				if ((awayname != null || homename != null) && (awayfound || homefound)) {
+					thirddownefflist.clear();
+					oppthirddownefflist.clear();
+					fourthdownefflist.clear();
+					oppfourthdownefflist.clear();
+					pointslist.clear();
+					firstdownslist.clear();
+					totalyardslist.clear();
+					rushingyardslist.clear();
+					rushingattemptslist.clear();
+					yardsperrushlist.clear();
+					passingyardslist.clear();
+					passingcompletionslist.clear();
+					passingattemptslist.clear();
+					yardsperpasslist.clear();
+					turnoverslist.clear();
+					possessionlist.clear();
+
+					final Double spread = runGameAlgorithm(ncaafGame.getWeek(), ncaafGame.getYear(), ncaafGame.getAwayteamdata().getTeamname(), ncaafGame.getHometeamdata().getTeamname(), awayisfbs, homeisfbs);
+					LOGGER.error("spread: " + spread);
+					if (spread == null) {
+						LOGGER.debug("Cannot get spread for " + ncaafGame.getAwayteamdata().getTeamname() + " " + ncaafGame.getHometeamdata().getTeamname() + " " + ncaafGame.getAwayteamdata().getFinalscore() + " " + ncaafGame.getHometeamdata().getFinalscore()
+						+ " Line: " + ncaafGame.getLinefavorite() + " " + ncaafGame.getLine() + " week: " + ncaafGame.getWeek());
+					} else {
+						LOGGER.debug("ncaafGame.getHomeshortname(): " + ncaafGame.getHometeamdata().getTeamname());
+						LOGGER.debug("ncaafGame.getAwayshortname(): " + ncaafGame.getAwayteamdata().getTeamname());
+						LOGGER.debug("ncaafGame.getLinefavorite(): " + ncaafGame.getLinefavorite());
+						final Integer homefinalscore = ncaafGame.getHometeamdata().getFinalscore();
+						final Integer awayfinalscore = ncaafGame.getAwayteamdata().getFinalscore();
+
+						// Determine if spread was covered
+						boolean won = didWinSpread(awayfinalscore, homefinalscore, spread, ncaafGame);
+
+						LOGGER.error(ncaafGame.getAwayteamdata().getTeamname() + " vs " + ncaafGame.getHometeamdata().getTeamname() + ", " + awayfinalscore + ", " + homefinalscore
+						+ ", " + ncaafGame.getLinefavorite() + ", " + ncaafGame.getLine() + ", " + spread + ", " + (Math.abs(spread) * -1) + ", " + ncaafGame.getWeek() + "," + (won ? "W":"L"));
+
+						// Get score delta
+						final Integer gamedelta = determineScoreDelta(homefinalscore, awayfinalscore, ncaafGame);
+
+						printWriter.print(ncaafGame.getAwayteamdata().getTeamname() + " vs " + ncaafGame.getHometeamdata().getTeamname() + ", " + awayfinalscore + ", " + homefinalscore
+						+ ", " + gamedelta + ", " + ncaafGame.getLinefavorite() + ", " + ncaafGame.getLine() + ", " + spread + ", " + (Math.abs(spread) * -1) + ", " + ncaafGame.getWeek() + "," + (won ? "W":"L") + "\n");
+					}
+				} else {
+					LOGGER.error("Could not find away: " + awayname + " home: " + homename); 
+				}
+			} catch (Throwable t) {
+				LOGGER.debug("Cannot get spread for " + ncaafGame.getAwayteamdata().getTeamname() + " " + ncaafGame.getHometeamdata().getTeamname() + " " + ncaafGame.getAwayteamdata().getFinalscore() + " " + ncaafGame.getHometeamdata().getFinalscore()
+				+ " Line: " + ncaafGame.getLinefavorite() + " " + ncaafGame.getLine() + " week: " + ncaafGame.getWeek());
+				LOGGER.error(t.getMessage(), t);
+			}
+		}
+
+		// Close the connection
+		printWriter.close();
+		DATAMINERDB.complete();
+
+		LOGGER.info("Exiting determineSpreads()");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.wootechnologies.dataminer.WoODataMiner#determineSpreads(java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String)
+	 */
+	@Override
+	public void graphGames(Integer weekstart, Integer weekend, Integer year, String filename) {
+		LOGGER.info("Entering graphGames()");
+
+		// Open the connection
+		DATAMINERDB.start();
+
+		PrintWriter printWriter = null;
+		List<MasseyRatingsNcaafData> mrnd = null;
+
+		try {
+			final FileWriter fileWriter = new FileWriter(filename);
+			printWriter = new PrintWriter(fileWriter);
+
+			mrnd = mrs.getNcaafGameData(year, weekend-1, weekend-1, 6, false);
+			for (MasseyRatingsNcaafData mrd : mrnd) {
+				masseyLatestRatings.put(mrd.getTeam().toUpperCase(), mrd.getMean());
+			}
+		} catch (Throwable t) {
+			LOGGER.error(t.getMessage(), t);
+		}
+
+		// Loop through all of the games
+		final List<VegasInsiderGame> vigs = vips.getNcaafGameData(year, weekstart, weekend, false);
+		for (VegasInsiderGame ncaafGame : vigs) {
+			try {
+				LOGGER.debug("ncaafGame: " + ncaafGame);
+				String awayteam = ncaafGame.getAwayteamdata().getTeamname().toUpperCase(); 
+				String hometeam = ncaafGame.getHometeamdata().getTeamname().toUpperCase();
+				boolean awayfound = foundTeam(awayteam);
+				boolean homefound = foundTeam(hometeam);;
+
+				if ((awayteam != null || hometeam != null) && (awayfound || homefound)) {
+					thirddownefflist.clear();
+					oppthirddownefflist.clear();
+					fourthdownefflist.clear();
+					oppfourthdownefflist.clear();
+					pointslist.clear();
+					firstdownslist.clear();
+					totalyardslist.clear();
+					rushingyardslist.clear();
+					rushingattemptslist.clear();
+					yardsperrushlist.clear();
+					passingyardslist.clear();
+					passingcompletionslist.clear();
+					passingattemptslist.clear();
+					yardsperpasslist.clear();
+					turnoverslist.clear();
+					possessionlist.clear();
+
+					final Double spread = runGameAlgorithm(ncaafGame.getWeek(), ncaafGame.getYear(), ncaafGame.getAwayteamdata().getTeamname(), ncaafGame.getHometeamdata().getTeamname(), true, true);
+					LOGGER.error("spread: " + spread);
+					if (spread == null) {
+						LOGGER.debug("Cannot get spread for " + ncaafGame.getAwayteamdata().getTeamname() + " " + ncaafGame.getHometeamdata().getTeamname() + " " + ncaafGame.getAwayteamdata().getFinalscore() + " " + ncaafGame.getHometeamdata().getFinalscore()
+						+ " Line: " + ncaafGame.getLinefavorite() + " " + ncaafGame.getLine() + " week: " + ncaafGame.getWeek());
+					} else {	
+						LOGGER.debug("ncaafGame.getHomeshortname(): " + ncaafGame.getHometeamdata().getTeamname());
+						LOGGER.debug("ncaafGame.getAwayshortname(): " + ncaafGame.getAwayteamdata().getTeamname());
+						LOGGER.debug("ncaafGame.getLinefavorite(): " + ncaafGame.getLinefavorite());
+						final Integer homefinalscore = ncaafGame.getHometeamdata().getFinalscore();
+						final Integer awayfinalscore = ncaafGame.getAwayteamdata().getFinalscore();
+
+						// Determine if spread was covered
+						boolean won = didWinSpread(awayfinalscore, homefinalscore, spread, ncaafGame);
+
+						// Get score delta
+						final Integer gamedelta = determineScoreDelta(homefinalscore, awayfinalscore, ncaafGame);
+
+						// Get the teams past games
+						final Map<String, EspnFootballGameData> lastGame = getPastGames(awayteam, hometeam, false, false, ncaafGame.getWeek(), year, null);
+						final EspnFootballGameData awaygame = lastGame.get("away");
+						final EspnFootballGameData homegame = lastGame.get("home");
+						LOGGER.debug("EspnFootballGameData: " + awaygame);
+						LOGGER.debug("EspnFootballGameData: " + homegame);
+
+						final Map<String, Float> lastGameRatings = lastGameRatings(true, awaygame, homegame);
+						final Float awaygameawaymasseyrating = lastGameRatings.get("awayaway");
+						final Float awaygamehomemasseyrating = lastGameRatings.get("awayhome");
+						final Float homegameawaymasseyrating = lastGameRatings.get("homeaway");
+						final Float homegamehomemasseyrating = lastGameRatings.get("homehome");
+
+						LOGGER.error(masseyLatestRatings.get(awayteam) + ", " + masseyLatestRatings.get(hometeam) + ", " + awaygameawaymasseyrating + ", " + awaygamehomemasseyrating + ", " + homegameawaymasseyrating + ", " + homegamehomemasseyrating + ", " + gamedelta + ", " + (Math.abs(ncaafGame.getLine())) + ", " + (Math.abs(spread)) + "," + (won ? 1:0) + "\n");
+						printWriter.print(masseyLatestRatings.get(awayteam) + ", " + masseyLatestRatings.get(hometeam) + ", " + awaygameawaymasseyrating + ", " + awaygamehomemasseyrating + ", " + homegameawaymasseyrating + ", " + homegamehomemasseyrating + ", " + gamedelta + ", " + (Math.abs(ncaafGame.getLine())) + ", " + (Math.abs(spread)) + "," + (won ? 1:0) + "\n");
+					}
+				} else {
+					LOGGER.error("Could not find away: " + awayteam + " home: " + hometeam); 
+				}
+			} catch (Throwable t) {
+				LOGGER.debug("Cannot get spread for " + ncaafGame.getAwayteamdata().getTeamname() + " " + ncaafGame.getHometeamdata().getTeamname() + " " + ncaafGame.getAwayteamdata().getFinalscore() + " " + ncaafGame.getHometeamdata().getFinalscore()
+				+ " Line: " + ncaafGame.getLinefavorite() + " " + ncaafGame.getLine() + " week: " + ncaafGame.getWeek());
+				LOGGER.error(t.getMessage(), t);
+			}
+		}
+
+		// Close the file
+		printWriter.close();
+
+		// Close the connection
+		DATAMINERDB.complete();
+
+		LOGGER.info("Exiting graphGames()");
+	}
+
+	/**
+	 * 
+	 * @param awayfinalscore
+	 * @param homefinalscore
+	 * @param spread
+	 * @param ncaafGame
+	 * @return
+	 */
+	private boolean didWinSpread(Integer awayfinalscore, Integer homefinalscore,Double spread, VegasInsiderGame ncaafGame) {
+		boolean won = false;
+
+		if (homefinalscore > awayfinalscore) {
+			if (ncaafGame.getHometeamdata().getTeamname().equals(ncaafGame.getLinefavorite())) {
+				final Integer finalspread = awayfinalscore - homefinalscore;
+				LOGGER.debug("spread: " + spread);
+				if (spread > 0) {
+					if (spread >= ncaafGame.getLine() && finalspread >= ncaafGame.getLine()) {
+						won = true;
+					}
+				} else {
+					if (spread >= ncaafGame.getLine() && finalspread >= ncaafGame.getLine()) {
+						won = true;
+					} else if (spread <= ncaafGame.getLine() && finalspread <= ncaafGame.getLine()) {
+						won = true;
+					}
+				}
+			} else {
+				final Integer finalspread = homefinalscore - awayfinalscore;
+				if (finalspread > 0) {
+					won = true;
+				} else {
+					if (spread <= ncaafGame.getLine() && finalspread >= ncaafGame.getLine()) {
+						won = true;
+					} else if (spread <= ncaafGame.getLine() && finalspread <= ncaafGame.getLine()) {
+						won = true;
+					}
+				}
+			}
+		} else {
+			if (ncaafGame.getAwayteamdata().getTeamname().equals(ncaafGame.getLinefavorite())) {
+				final Integer finalspread = homefinalscore - awayfinalscore;
+				if (spread > 0) {
+					final Double nspread = (Math.abs(spread) * -1);
+					if (nspread <= ncaafGame.getLine() && finalspread <= ncaafGame.getLine()) {
+						won = true;
+					} else if (nspread >= ncaafGame.getLine() && finalspread >= ncaafGame.getLine()) {
+						won = true;
+					}
+				} else {
+					if (spread >= ncaafGame.getLine() && finalspread <= ncaafGame.getLine()) {
+						won = true;
+					} else if (spread >= ncaafGame.getLine() && finalspread >= ncaafGame.getLine()) {
+						won = true;
+					}								
+				}
+			} else {
+				final Integer finalspread = awayfinalscore - homefinalscore;
+				if (spread >= ncaafGame.getLine() && finalspread >= ncaafGame.getLine()) {
+					won = true;
+				} else if (spread <= ncaafGame.getLine() && finalspread <= ncaafGame.getLine()) {
+					won = true;
+				}
+			}					
+		}
+		
+		return won;
+	}
+
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	private boolean foundTeam(String name) {
+		boolean found = false;
+
+		final Iterator<String> itr = VegasInsiderParser.NCAAFMapping.keySet().iterator();
+		while (itr.hasNext()) {
+			final String key = itr.next();
+			if (VegasInsiderParser.NCAAFMapping.get(key).toUpperCase().equals(name)) {
+				found = true;
+			}
+		}
+
+		return found;
+	}
+
+	/**
+	 * 
+	 * @param homefinalscore
+	 * @param awayfinalscore
+	 * @param ncaafGame
+	 * @return
+	 */
+	private Integer determineScoreDelta(Integer homefinalscore, Integer awayfinalscore, VegasInsiderGame ncaafGame) {
+		Integer gamedelta = 0;
+
+		// Check for home team vs. away team
+		if (ncaafGame.getHometeamdata().getTeamname().equals(ncaafGame.getLinefavorite())) {
+			gamedelta = homefinalscore - awayfinalscore;
+		} else {
+			gamedelta = awayfinalscore - homefinalscore;
+		}
+
+		return gamedelta;
+	}
+
+	/**
+	 * 
+	 * @param isfbs
+	 * @param masseyRating
+	 * @return
+	 */
+	private Float modifyMasseyRating(Boolean isfbs, Float masseyRating) {
+		if (!isfbs) {
+			if (masseyRating < 16) {
+				if (masseyRating < 1.50) {
+					masseyRating = new Float(40);
+				} else if (masseyRating < 3.80) {
+					masseyRating = new Float(60);
+				} else if (masseyRating < 4.50) {
+					masseyRating = new Float(68);
+				} else if (masseyRating < 11) {
+					masseyRating = new Float(78);
+				} else if (masseyRating < 12) {
+					masseyRating = new Float(82);
+				} else if (masseyRating < 13) {
+					masseyRating = new Float(86);
+				} else if (masseyRating < 13.10) {
+					masseyRating = new Float(90);
+				} else if (masseyRating < 13.50) {
+					masseyRating = new Float(102);
+				} else if (masseyRating < 14.20) {
+					masseyRating = new Float(105);
+				} else if (masseyRating < 15.50) {
+					masseyRating = new Float(110);
+				}
+			} else {
+				masseyRating = masseyRating.floatValue() + 130;
+			}
+		}
+
+		return masseyRating;
+	}
+
+	/**
+	 * 
+	 * @param awayteam
+	 * @param hometeam
+	 * @param games
+	 * @return
+	 */
+	private Map<String, Float> getTeamRatingsForGame(boolean userweekratings, String awayteam, String hometeam, List<EspnFootballGameData> games) {
+		final Map<String, Float> ratings = new HashMap<String, Float>();
+		Float awaymassey = null;
+		Float homemassey = null;
+
+		for (EspnFootballGameData game : games) {
+			LOGGER.debug("game: " + game);
+			if (game.getAwaycollegename().equals(awayteam)) {
+				if (userweekratings) {
+					awaymassey = game.getAwaymasseyrating();
+				} else {
+					awaymassey = masseyLatestRatings.get(awayteam);
+				}
+				awaymassey = modifyMasseyRating(game.getAwayisfbs(), awaymassey);
+			} else if (game.getHomecollegename().equals(awayteam)) {
+				if (userweekratings) {
+					awaymassey = game.getHomemasseyrating();
+				} else {
+					awaymassey = masseyLatestRatings.get(awayteam);
+				}
+				awaymassey = modifyMasseyRating(game.getHomeisfbs(), awaymassey);
+			} else if (game.getHomecollegename().equals(hometeam)) {
+				if (userweekratings) {
+					homemassey = game.getHomemasseyrating();
+				} else {
+					homemassey = masseyLatestRatings.get(hometeam);
+				}
+				homemassey = modifyMasseyRating(game.getHomeisfbs(), homemassey);
+			} else if (game.getAwaycollegename().equals(hometeam)) {
+				if (userweekratings) {
+					homemassey = game.getAwaymasseyrating();
+				} else {
+					homemassey = masseyLatestRatings.get(hometeam);
+				}
+				homemassey = modifyMasseyRating(game.getAwayisfbs(), homemassey);
+			}
+		}
+
+		// Setup the ratings
+		ratings.put("away", awaymassey);
+		ratings.put("home", homemassey);
+
+		return ratings;
+	}
+
+	/**
+	 * 
+	 * @param awayteam
+	 * @param hometeam
+	 * @param awayisfbs
+	 * @param homeisfbs
+	 * @param week
+	 * @param year
+	 * @param games
+	 * @return
+	 * @throws SQLException
+	 */
+	private Map<String, EspnFootballGameData> getPastGames(String awayteam, String hometeam, boolean awayisfbs, boolean homeisfbs, Integer week, Integer year, List<EspnFootballGameData> games) throws BatchException, SQLException {
+		LOGGER.error("awayteam: " + awayteam);
+		LOGGER.error("hometeam: " + hometeam);
+		LOGGER.error("week: " + week);
+		final Map<String, EspnFootballGameData> pastGames = new HashMap<String, EspnFootballGameData>();
+		EspnFootballGameData awayGame = null;
+		EspnFootballGameData homeGame = null;
+
+		for (EspnFootballGameData game : games) {
+			if (game.getAwaycollegename().equals(awayteam) || 
+					game.getHomecollegename().equals(awayteam)) {
+				awayGame = game;
+			} else if (game.getHomecollegename().equals(hometeam) || 
+					game.getAwaycollegename().equals(hometeam)) {
+				homeGame = game;
+			}
+		}
+
+		LOGGER.error("awayGame: " + awayGame);
+		LOGGER.error("homeGame: " + homeGame);
+
+		if (awayGame != null && homeGame != null) {
+			pastGames.put("away", awayGame);
+			pastGames.put("home", homeGame);
+		} else {
+			if (awayGame == null) {
+				boolean hasGames = DATAMINERDB.checkHasGamesFromWeek(week, year, awayteam);
+				LOGGER.error("hasGames: " + hasGames);
+
+				if (!hasGames && week != 0) {
+					final List<EspnFootballGameData> allgames = DATAMINERDB.getAllEspnNcaafGameDataFromWeek(14, year - 1);
+
+					for (EspnFootballGameData game : allgames) {
+						if ((game.getAwaycollegename().equals(awayteam) || 
+							game.getHomecollegename().equals(awayteam)) && awayGame == null) {
+							awayGame = game;
+							break;
+						}
+					}
+				} else {
+					final List<EspnFootballGameData> allgames = DATAMINERDB.getAllEspnNcaafGameDataFromWeek(week, year);
+
+					for (EspnFootballGameData game : allgames) {
+						if ((game.getAwaycollegename().equals(awayteam) || 
+							game.getHomecollegename().equals(awayteam)) && awayGame == null) {
+							awayGame = game;
+							break;
+						}
+					}					
+				}
+
+				if (awayGame != null) {
+					awayGame = getPreviousData(awayteam,
+							awayGame);
+					awayGame.setWeek(week);
+					awayGame.setYear(year);
+				}
+
+				LOGGER.error("awayGame: " + awayGame);
+				pastGames.put("away", awayGame);
+			} else {
+				pastGames.put("away", awayGame);
+			}
+
+			if (homeGame == null) {
+				boolean hasGames = DATAMINERDB.checkHasGamesFromWeek(week, year, hometeam);
+				LOGGER.error("hasGames: " + hasGames);
+
+				if (!hasGames && week != 0) {
+					final List<EspnFootballGameData> allgames = DATAMINERDB.getAllEspnNcaafGameDataFromWeek(14, year - 1);
+
+					for (EspnFootballGameData game : allgames) {
+						if ((game.getAwaycollegename().equals(hometeam) || 
+							 game.getHomecollegename().equals(hometeam)) && homeGame == null) {
+							homeGame = game;
+						}
+					}
+				} else {
+					final List<EspnFootballGameData> allgames = DATAMINERDB.getAllEspnNcaafGameDataFromWeek(week, year);
+
+					for (EspnFootballGameData game : allgames) {
+						if ((game.getAwaycollegename().equals(hometeam) || 
+							 game.getHomecollegename().equals(hometeam)) && homeGame == null) {
+							homeGame = game;
+						}
+					}
+				}
+
+				if (homeGame != null) {
+					homeGame = getPreviousData(hometeam,
+							homeGame);
+					homeGame.setWeek(week);
+					homeGame.setYear(year);
+				}
+
+				LOGGER.error("homeGame: " + homeGame);
+				pastGames.put("home", homeGame);
+			} else {
+				pastGames.put("home", homeGame);
+			}
+		}
+
+		return pastGames;
+	}
+
+	/**
+	 * 
+	 * @param awayGame
+	 * @param homeGame
+	 * @return
+	 */
+	private Map<String, Float> lastGameRatings(boolean userweekratings, EspnFootballGameData awayGame, EspnFootballGameData homeGame) {
+		final Map<String, Float> lastGamesRatings = new HashMap<String, Float>();
+		Float awaygameawaymasseyrating = null;
+		Float awaygamehomemasseyrating = null;
+		Float homegameawaymasseyrating = null;
+		Float homegamehomemasseyrating = null;
+
+		if (userweekratings) {
+			awaygameawaymasseyrating = modifyMasseyRating(awayGame.getAwayisfbs(), awayGame.getAwaymasseyrating());
+			awaygamehomemasseyrating = modifyMasseyRating(awayGame.getHomeisfbs(), awayGame.getHomemasseyrating());
+			homegameawaymasseyrating = modifyMasseyRating(homeGame.getAwayisfbs(), homeGame.getAwaymasseyrating());
+			homegamehomemasseyrating = modifyMasseyRating(homeGame.getHomeisfbs(), homeGame.getHomemasseyrating());
+		} else {
+			awaygameawaymasseyrating = modifyMasseyRating(awayGame.getAwayisfbs(), masseyLatestRatings.get(awayGame.getAwaycollegename()));
+			awaygamehomemasseyrating = modifyMasseyRating(awayGame.getHomeisfbs(), masseyLatestRatings.get(awayGame.getHomecollegename()));
+			homegameawaymasseyrating = modifyMasseyRating(homeGame.getAwayisfbs(), masseyLatestRatings.get(homeGame.getAwaycollegename()));
+			homegamehomemasseyrating = modifyMasseyRating(homeGame.getHomeisfbs(), masseyLatestRatings.get(homeGame.getHomecollegename()));
+		}
+
+		// Setup the ratings
+		lastGamesRatings.put("awayaway", awaygameawaymasseyrating);
+		lastGamesRatings.put("awayhome", awaygamehomemasseyrating);
+		lastGamesRatings.put("homeaway", homegameawaymasseyrating);
+		lastGamesRatings.put("homehome", homegamehomemasseyrating);
+
+		return lastGamesRatings;
+	}
+
+	/**
+	 * 
+	 * @param awaygameawaymasseyrating
+	 * @param awaygamehomemasseyrating
+	 * @param homegameawaymasseyrating
+	 * @param homegamehomemasseyrating
+	 * @return
+	 */
+	private Float determineMasterMassey(Float awaygameawaymasseyrating, Float awaygamehomemasseyrating, Float homegameawaymasseyrating, Float homegamehomemasseyrating) {
+		Float masterMassey = null;
+
+		if (awaygameawaymasseyrating.floatValue() < awaygamehomemasseyrating.floatValue()) {
+			if (awaygameawaymasseyrating.floatValue() < homegameawaymasseyrating.floatValue() && 
+				awaygameawaymasseyrating.floatValue() < homegamehomemasseyrating.floatValue()) {
+				masterMassey = awaygameawaymasseyrating;
+			} else if (awaygameawaymasseyrating.floatValue() < homegameawaymasseyrating.floatValue()) {
+				masterMassey = awaygameawaymasseyrating;
+			} else if (awaygameawaymasseyrating.floatValue() < homegamehomemasseyrating.floatValue()) {
+				masterMassey = awaygameawaymasseyrating;
+			} else if (awaygameawaymasseyrating.floatValue() > homegameawaymasseyrating.floatValue()) {
+				masterMassey = homegameawaymasseyrating;
+			} else if (awaygameawaymasseyrating.floatValue() > homegamehomemasseyrating.floatValue()) {
+				masterMassey = homegamehomemasseyrating;
+			}
+		} else if (awaygameawaymasseyrating.floatValue() > awaygamehomemasseyrating.floatValue()) {
+			if (awaygamehomemasseyrating.floatValue() < homegameawaymasseyrating.floatValue() && 
+				awaygamehomemasseyrating.floatValue() < homegamehomemasseyrating.floatValue()) {
+				masterMassey = awaygamehomemasseyrating;
+			} else if (awaygamehomemasseyrating.floatValue() < homegameawaymasseyrating.floatValue()) {
+				if (awaygamehomemasseyrating.floatValue() > homegamehomemasseyrating.floatValue()) {
+					masterMassey = homegamehomemasseyrating;
+				} else if (awaygamehomemasseyrating.floatValue() > homegameawaymasseyrating.floatValue()) {
+					masterMassey = homegameawaymasseyrating;
+				} else {
+					masterMassey = awaygamehomemasseyrating;
+				}
+			} else if (awaygamehomemasseyrating.floatValue() < homegamehomemasseyrating.floatValue() &&
+					!(homegameawaymasseyrating.floatValue() < awaygamehomemasseyrating.floatValue())) {
+				masterMassey = awaygamehomemasseyrating;
+			} else if (awaygamehomemasseyrating.floatValue() > homegamehomemasseyrating.floatValue()) {
+				masterMassey = homegamehomemasseyrating;
+			} else if (awaygamehomemasseyrating.floatValue() > homegameawaymasseyrating.floatValue()) {
+				masterMassey = homegameawaymasseyrating;
+			}
+		}
+
+		return masterMassey;
+	}
+
+	/**
+	 * 
+	 * @param awayteam
+	 * @param hometeam
+	 * @param awayGame
+	 * @param homeGame
+	 * @param awaygameawaymasseyrating
+	 * @param awaygamehomemasseyrating
+	 * @param homegameawaymasseyrating
+	 * @param homegamehomemasseyrating
+	 * @param afactors
+	 * @param aoppfactors
+	 * @param hfactors
+	 * @param hoppfactors
+	 */
+	private Map<String, Float> determineFactors(String awayteam, 
+			String hometeam, 
+			EspnFootballGameData awayGame, 
+			EspnFootballGameData homeGame,
+			Float awaygameawaymasseyrating,
+			Float awaygamehomemasseyrating,
+			Float homegameawaymasseyrating,
+			Float homegamehomemasseyrating,
+			Map<String, Float> afactors,
+			Map<String, Float> aoppfactors,
+			Map<String, Float> hfactors,
+			Map<String, Float> hoppfactors,
+			Float awaymassey,
+			Float homemassey,
+			Float mastermassey) {
+		final Map<String, Float> factors = new HashMap<String, Float>();
+
+		if (awayGame.getAwaycollegename().equals(awayteam)) {
+			if (awaygamehomemasseyrating.floatValue() < awaygameawaymasseyrating.floatValue()) {
+				factors.put("awayfactor", afactors.get("homefactor"));
+				factors.put("aoppfactor", aoppfactors.get("awayfactor"));					
+			} else {
+				factors.put("awayfactor", afactors.get("awayfactor"));
+				factors.put("aoppfactor", aoppfactors.get("homefactor"));
+			}
+		} else {
+			if (awaygamehomemasseyrating.floatValue() < awaygameawaymasseyrating.floatValue()) {
+				if (awaygamehomemasseyrating.floatValue() == mastermassey.floatValue()) {
+					if (awaygameawaymasseyrating.floatValue() > 200) {
+						factors.put("awayfactor", afactors.get("homefactor"));
+					} else {
+						if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 35) {
+							if (homemassey < 35 && awaymassey < 35) {
+								factors.put("awayfactor", afactors.get("awayfactor") - new Float(0.1));
+							} else if (homemassey < 75 && awaymassey < 75) {
+								factors.put("awayfactor", afactors.get("homefactor"));
+							} else {
+								factors.put("awayfactor", afactors.get("awayfactor") - new Float(0.3));
+							}
+						} else if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 50) {
+							if (homemassey < 35 && awaymassey < 35) {
+								factors.put("awayfactor", afactors.get("awayfactor") + new Float(0.1));
+							} else {
+								factors.put("awayfactor", afactors.get("awayfactor") + new Float(0.3));
+							}
+						} else {
+							factors.put("awayfactor", afactors.get("awayfactor"));
+						}
+					}
+
+					if (awaygameawaymasseyrating.floatValue() > 150) {
+						factors.put("aoppfactor", aoppfactors.get("awayfactor") + new Float(.20));
+					} else {
+						if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 35) {
+							if (homemassey < 75 && awaymassey < 75) {
+								factors.put("aoppfactor", aoppfactors.get("awayfactor"));
+							} else {
+								factors.put("aoppfactor", aoppfactors.get("homefactor") + new Float(0.3));
+							}
+						} else if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 50) {
+							factors.put("aoppfactor", aoppfactors.get("homefactor") - new Float(0.3));
+						} else {
+							factors.put("aoppfactor", aoppfactors.get("homefactor"));
+						}
+					}
+				} else {
+					factors.put("awayfactor", afactors.get("awayfactor"));
+					factors.put("aoppfactor", aoppfactors.get("homefactor"));
+				}
+			} else {
+				if (Math.abs(homemassey - awaymassey) < 10) {
+					factors.put("awayfactor", hfactors.get("homefactor") + new Float(0.2));
+				} else if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 40 && 
+						Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < mastermassey.floatValue()) {
+					factors.put("awayfactor", hfactors.get("homefactor") + new Float(0.17));
+				} else {
+					factors.put("awayfactor", hfactors.get("awayfactor"));
+				}
+				factors.put("aoppfactor", aoppfactors.get("awayfactor"));
+			}
+		}
+
+		if (homeGame.getAwaycollegename().equals(hometeam)) {
+			if (homegamehomemasseyrating.floatValue() < homegameawaymasseyrating.floatValue()) {
+				if (homemassey.floatValue() < awaymassey.floatValue()) {
+					factors.put("homefactor", hfactors.get("homefactor") + new Float(0.2));
+					factors.put("hoppfactor", hoppfactors.get("awayfactor") - new Float(0.2));
+				} else {
+					factors.put("homefactor", hfactors.get("homefactor"));
+					factors.put("hoppfactor", hoppfactors.get("awayfactor"));
+				}
+			} else {
+				if (homemassey.floatValue() == homegameawaymasseyrating.floatValue()) {
+					if (homegameawaymasseyrating.floatValue() < 40 && homegamehomemasseyrating.floatValue() < 70) {
+						if (awaymassey.floatValue() < 40) {
+							factors.put("homefactor", hfactors.get("awayfactor"));
+							factors.put("hoppfactor", hoppfactors.get("homefactor"));								
+						} else {
+							factors.put("homefactor", hfactors.get("homefactor"));
+							factors.put("hoppfactor", hoppfactors.get("awayfactor"));	
+						}
+					} else if (homegameawaymasseyrating.floatValue() < 50) {
+						factors.put("homefactor", hfactors.get("awayfactor"));
+						factors.put("hoppfactor", hoppfactors.get("homefactor"));
+					} else if (Math.abs(homegamehomemasseyrating.floatValue() - homegameawaymasseyrating.floatValue()) < 15) {
+						factors.put("homefactor", hfactors.get("homefactor"));
+						factors.put("hoppfactor", hoppfactors.get("awayfactor"));
+					} else {
+						if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 20) {
+							factors.put("homefactor", hfactors.get("awayfactor"));
+							factors.put("hoppfactor", hoppfactors.get("homefactor"));
+						} else {
+							factors.put("homefactor", hfactors.get("awayfactor"));
+							factors.put("hoppfactor", hoppfactors.get("awayfactor"));
+						}
+					}
+				} else {
+					factors.put("homefactor", hfactors.get("homefactor"));
+					factors.put("hoppfactor", hoppfactors.get("homefactor"));
+				}
+			}
+		} else {
+			if (homegamehomemasseyrating.floatValue() < homegameawaymasseyrating.floatValue()) {
+				if (Math.abs(homemassey - awaymassey) < 10) {
+					if (homemassey < 50 && awaymassey < 50) {
+						factors.put("homefactor", hfactors.get("homefactor") + new Float(0.20));
+					} else {
+						if (homegamehomemasseyrating.floatValue() > 90) {
+							factors.put("homefactor", hfactors.get("homefactor") - new Float(0.10));
+						} else {
+							factors.put("homefactor", hfactors.get("awayfactor"));
+						}
+					}
+				} else if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 20) {
+					if (homegameawaymasseyrating.floatValue() > 180) {
+						factors.put("homefactor", hfactors.get("awayfactor"));
+					} else if (homegamehomemasseyrating.floatValue() > 90) {
+						factors.put("homefactor", hfactors.get("homefactor") - new Float(0.10));
+					} else {
+						factors.put("homefactor", hfactors.get("homefactor"));
+					}
+				} else if (Math.abs(homegamehomemasseyrating.floatValue() - homegameawaymasseyrating.floatValue()) < 30) {
+					factors.put("homefactor", hfactors.get("homefactor"));
+				} else if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 50) {
+					if (homegameawaymasseyrating.floatValue() > 170 && homegamehomemasseyrating.floatValue() < 100) {
+						factors.put("homefactor", hfactors.get("awayfactor"));
+					} else if (homegameawaymasseyrating.floatValue() > 170 && homegamehomemasseyrating.floatValue() < 100) {
+						factors.put("homefactor", hfactors.get("homefactor") - new Float(0.20));
+					} else if (homegameawaymasseyrating.floatValue() > 180) {
+						factors.put("homefactor", hfactors.get("awayfactor"));
+					} else if (homegameawaymasseyrating.floatValue() > 150) {
+						factors.put("homefactor", hfactors.get("awayfactor") + new Float(0.15));
+					} else if (homegameawaymasseyrating.floatValue() > 100) {
+						factors.put("homefactor", hfactors.get("awayfactor"));
+					} else {
+//						factors.put("homefactor", hfactors.get("awayfactor") + new Float(0.15));
+						factors.put("homefactor", hfactors.get("awayfactor"));
+					}
+				} else if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 40 && 
+						Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < mastermassey.floatValue()) {
+					factors.put("homefactor", hfactors.get("awayfactor") + new Float(0.17));
+				} else if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 80) {
+					if (homemassey.floatValue() < 100) {
+						factors.put("homefactor", hfactors.get("awayfactor") + new Float(0.18));
+					} else {
+						if (homegameawaymasseyrating.floatValue() > 170 && homegamehomemasseyrating.floatValue() < 100) {
+							factors.put("homefactor", hfactors.get("homefactor"));
+						} else {
+							factors.put("homefactor", hfactors.get("awayfactor"));
+						}
+					}
+				} else if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 120) {
+					factors.put("homefactor", hfactors.get("awayfactor") + new Float(0.20));
+				} else {
+					factors.put("homefactor", hfactors.get("awayfactor"));
+				}
+
+				if (homegameawaymasseyrating.floatValue() > 175) {
+					factors.put("hoppfactor", hoppfactors.get("homefactor"));
+				} else {
+					factors.put("hoppfactor", hoppfactors.get("awayfactor"));
+				}
+			} else {
+				if (homemassey.floatValue() < awaymassey.floatValue()) {
+					if (Math.abs(homemassey.floatValue() - awaymassey.floatValue()) < 40) {
+						factors.put("homefactor", hfactors.get("awayfactor"));
+					} else {
+						factors.put("homefactor", hfactors.get("homefactor") + new Float(0.0));
+					}
+				} else {
+					factors.put("homefactor", hfactors.get("homefactor"));
+				}
+				factors.put("hoppfactor", hoppfactors.get("homefactor"));
+			}
+		}
+
+		return factors;
+	}
+
+	/**
+	 * 
+	 * @param top
+	 * @param bottom
+	 * @return
+	 */
+	private float divideNumbers(float top, float bottom) {
+		float thenumber = 0;
+		
+		if (bottom != 0) {
+			thenumber = top/bottom;
+		}
+
+		return thenumber;
+	}
+
+	/**
+	 * 
+	 * @param awayteam
+	 * @param hometeam
+	 * @param awaygame
+	 * @param homegame
+	 * @param awayfactor
+	 * @param aoppfactor
+	 * @param homefactor
+	 * @param hoppfactor
+	 * @throws BatchException
+	 * @throws SQLException
+	 */
+	private void processGameData(String awayteam,
+			String hometeam,
+			EspnFootballGameData awaygame,
+			EspnFootballGameData homegame,
+			Float awayfactor, 
+			Float aoppfactor, 
+			Float homefactor, 
+			Float hoppfactor) throws BatchException, SQLException {
+		Float atde = null;
+		Float aotde = null;
+		Float htde = null;
+		Float hotde = null;
+		Float afde = null;
+		Float aofde = null;
+		Float hfde = null;
+		Float hofde = null;
+		Float appg = null;
+		Float aoppg = null;
+		Float hppg = null;
+		Float hoppg = null;
+		Float afd = null;
+		Float aofd = null;
+		Float hfd = null;
+		Float hofd = null;
+		Float aty = null;
+		Float aoty = null;
+		Float hty = null;
+		Float hoty = null;
+		Float ary = null;
+		Float aory = null;
+		Float hry = null;
+		Float hory = null;
+		Float ara = null;
+		Float aora = null;
+		Float hra = null;
+		Float hora = null;
+		Float aypr = null;
+		Float aoypr = null;
+		Float hypr = null;
+		Float hoypr = null;
+		Float apy = null;
+		Float aopy = null;
+		Float hpy = null;
+		Float hopy = null;
+		Float apc = null;
+		Float aopc = null;
+		Float hpc = null;
+		Float hopc = null;
+		Float apa = null;
+		Float aopa = null;
+		Float hpa = null;
+		Float hopa = null;
+		Float aypp = null;
+		Float aoypp = null;
+		Float hypp = null;
+		Float hoypp = null;
+		Float at = null;
+		Float aot = null;
+		Float ht = null;
+		Float hot = null;
+		Float apt = null;
+		Float aopt = null;
+		Float hpt = null;
+		Float hopt = null;
+
+		if (awaygame.getAwaycollegename().equals(awayteam)) {
+			atde = divideNumbers(awaygame.getAwaythirdefficiencymade().floatValue(), awaygame.getAwaythirdefficiencyattempts().floatValue());
+			aotde = divideNumbers(awaygame.getHomethirdefficiencymade().floatValue(),  awaygame.getHomethirdefficiencyattempts().floatValue());
+			afde = divideNumbers(awaygame.getAwayfourthefficiencymade().floatValue(), awaygame.getAwayfourthefficiencyattempts().floatValue());
+			aofde = divideNumbers(awaygame.getHomefourthefficiencymade().floatValue(), awaygame.getHomefourthefficiencyattempts().floatValue());
+			appg = awaygame.getAwayfinalscore().floatValue();
+			aoppg = awaygame.getHomefinalscore().floatValue();
+			afd = awaygame.getAwayfirstdowns().floatValue();
+			aofd = awaygame.getHomefirstdowns().floatValue();
+			aty = awaygame.getAwaytotalyards().floatValue();
+			aoty = awaygame.getHometotalyards().floatValue();
+			ary = awaygame.getAwayrushingyards().floatValue();
+			aory = awaygame.getHomerushingyards().floatValue();
+			ara = awaygame.getAwayrushingattempts().floatValue();
+			aora = awaygame.getHomerushingattempts().floatValue();
+			aypr = awaygame.getAwayyardsperrush();
+			aoypr = awaygame.getHomeyardsperrush();
+			apy = awaygame.getAwaypassingyards().floatValue();
+			aopy = awaygame.getHomepassingyards().floatValue();
+			apc = awaygame.getAwaypasscomp().floatValue();
+			aopc = awaygame.getHomepasscomp().floatValue();
+			apa = awaygame.getAwaypassattempts().floatValue();
+			aopa = awaygame.getHomepassattempts().floatValue();
+			aypp = awaygame.getAwayyardsperpass();
+			aoypp = awaygame.getHomeyardsperpass();
+			at = awaygame.getAwayturnovers().floatValue();
+			aot = awaygame.getHometurnovers().floatValue();
+			apt = awaygame.getAwaypossessionminutes().floatValue();
+			aopt = awaygame.getHomepossessionminutes().floatValue();
+		} else {
+			atde = divideNumbers(awaygame.getHomethirdefficiencymade().floatValue(), awaygame.getHomethirdefficiencyattempts().floatValue());
+			aotde = divideNumbers(awaygame.getAwaythirdefficiencymade().floatValue(), awaygame.getAwaythirdefficiencyattempts().floatValue());
+			afde = divideNumbers(awaygame.getHomefourthefficiencymade().floatValue(), awaygame.getHomefourthefficiencyattempts().floatValue());
+			aofde = divideNumbers(awaygame.getAwayfourthefficiencymade().floatValue(), awaygame.getAwayfourthefficiencyattempts().floatValue());
+			appg = awaygame.getHomefinalscore().floatValue();
+			aoppg = awaygame.getAwayfinalscore().floatValue();
+			afd = awaygame.getHomefirstdowns().floatValue();
+			aofd = awaygame.getAwayfirstdowns().floatValue();
+			aty = awaygame.getHometotalyards().floatValue();
+			aoty = awaygame.getAwaytotalyards().floatValue();
+			ary = awaygame.getHomerushingyards().floatValue();
+			aory = awaygame.getAwayrushingyards().floatValue();
+			ara = awaygame.getHomerushingattempts().floatValue();
+			aora = awaygame.getAwayrushingattempts().floatValue();
+			aypr = awaygame.getHomeyardsperrush();
+			aoypr = awaygame.getAwayyardsperrush();
+			apy = awaygame.getHomepassingyards().floatValue();
+			aopy = awaygame.getAwaypassingyards().floatValue();
+			apc = awaygame.getHomepasscomp().floatValue();
+			aopc = awaygame.getAwaypasscomp().floatValue();
+			apa = awaygame.getHomepassattempts().floatValue();
+			aopa = awaygame.getAwaypassattempts().floatValue();
+			aypp = awaygame.getHomeyardsperpass();
+			aoypp = awaygame.getAwayyardsperpass();
+			at = awaygame.getHometurnovers().floatValue();
+			aot = awaygame.getAwayturnovers().floatValue();
+			apt = awaygame.getHomepossessionminutes().floatValue();
+			aopt = awaygame.getAwaypossessionminutes().floatValue();
+		}
+
+		if (homegame.getAwaycollegename().equals(hometeam)) {
+			htde = divideNumbers(homegame.getAwaythirdefficiencymade().floatValue(), homegame.getAwaythirdefficiencyattempts().floatValue());
+			hotde = divideNumbers(homegame.getHomethirdefficiencymade().floatValue(), homegame.getHomethirdefficiencyattempts().floatValue());
+			hfde = divideNumbers(homegame.getAwayfourthefficiencymade().floatValue(), homegame.getAwayfourthefficiencyattempts().floatValue());
+			hofde = divideNumbers(homegame.getHomefourthefficiencymade().floatValue(), homegame.getHomefourthefficiencyattempts().floatValue());
+			hppg = homegame.getAwayfinalscore().floatValue();
+			hoppg = homegame.getHomefinalscore().floatValue();
+			hfd = homegame.getAwayfirstdowns().floatValue();
+			hofd = homegame.getHomefirstdowns().floatValue();
+			hty = homegame.getAwaytotalyards().floatValue();
+			hoty = homegame.getHometotalyards().floatValue();
+			hry = homegame.getAwayrushingyards().floatValue();
+			hory = homegame.getHomerushingyards().floatValue();
+			hra = homegame.getAwayrushingattempts().floatValue();
+			hora = homegame.getHomerushingattempts().floatValue();
+			hypr = homegame.getAwayyardsperrush();
+			hoypr = homegame.getHomeyardsperrush();
+			hpy = homegame.getAwaypassingyards().floatValue();
+			hopy = homegame.getHomepassingyards().floatValue();
+			hpc = homegame.getAwaypasscomp().floatValue();
+			hopc = homegame.getHomepasscomp().floatValue();
+			hpa = homegame.getAwaypassattempts().floatValue();
+			hopa = homegame.getHomepassattempts().floatValue();
+			hypp = homegame.getAwayyardsperpass();
+			hoypp = homegame.getHomeyardsperpass();
+			ht = homegame.getAwayturnovers().floatValue();
+			hot = homegame.getHometurnovers().floatValue();
+			hpt = homegame.getAwaypossessionminutes().floatValue();
+			hopt = homegame.getHomepossessionminutes().floatValue();
+		} else {
+			htde = divideNumbers(homegame.getHomethirdefficiencymade().floatValue(), homegame.getHomethirdefficiencyattempts().floatValue());
+			hotde = divideNumbers(homegame.getAwaythirdefficiencymade().floatValue(), homegame.getAwaythirdefficiencyattempts().floatValue());
+			hfde = divideNumbers(homegame.getHomefourthefficiencymade().floatValue(), homegame.getHomefourthefficiencyattempts().floatValue());
+			hofde = divideNumbers(homegame.getAwayfourthefficiencymade().floatValue(), homegame.getAwayfourthefficiencyattempts().floatValue());
+			hppg = homegame.getHomefinalscore().floatValue();
+			hoppg = homegame.getAwayfinalscore().floatValue();
+			hfd = homegame.getHomefirstdowns().floatValue();
+			hofd = homegame.getAwayfirstdowns().floatValue();
+			hty = homegame.getHometotalyards().floatValue();
+			hoty = homegame.getAwaytotalyards().floatValue();
+			hry = homegame.getHomerushingyards().floatValue();
+			hory = homegame.getAwayrushingyards().floatValue();
+			hra = homegame.getHomerushingattempts().floatValue();
+			hora = homegame.getAwayrushingattempts().floatValue();
+			hypr = homegame.getHomeyardsperrush();
+			hoypr = homegame.getAwayyardsperrush();
+			hpy = homegame.getHomepassingyards().floatValue();
+			hopy = homegame.getAwaypassingyards().floatValue();
+			hpc = homegame.getHomepasscomp().floatValue();
+			hopc = homegame.getAwaypasscomp().floatValue();
+			hpa = homegame.getHomepassattempts().floatValue();
+			hopa = homegame.getAwaypassattempts().floatValue();
+			hypp = homegame.getHomeyardsperpass();
+			hoypp = homegame.getAwayyardsperpass();
+			ht = homegame.getHometurnovers().floatValue();
+			hot = homegame.getAwayturnovers().floatValue();
+			hpt = homegame.getHomepossessionminutes().floatValue();
+			hopt = homegame.getAwaypossessionminutes().floatValue();
+		}
+
+		final Double thirddowneff = calculateValue(awayfactor, homefactor, atde, htde, 1.0);
+		final Double oppthirddowneff = -(calculateValue(aoppfactor, hoppfactor, aotde, hotde, 1.0));
+		final Double fourthdowneff = calculateValue(awayfactor, homefactor, afde, hfde, 1.0);
+		final Double oppfourthdowneff = -(calculateValue(aoppfactor, hoppfactor, aofde, hofde, 1.0));
+		final Double points = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, appg, aoppg, hppg, hoppg, 0.15);
+		final Double firstdowns = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, afd, aofd, hfd, hofd, 0.06);
+		final Double totalyards = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, aty, aoty, hty, hoty, 0.03);
+		final Double rushingyards = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, ary, aory, hry, hory, 0.04);
+//		final Double rushingattempts = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, ara, aora, hra, hora, 0.02);
+		final Double rushingattempts = new Double(0);
+		final Double yardsperrush = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, aypr, aoypr, hypr, hoypr, 0.1);
+		final Double passingyards = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, apy, aopy, hpy, hopy, 0.03);
+//		final Double passingcompletions = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, apc, aopc, hpc, hopc, 0.025);
+		final Double passingcompletions = new Double(0);
+//		final Double passingattempts = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, apa, aopa, hpa, hopa, 0.01);
+		final Double passingattempts = new Double(0);
+		final Double yardsperpass = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, aypp, aoypp, hypp, hoypp, 0.025);
+		final Double turnovers = calculateValueBothNegative(awayfactor, homefactor, aoppfactor, hoppfactor, at, aot, ht, hot, 1.0);
+		final Double possession = calculateValueBoth(awayfactor, homefactor, aoppfactor, hoppfactor, apt, aopt, hpt, hopt, 0.1);
+
+		thirddownefflist.add(thirddowneff);
+		oppthirddownefflist.add(oppthirddowneff);
+		fourthdownefflist.add(fourthdowneff);
+		oppfourthdownefflist.add(oppfourthdowneff);
+		pointslist.add(points);
+		firstdownslist.add(firstdowns);
+		totalyardslist.add(totalyards);
+		rushingyardslist.add(rushingyards);
+		rushingattemptslist.add(rushingattempts);
+		yardsperrushlist.add(yardsperrush);
+		passingyardslist.add(passingyards);
+		passingcompletionslist.add(passingcompletions);
+		passingattemptslist.add(passingattempts);
+		yardsperpasslist.add(yardsperpass);
+		turnoverslist.add(turnovers);
+		possessionlist.add(possession);
+
+		LOGGER.error("awayteam: " + awayteam + " hometeam: " + hometeam);
+		LOGGER.error("thirddowneff: " + thirddowneff);
+		LOGGER.error("oppthirddowneff: " + oppthirddowneff);
+		LOGGER.error("fourthdowneff: " + fourthdowneff);
+		LOGGER.error("oppfourthdowneff: " + oppfourthdowneff);
+		LOGGER.error("points: " + points);
+		LOGGER.error("firstdowns: " + firstdowns);
+		LOGGER.error("totalyards: " + totalyards);
+		LOGGER.error("rushingyards: " + rushingyards);
+		LOGGER.error("rushingattempts: " + rushingattempts);
+		LOGGER.error("yardsperrush: " + yardsperrush);
+		LOGGER.error("passingyards: " + passingyards);
+		LOGGER.error("passingcompletions: " + passingcompletions);
+		LOGGER.error("passingattempts: " + passingattempts);
+		LOGGER.error("yardsperpass: " + yardsperpass);
+		LOGGER.error("turnovers: " + turnovers);
+		LOGGER.error("possession: " + possession);
+		LOGGER.error("home field: " + "-3");
+	}
+
+	/**
+	 * 
+	 * @param team
+	 * @param game
+	 * @return
+	 * @throws BatchException
+	 * @throws SQLException
+	 */
+	private EspnFootballGameData getPreviousData(String team,
+			EspnFootballGameData game) throws BatchException, SQLException {
+		LOGGER.error("team: " + team);
+		LOGGER.error("EspnFootballGameData: " + game);
+		final Integer week = game.getWeek();
+		final Integer year = game.getYear();
+
+		game.setAwaycollegename("");
+		game.setHomecollegename(team);
+
+		final Efficiencies tde = DATAMINERDB.getFootballthirddowneffpergameForWeek(week, year, "all", team);
+		game.setAwaythirdefficiencymade((int)divideNumbers(tde.getOppmadetotal().floatValue(), tde.getNumgames().floatValue()));
+		game.setAwaythirdefficiencyattempts((int)divideNumbers(tde.getOppattemptstotal().floatValue(), tde.getNumgames().floatValue()));
+		game.setHomethirdefficiencymade((int)divideNumbers(tde.getMadetotal().floatValue(), tde.getNumgames().floatValue()));
+		game.setHomethirdefficiencyattempts((int)divideNumbers(tde.getAttemptstotal().floatValue(), tde.getNumgames().floatValue()));
+
+		final Efficiencies afde = DATAMINERDB.getFootballfourthdowneffpergameForWeek(week, year, "all", team);
+		game.setAwayfourthefficiencymade((int)divideNumbers(afde.getOppmadetotal().floatValue(), afde.getNumgames().floatValue()));
+		game.setAwayfourthefficiencyattempts((int)divideNumbers(afde.getOppattemptstotal().floatValue(), afde.getNumgames().floatValue()));
+		game.setHomefourthefficiencymade((int)divideNumbers(afde.getMadetotal().floatValue(), afde.getNumgames().floatValue()));
+		game.setHomefourthefficiencyattempts((int)divideNumbers(afde.getAttemptstotal().floatValue(), afde.getNumgames().floatValue()));
+
+		final FloatData ap = DATAMINERDB.getFootballpointspergameForWeek(week, year, "all", team);
+		game.setAwayfinalscore((int)divideNumbers(ap.getOppfloatdatatotal().floatValue(), ap.getNumgames().floatValue()));
+		game.setHomefinalscore((int)divideNumbers(ap.getFloatdatatotal(), ap.getNumgames()));
+
+		final FloatData af = DATAMINERDB.getFootballfirstdownspergameForWeek(week, year, "all", team);
+		game.setAwayfirstdowns((int)divideNumbers(af.getOppfloatdatatotal(), af.getNumgames()));
+		game.setHomefirstdowns((int)divideNumbers(af.getFloatdatatotal(), af.getNumgames()));
+
+		final FloatData aty = DATAMINERDB.getFootballtotalyardspergameForWeek(week, year, "all", team);
+		game.setAwaytotalyards((int)divideNumbers(aty.getOppfloatdatatotal(), aty.getNumgames()));
+		game.setHometotalyards((int)divideNumbers(aty.getFloatdatatotal(), aty.getNumgames()));
+
+		final FloatData ary = DATAMINERDB.getFootballrushingyardspergameForWeek(week, year, "all", team);
+		game.setAwayrushingyards((int)divideNumbers(ary.getOppfloatdatatotal(), ary.getNumgames()));
+		game.setHomerushingyards((int)divideNumbers(ary.getFloatdatatotal(), ary.getNumgames()));
+
+		final FloatData ara = DATAMINERDB.getFootballrushingattemptspergameForWeek(week, year, "all", team);
+		game.setAwayrushingattempts((int)divideNumbers(ara.getOppfloatdatatotal(), ara.getNumgames()));
+		game.setHomerushingattempts((int)divideNumbers(ara.getFloatdatatotal(), ara.getNumgames()));
+
+		final FloatData aypr = DATAMINERDB.getFootballyardsperrushForWeek(week, year, "all", team);
+		game.setAwayyardsperrush(divideNumbers(aypr.getOppfloatdatatotal(), aypr.getNumgames()));
+		game.setHomeyardsperrush(divideNumbers(aypr.getFloatdatatotal(), aypr.getNumgames()));
+
+		final FloatData apy = DATAMINERDB.getFootballpassyardspergameForWeek(week, year, "all", team);
+		game.setAwaypassingyards((int)divideNumbers(apy.getOppfloatdatatotal(), apy.getNumgames()));
+		game.setHomepassingyards((int)divideNumbers(apy.getFloatdatatotal(), apy.getNumgames()));
+
+		final FloatData apc = DATAMINERDB.getFootballpasscompletionspergameForWeek(week, year, "all", team);
+		game.setAwaypasscomp((int)divideNumbers(apc.getOppfloatdatatotal(), apc.getNumgames()));
+		game.setHomepasscomp((int)divideNumbers(apc.getFloatdatatotal(), apc.getNumgames()));
+
+		final FloatData apa = DATAMINERDB.getFootballpassattemptspergameForWeek(week, year, "all", team);
+		game.setAwaypassattempts((int)divideNumbers(apa.getOppfloatdatatotal(), apa.getNumgames()));
+		game.setHomepassattempts((int)divideNumbers(apa.getFloatdatatotal(), apa.getNumgames()));
+
+		final FloatData aypp = DATAMINERDB.getFootballyardsperpassForWeek(week, year, "all", team);
+		game.setAwayyardsperpass(divideNumbers(aypp.getOppfloatdatatotal(), aypp.getNumgames()));
+		game.setHomeyardsperpass(divideNumbers(aypp.getFloatdatatotal(), aypp.getNumgames()));
+
+		final FloatData at = DATAMINERDB.getFootballturnoverspergameForWeek(week, year, "all", team);
+		game.setAwayturnovers((int)divideNumbers(at.getOppfloatdatatotal(), at.getNumgames()));
+		game.setHometurnovers((int)divideNumbers(at.getFloatdatatotal(), at.getNumgames()));
+
+		final FloatData apt = DATAMINERDB.getFootballpossessiontimepergameForWeek(week, year, "all", team);
+		game.setAwaypossessionminutes((int)divideNumbers(apt.getOppfloatdatatotal(), apt.getNumgames()));
+		game.setHomepossessionminutes((int)divideNumbers(apt.getFloatdatatotal(), apt.getNumgames()));
+
+		return game;
+	}
+
+	/**
+	 * 
+	 * @param week
+	 * @param year
+	 * @param originalweek
+	 * @param awayteam
+	 * @param hometeam
+	 * @param awayfactor
+	 * @param aoppfactor
+	 * @param homefactor
+	 * @param hoppfactor
+	 * @throws BatchException
+	 * @throws SQLException
+	 */
+	private void processTheData(Integer week, 
+			Integer year, 
+			Integer originalweek, 
+			String awayteam, 
+			String hometeam,
+			Float awayfactor, 
+			Float aoppfactor, 
+			Float homefactor, 
+			Float hoppfactor) throws BatchException, SQLException {
+		final FloatData atde = DATAMINERDB.getFootballthirddowneffpergameForWeek(week, year, "all", awayteam);
+		final FloatData aatde = DATAMINERDB.getFootballthirddowneffpergameForWeek(week, year, "away", awayteam);
+		final FloatData htde = DATAMINERDB.getFootballthirddowneffpergameForWeek(week, year, "all", hometeam);
+		final FloatData hhtde = DATAMINERDB.getFootballthirddowneffpergameForWeek(week, year, "home", hometeam);
+
+		final FloatData afde = DATAMINERDB.getFootballfourthdowneffpergameForWeek(week, year, "all", awayteam);
+		final FloatData aafde = DATAMINERDB.getFootballfourthdowneffpergameForWeek(week, year, "away", awayteam);
+		final FloatData hfde = DATAMINERDB.getFootballfourthdowneffpergameForWeek(week, year, "all", hometeam);
+		final FloatData hhfde = DATAMINERDB.getFootballfourthdowneffpergameForWeek(week, year, "home", hometeam);
+
+		final FloatData ap = DATAMINERDB.getFootballpointspergameForWeek(week, year, "all", awayteam);
+		final FloatData aap = DATAMINERDB.getFootballpointspergameForWeek(week, year, "away", awayteam);
+		final FloatData hp = DATAMINERDB.getFootballpointspergameForWeek(week, year, "all", hometeam);
+		final FloatData hhp = DATAMINERDB.getFootballpointspergameForWeek(week, year, "home", hometeam);
+
+		final FloatData af = DATAMINERDB.getFootballfirstdownspergameForWeek(week, year, "all", awayteam);
+		final FloatData aaf = DATAMINERDB.getFootballfirstdownspergameForWeek(week, year, "away", awayteam);
+		final FloatData hf = DATAMINERDB.getFootballfirstdownspergameForWeek(week, year, "all", hometeam);
+		final FloatData hhf = DATAMINERDB.getFootballfirstdownspergameForWeek(week, year, "home", hometeam);
+
+		final FloatData aty = DATAMINERDB.getFootballtotalyardspergameForWeek(week, year, "all", awayteam);
+		final FloatData aaty = DATAMINERDB.getFootballtotalyardspergameForWeek(week, year, "away", awayteam);
+		final FloatData hty = DATAMINERDB.getFootballtotalyardspergameForWeek(week, year, "all", hometeam);
+		final FloatData hhty = DATAMINERDB.getFootballtotalyardspergameForWeek(week, year, "home", hometeam);
+
+		final FloatData ary = DATAMINERDB.getFootballrushingyardspergameForWeek(week, year, "all", awayteam);
+		final FloatData aary = DATAMINERDB.getFootballrushingyardspergameForWeek(week, year, "away", awayteam);
+		final FloatData hry = DATAMINERDB.getFootballrushingyardspergameForWeek(week, year, "all", hometeam);
+		final FloatData hhry = DATAMINERDB.getFootballrushingyardspergameForWeek(week, year, "home", hometeam);
+
+		final FloatData ara = DATAMINERDB.getFootballrushingattemptspergameForWeek(week, year, "all", awayteam);
+		final FloatData aara = DATAMINERDB.getFootballrushingattemptspergameForWeek(week, year, "away", awayteam);
+		final FloatData hra = DATAMINERDB.getFootballrushingattemptspergameForWeek(week, year, "all", hometeam);
+		final FloatData hhra = DATAMINERDB.getFootballrushingattemptspergameForWeek(week, year, "home", hometeam);
+
+		final FloatData aypr = DATAMINERDB.getFootballyardsperrushForWeek(week, year, "all", awayteam);
+		final FloatData aaypr = DATAMINERDB.getFootballyardsperrushForWeek(week, year, "away", awayteam);
+		final FloatData hypr = DATAMINERDB.getFootballyardsperrushForWeek(week, year, "all", hometeam);
+		final FloatData hhypr = DATAMINERDB.getFootballyardsperrushForWeek(week, year, "home", hometeam);
+
+		final FloatData apy = DATAMINERDB.getFootballpassyardspergameForWeek(week, year, "all", awayteam);
+		final FloatData aapy = DATAMINERDB.getFootballpassyardspergameForWeek(week, year, "away", awayteam);
+		final FloatData hpy = DATAMINERDB.getFootballpassyardspergameForWeek(week, year, "all", hometeam);
+		final FloatData hhpy = DATAMINERDB.getFootballpassyardspergameForWeek(week, year, "home", hometeam);
+
+		final FloatData apc = DATAMINERDB.getFootballpasscompletionspergameForWeek(week, year, "all", awayteam);
+		final FloatData aapc = DATAMINERDB.getFootballpasscompletionspergameForWeek(week, year, "away", awayteam);
+		final FloatData hpc = DATAMINERDB.getFootballpasscompletionspergameForWeek(week, year, "all", hometeam);
+		final FloatData hhpc = DATAMINERDB.getFootballpasscompletionspergameForWeek(week, year, "home", hometeam);
+
+		final FloatData apa = DATAMINERDB.getFootballpassattemptspergameForWeek(week, year, "all", awayteam);
+		final FloatData aapa = DATAMINERDB.getFootballpassattemptspergameForWeek(week, year, "away", awayteam);
+		final FloatData hpa = DATAMINERDB.getFootballpassattemptspergameForWeek(week, year, "all", hometeam);
+		final FloatData hhpa = DATAMINERDB.getFootballpassattemptspergameForWeek(week, year, "home", hometeam);
+
+		final FloatData aypp = DATAMINERDB.getFootballyardsperpassForWeek(week, year, "all", awayteam);
+		final FloatData aaypp = DATAMINERDB.getFootballyardsperpassForWeek(week, year, "away", awayteam);
+		final FloatData hypp = DATAMINERDB.getFootballyardsperpassForWeek(week, year, "all", hometeam);
+		final FloatData hhypp = DATAMINERDB.getFootballyardsperpassForWeek(week, year, "home", hometeam);
+
+		final FloatData at = DATAMINERDB.getFootballturnoverspergameForWeek(week, year, "all", awayteam);
+		final FloatData aat = DATAMINERDB.getFootballturnoverspergameForWeek(week, year, "away", awayteam);
+		final FloatData ht = DATAMINERDB.getFootballturnoverspergameForWeek(week, year, "all", hometeam);
+		final FloatData hht = DATAMINERDB.getFootballturnoverspergameForWeek(week, year, "home", hometeam);
+
+		final FloatData apt = DATAMINERDB.getFootballpossessiontimepergameForWeek(week, year, "all", awayteam);
+		final FloatData aapt = DATAMINERDB.getFootballpossessiontimepergameForWeek(week, year, "away", awayteam);
+		final FloatData hpt = DATAMINERDB.getFootballpossessiontimepergameForWeek(week, year, "all", hometeam);
+		final FloatData hhpt = DATAMINERDB.getFootballpossessiontimepergameForWeek(week, year, "home", hometeam);
+
+		if (originalweek == 1) {
+			year++;
+			week = 1;
+		}
+
+		if (atde == null || htde == null) {
+			LOGGER.error("Week: " + week + " AwayTeam: " + awayteam + "HomeTeam: " + hometeam);
+		} else {
+			final Double thirddowneff = determineDataUsage(awayfactor, homefactor, atde.getFloatdata(), aoppfactor, hoppfactor, aatde.getFloatdata(), htde.getFloatdata(), hhtde.getFloatdata(), 1.0);
+			final Double oppthirddowneff = -(determineDataUsage(awayfactor, homefactor, aoppfactor, hoppfactor, atde.getOppfloatdata(), aatde.getOppfloatdata(), htde.getOppfloatdata(), hhtde.getOppfloatdata(), 1.0));
+			final Double fourthdowneff = determineDataUsage(awayfactor, homefactor, aoppfactor, hoppfactor, aafde.getFloatdata(), aafde.getFloatdata(), hfde.getFloatdata(), hhfde.getFloatdata(), 1.0);
+			final Double oppfourthdowneff = -(determineDataUsage(awayfactor, homefactor, aoppfactor, hoppfactor, afde.getOppfloatdata(), aafde.getOppfloatdata(), hfde.getOppfloatdata(), hhfde.getOppfloatdata(), 1.0));
+
+			final Double points = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, ap.getFloatdata(), aap.getFloatdata(), ap.getOppfloatdata(), aap.getOppfloatdata(), hp.getFloatdata(), hhp.getFloatdata(), hp.getOppfloatdata(), hhp.getOppfloatdata(), 0.15);
+			final Double firstdowns = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, af.getFloatdata(), aaf.getFloatdata(), af.getOppfloatdata(), aaf.getOppfloatdata(), hf.getFloatdata(), hhf.getFloatdata(), hf.getOppfloatdata(), hhf.getOppfloatdata(), 0.06);
+			final Double totalyards = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, aty.getFloatdata(), aaty.getFloatdata(), aty.getOppfloatdata(), aaty.getOppfloatdata(), hty.getFloatdata(), hhty.getFloatdata(), hty.getOppfloatdata(), hhty.getOppfloatdata(), 0.03);
+			final Double rushingyards = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, ary.getFloatdata(), aary.getFloatdata(), ary.getOppfloatdata(), aary.getOppfloatdata(), hry.getFloatdata(), hhry.getFloatdata(), hry.getOppfloatdata(), hhry.getOppfloatdata(), 0.04);
+//			final Double rushingattempts = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, ara.getFloatdata(), aara.getFloatdata(), ara.getOppfloatdata(), aara.getOppfloatdata(), hra.getFloatdata(), hhra.getFloatdata(), hra.getOppfloatdata(), hhra.getOppfloatdata(), 0.02);
+			final Double rushingattempts = new Double(0);
+			final Double yardsperrush = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, aypr.getFloatdata(), aaypr.getFloatdata(), aypr.getOppfloatdata(), aaypr.getOppfloatdata(), hypr.getFloatdata(), hhypr.getFloatdata(), hypr.getOppfloatdata(), hhypr.getOppfloatdata(), 0.1);
+			final Double passingyards = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, apy.getFloatdata(), aapy.getFloatdata(), apy.getOppfloatdata(), aapy.getOppfloatdata(), hpy.getFloatdata(), hhpy.getFloatdata(), hpy.getOppfloatdata(), hhpy.getOppfloatdata(), 0.03);
+//			final Double passingcompletions = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, apc.getFloatdata(), aapc.getFloatdata(), apc.getOppfloatdata(), aapc.getOppfloatdata(), hpc.getFloatdata(), hhpc.getFloatdata(), hpc.getOppfloatdata(), hhpc.getOppfloatdata(), 0.025);
+//			final Double passingattempts = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, apa.getFloatdata(), aapa.getFloatdata(), apa.getOppfloatdata(), aapa.getOppfloatdata(), hpa.getFloatdata(), hhpa.getFloatdata(), hpa.getOppfloatdata(), hhpa.getOppfloatdata(), 0.01);
+			final Double passingcompletions = new Double(0);
+			final Double passingattempts = new Double(0);
+			final Double yardsperpass = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, aypp.getFloatdata(), aaypp.getFloatdata(), aypp.getOppfloatdata(), aaypp.getOppfloatdata(), hypp.getFloatdata(), hhypp.getFloatdata(), hypp.getOppfloatdata(), hhypp.getOppfloatdata(), 0.025);
+			final Double turnovers = determineDataUsageBothNegative(awayfactor, homefactor, aoppfactor, hoppfactor, at.getFloatdata(), aat.getFloatdata(), at.getOppfloatdata(), aat.getOppfloatdata(), ht.getFloatdata(), hht.getFloatdata(), ht.getOppfloatdata(), hht.getOppfloatdata(), 1.0);
+			final Double possession = determineDataUsageBoth(awayfactor, homefactor, aoppfactor, hoppfactor, apt.getFloatdata(), aapt.getFloatdata(), apt.getOppfloatdata(), aapt.getOppfloatdata(), hpt.getFloatdata(), hhpt.getFloatdata(), hpt.getOppfloatdata(), hhpt.getOppfloatdata(), 0.1);
+
+			thirddownefflist.add(thirddowneff);
+			oppthirddownefflist.add(oppthirddowneff);
+			fourthdownefflist.add(fourthdowneff);
+			oppfourthdownefflist.add(oppfourthdowneff);
+			pointslist.add(points);
+			firstdownslist.add(firstdowns);
+			totalyardslist.add(totalyards);
+			rushingyardslist.add(rushingyards);
+			rushingattemptslist.add(rushingattempts);
+			yardsperrushlist.add(yardsperrush);
+			passingyardslist.add(passingyards);
+			passingcompletionslist.add(passingcompletions);
+			passingattemptslist.add(passingattempts);
+			yardsperpasslist.add(yardsperpass);
+			turnoverslist.add(turnovers);
+			possessionlist.add(possession);
+
+			LOGGER.error("awayteam: " + awayteam + " hometeam: " + hometeam);
+			LOGGER.error("thirddowneff: " + thirddowneff);
+			LOGGER.error("oppthirddowneff: " + oppthirddowneff);
+			LOGGER.error("fourthdowneff: " + fourthdowneff);
+			LOGGER.error("oppfourthdowneff: " + oppfourthdowneff);
+			LOGGER.error("points: " + points);
+			LOGGER.error("firstdowns: " + firstdowns);
+			LOGGER.error("totalyards: " + totalyards);
+			LOGGER.error("rushingyards: " + rushingyards);
+			LOGGER.error("rushingattempts: " + rushingattempts);
+			LOGGER.error("yardsperrush: " + yardsperrush);
+			LOGGER.error("passingyards: " + passingyards);
+			LOGGER.error("passingcompletions: " + passingcompletions);
+			LOGGER.error("passingattempts: " + passingattempts);
+			LOGGER.error("yardsperpass: " + yardsperpass);
+			LOGGER.error("turnovers: " + turnovers);
+			LOGGER.error("possession: " + possession);
+			LOGGER.error("home field: " + "-3");
+		}
+	}
+
+	/**
+	 * 
+	 * @param week
+	 * @param year
+	 * @param originalweek
+	 * @param awayteam
+	 * @param hometeam
+	 * @param awayfactor
+	 * @param aoppfactor
+	 * @param homefactor
+	 * @param hoppfactor
+	 * @return
+	 */
+	private Double determineSpread(Integer week, 
+			Integer year, 
+			Integer originalweek, 
+			String awayteam, 
+			String hometeam) {
+		Double spread = null;
+		final Double thirddowneff = setupStat(thirddownefflist);
+		final Double oppthirddowneff = setupStat(oppthirddownefflist);
+		final Double fourthdowneff = setupStat(fourthdownefflist);
+		final Double oppfourthdowneff = setupStat(oppfourthdownefflist);
+		final Double points = setupStat(pointslist);
+		final Double firstdowns = setupStat(firstdownslist);
+		final Double totalyards = setupStat(totalyardslist);
+		final Double rushingyards = setupStat(rushingyardslist);
+		final Double rushingattempts = setupStat(rushingattemptslist);
+		final Double yardsperrush = setupStat(yardsperrushlist);
+		final Double passingyards = setupStat(passingyardslist);
+		final Double passingcompletions = setupStat(passingcompletionslist);
+		final Double passingattempts = setupStat(passingattemptslist);
+		final Double yardsperpass = setupStat(yardsperpasslist);
+		final Double turnovers = setupStat(turnoverslist);
+		final Double possession = setupStat(possessionlist);
+
+		LOGGER.error("awayteam: " + awayteam + " hometeam: " + hometeam);
+		LOGGER.error("thirddowneff: " + thirddowneff);
+		LOGGER.error("oppthirddowneff: " + oppthirddowneff);
+		LOGGER.error("fourthdowneff: " + fourthdowneff);
+		LOGGER.error("oppfourthdowneff: " + oppfourthdowneff);
+		LOGGER.error("points: " + points);
+		LOGGER.error("firstdowns: " + firstdowns);
+		LOGGER.error("totalyards: " + totalyards);
+		LOGGER.error("rushingyards: " + rushingyards);
+		LOGGER.error("rushingattempts: " + rushingattempts);
+		LOGGER.error("yardsperrush: " + yardsperrush);
+		LOGGER.error("passingyards: " + passingyards);
+		LOGGER.error("passingcompletions: " + passingcompletions);
+		LOGGER.error("passingattempts: " + passingattempts);
+		LOGGER.error("yardsperpass: " + yardsperpass);
+		LOGGER.error("turnovers: " + turnovers);
+		LOGGER.error("possession: " + possession);
+		LOGGER.error("home field: " + "-3");
+
+		spread = thirddowneff + oppthirddowneff + fourthdowneff + oppfourthdowneff + points + firstdowns + totalyards + rushingyards + 
+				rushingattempts + yardsperrush + passingyards + passingcompletions + passingattempts + yardsperpass + turnovers + possession - 3;
+
+		return spread;
+	}
+
+	/**
+	 * 
+	 * @param list
+	 * @return
+	 */
+	private Double setupStat(List<Double> list) {
+		double objectlist = 0;
+
+		for (Double object : list) {
+			objectlist = objectlist + object.doubleValue();
+		}
+
+		return objectlist / list.size();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.wootechnologies.dataminer.WoODataMiner#runGameAlgorithm(java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, boolean, boolean)
+	 */
+	@Override
+	protected Double runGameAlgorithm(Integer week, Integer year, String awayteam, String hometeam, boolean awayisfbs, boolean homeisfbs) throws BatchException, SQLException {
+		LOGGER.info("Entering runGameAlgorithm()");
+		LOGGER.error("awayteam: " + awayteam);
+		LOGGER.error("hometeam: " + hometeam);
+		LOGGER.error("week: " + week);
+		LOGGER.error("year: " + year);
+		Double spread = null;
+		Integer originalweek = week;
+
+		if (week == 1) {
+			year--;
+			week = 14;
+		}
+
+		// Need to loop through all of the weeks
+		for (int theweek = 0; theweek < week.intValue(); theweek++) {
+			final List<EspnFootballGameData> games = DATAMINERDB.getEspnNcaafGameDataByWeek(theweek, year);
+			final Map<String, Float> ratings = getTeamRatingsForGame(true, awayteam, hometeam, games);
+			final Float awaymassey = ratings.get("away");
+			final Float homemassey = ratings.get("home");
+			LOGGER.debug(awayteam + " awaymassey: " + awaymassey);
+			LOGGER.debug(hometeam + " homemassey: " + homemassey);
+
+			// Get teams games
+			final Map<String, EspnFootballGameData> lastGame = getPastGames(awayteam, hometeam, awayisfbs, homeisfbs, theweek, year, games);
+			final EspnFootballGameData awayGame = lastGame.get("away");
+			final EspnFootballGameData homeGame = lastGame.get("home");
+			LOGGER.error("awayGame: " + awayGame);
+			LOGGER.error("homeGame: " + homeGame);
+
+			if (awayGame != null && homeGame != null) {
+				final Map<String, Float> lastGameRatings = lastGameRatings(true, awayGame, homeGame);
+				final Float awaygameawaymasseyrating = lastGameRatings.get("awayaway");
+				final Float awaygamehomemasseyrating = lastGameRatings.get("awayhome");
+				final Float homegameawaymasseyrating = lastGameRatings.get("homeaway");
+				final Float homegamehomemasseyrating = lastGameRatings.get("homehome");
+		
+				// Master Massey
+				final Float masterMassey = determineMasterMassey(awaygameawaymasseyrating, awaygamehomemasseyrating, homegameawaymasseyrating, homegamehomemasseyrating);
+				LOGGER.debug("masterMassey: " + masterMassey);
+		
+				Float awayfactor = new Float(1);
+				Float aoppfactor = new Float(1);
+				Float homefactor = new Float(1);
+				Float hoppfactor = new Float(1);
+		
+				if (awaymassey != null && homemassey != null) {
+					LOGGER.error(awayteam + " awaymassey: " + awaymassey);
+					LOGGER.error(hometeam + " homemassey: " + homemassey);
+					LOGGER.error(awayteam + " awaygameawaymasseyrating: " + awaygameawaymasseyrating);
+					LOGGER.error(awayteam + " awaygamehomemasseyrating: " + awaygamehomemasseyrating);
+					LOGGER.error(hometeam + " homegameawaymasseyrating: " + homegameawaymasseyrating);
+					LOGGER.error(hometeam + " homegamehomemasseyrating: " + homegamehomemasseyrating);
+		
+					Float lowaway = null;
+					Float highaway = null;
+					if (awaygamehomemasseyrating.floatValue() < awaygameawaymasseyrating.floatValue()) {
+						lowaway = awaygamehomemasseyrating;
+						highaway = awaygameawaymasseyrating;
+					} else {
+						lowaway = awaygameawaymasseyrating;
+						highaway = awaygamehomemasseyrating;
+					}
+					
+					Float lowhome = null;
+					Float highhome = null;
+					if (homegamehomemasseyrating.floatValue() < homegameawaymasseyrating.floatValue()) {
+						lowhome = homegamehomemasseyrating;
+						highhome = homegameawaymasseyrating;
+					} else {
+						lowhome = homegameawaymasseyrating;
+						highhome = homegamehomemasseyrating;
+					}
+	
+					Float awaycompare = null;
+					if (lowaway.floatValue() == awaymassey.floatValue()) {
+						awaycompare = highaway;
+					} else {
+						awaycompare = lowaway;
+					}
+	
+					Float homecompare = null;
+					if (lowhome.floatValue() == homemassey.floatValue()) {
+						homecompare = highhome;
+					} else {
+						homecompare = lowhome;
+					}
+	
+	//				Map<String, Float> aoppfactors = determineFactor(awaygameawaymasseyrating, awaygamehomemasseyrating);
+	//				Map<String, Float> hoppfactors = determineFactor(homegameawaymasseyrating, homegamehomemasseyrating);
+	//				Map<String, Float> afactors = determineFactor(awaymassey, masterMassey);
+	//				Map<String, Float> hfactors = determineFactor(homemassey, masterMassey);
+	//				Map<String, Float> hfactors = determineFactor(awaymassey, homemassey);
+	//				Map<String, Float> afactors = determineFactor(awaygameawaymasseyrating, awaygamehomemasseyrating);
+	//				Map<String, Float> hfactors = determineFactor(homegameawaymasseyrating, homegamehomemasseyrating);
+					Map<String, Float> aoppfactors = determineFactor(awaygameawaymasseyrating, awaygamehomemasseyrating);
+					Map<String, Float> hoppfactors = determineFactor(homegameawaymasseyrating, homegamehomemasseyrating);
+					Map<String, Float> afactors = determineFactor(homecompare, awaymassey);
+					Map<String, Float> hfactors = determineFactor(awaycompare, homemassey);
+//					LOGGER.error(awayteam + " afactors: " + afactors);
+//					LOGGER.error(awayteam + " aoppfactors: " + aoppfactors);
+//					LOGGER.error(hometeam + " hfactors: " + hfactors);
+//					LOGGER.error(hometeam + " hoppfactors: " + hoppfactors);
+	
+					// Determine all the factors
+					final Map<String, Float> factors = determineFactors(awayteam, 
+							hometeam, 
+							awayGame, 
+							homeGame,
+							awaygameawaymasseyrating,
+							awaygamehomemasseyrating,
+							homegameawaymasseyrating,
+							homegamehomemasseyrating,
+							afactors,
+							aoppfactors,
+							hfactors,
+							hoppfactors,
+							awaymassey,
+							homemassey,
+							masterMassey);
+					awayfactor = factors.get("awayfactor");
+					aoppfactor = factors.get("aoppfactor");
+					homefactor = factors.get("homefactor");
+					hoppfactor = factors.get("hoppfactor");
+					
+					final Double commonFactor = (Double)(1.0 / 260.0);
+					final Float commonDivisionFactor = new Float(1.3);
+					final Float awayaway = 1 - (awaygameawaymasseyrating * commonFactor.floatValue());
+					final Float awayhome = 1 - (awaygamehomemasseyrating * commonFactor.floatValue());
+					final Float homeaway = 1 - (homegameawaymasseyrating * commonFactor.floatValue());
+					final Float homehome = 1 - (homegamehomemasseyrating * commonFactor.floatValue());
+
+					final Float awayDelta = (awaygameawaymasseyrating + awaygamehomemasseyrating);
+					final Float homeDelta = (homegameawaymasseyrating + homegamehomemasseyrating);
+
+					Float awayopp = null;
+					Float homeopp = null;
+
+					if (awaymassey.floatValue() == awaygameawaymasseyrating.floatValue()) {
+						awayopp = awaygamehomemasseyrating;
+						aoppfactor = 1 + (Math.abs(awaygamehomemasseyrating) * commonFactor.floatValue());	
+					} else {
+						awayopp = awaygameawaymasseyrating;
+						aoppfactor = 1 + (Math.abs(awaygameawaymasseyrating) * commonFactor.floatValue());
+					}
+
+					if (homemassey.floatValue() == homegameawaymasseyrating.floatValue()) {
+						homeopp = homegamehomemasseyrating;
+						hoppfactor = 1 + (Math.abs(homegamehomemasseyrating) * commonFactor.floatValue());	
+					} else {
+						homeopp = homegameawaymasseyrating;
+						hoppfactor = 1 + (Math.abs(homegameawaymasseyrating) * commonFactor.floatValue());
+					}
+
+//					hoppfactor = 1 + (Math.abs(homeDelta) * commonFactor.floatValue());
+					awayfactor = 1 - (awaymassey * commonFactor.floatValue());
+					homefactor = 1 - (homemassey * commonFactor.floatValue());
+
+					LOGGER.error(awayteam + " awayfactor: " + awayfactor);
+					LOGGER.error(awayteam + " aoppfactor: " + aoppfactor);
+					LOGGER.error(hometeam + " homefactor: " + homefactor);	
+					LOGGER.error(hometeam + " hoppfactor: " + hoppfactor);
+
+					if (awaymassey.floatValue() == awaygameawaymasseyrating.floatValue()) {
+						if (awaygamehomemasseyrating.floatValue() < awaygameawaymasseyrating.floatValue()) {
+							aoppfactor = aoppfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							awayfactor = awayfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							// Now check if the team they played is a harder game or not
+							if (homeopp.floatValue() > awayopp.floatValue()) {
+								hoppfactor = hoppfactor + (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+								homefactor = homefactor - (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							}
+						} else if (homemassey.floatValue() < awaymassey.floatValue()) {
+							aoppfactor = aoppfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							awayfactor = awayfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							// Now check if the team they played is a harder game or not
+							if (homeopp.floatValue() > awayopp.floatValue()) {
+								hoppfactor = hoppfactor + (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+								homefactor = homefactor - (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							}
+						} else if (awayopp.floatValue() > homeopp.floatValue() && awayopp.floatValue() < homemassey.floatValue()) {
+							aoppfactor = aoppfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							awayfactor = awayfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+						}
+					} else {
+						if (awaygameawaymasseyrating.floatValue() < awaygamehomemasseyrating.floatValue()) {
+							aoppfactor = aoppfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							awayfactor = awayfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							// Now check if the team they played is a harder game or not
+							if (homeopp.floatValue() > awayopp.floatValue()) {
+								hoppfactor = hoppfactor + (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+								homefactor = homefactor - (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							}
+						} else if (homemassey.floatValue() < awaymassey.floatValue()) {
+							aoppfactor = aoppfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							awayfactor = awayfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							// Now check if the team they played is a harder game or not
+							if (homeopp.floatValue() > awayopp.floatValue()) {
+								hoppfactor = hoppfactor + (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+								homefactor = homefactor - (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							}
+						} else if (awaymassey.floatValue() < homemassey.floatValue() && 
+								awaymassey.floatValue() < homeopp.floatValue() && 
+								Math.abs(awaymassey.intValue() - homeopp.intValue()) < 10) {
+							aoppfactor = aoppfactor - (1 - ((Math.abs(awayopp.floatValue() - homeopp.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							// Now check if the team they played is a harder game or not
+							if (homeopp.floatValue() > awayopp.floatValue()) {
+								hoppfactor = hoppfactor + (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+								homefactor = homefactor - (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							}							
+						} else if (awayopp.floatValue() > homeopp.floatValue() && awayopp.floatValue() < homemassey.floatValue()) {
+							aoppfactor = aoppfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							awayfactor = awayfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+						} else if (awayopp.floatValue() > homeopp.floatValue() && 
+								awaymassey.floatValue() < awayopp.floatValue() && 
+								homemassey.floatValue() < homeopp.floatValue() &&
+								Math.abs(awaymassey.intValue() - homeopp.intValue()) < 10) {
+							aoppfactor = aoppfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							awayfactor = awayfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+						}
+					}
+
+					if (homemassey.floatValue() == homegameawaymasseyrating.floatValue()) {
+						// This means the home team played a higher rated team; discount the opponent information and prop up the home teams factor
+						if (homegamehomemasseyrating.floatValue() < homegameawaymasseyrating.floatValue()) {
+							hoppfactor = hoppfactor - (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							homefactor = homefactor + (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							// Now check if the team they played is a harder game or not
+							if (awayopp.floatValue() > homeopp.floatValue() && 
+								homeopp.floatValue() < awaymassey.floatValue()) {
+								aoppfactor = aoppfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+								awayfactor = awayfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							}
+						} else if (awaymassey.floatValue() < homemassey.floatValue()) {
+							// Now check if the team they played is a harder game or not
+							if (awayopp.floatValue() > homeopp.floatValue() && homeopp.floatValue() < awaymassey.floatValue()) {
+								aoppfactor = aoppfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+								awayfactor = awayfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							}
+						}
+					} else {
+						if (homegameawaymasseyrating.floatValue() < homegamehomemasseyrating.floatValue()) {
+							hoppfactor = hoppfactor - (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							homefactor = homefactor + (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							// Now check if the team they played is a harder game or not
+							if (awayopp.floatValue() > homeopp.floatValue() && homeopp.floatValue() < awaymassey.floatValue()) {
+								aoppfactor = aoppfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+								awayfactor = awayfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							}
+						} else if (awaymassey.floatValue() < homemassey.floatValue()) {
+							// Now check if the team they played is a harder game or not
+							if (awayopp.floatValue() > homeopp.floatValue() && homeopp.floatValue() < awaymassey.floatValue()) {
+								aoppfactor = aoppfactor + (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+								awayfactor = awayfactor - (1 - (((awaygameawaymasseyrating.floatValue() + awaygamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							}
+						} else if (homemassey.floatValue() < awaymassey.floatValue() && homemassey.floatValue() < awayopp.floatValue() && 
+								Math.abs(awaymassey.intValue() - homeopp.intValue()) > 10) {
+							hoppfactor = hoppfactor - (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+							homefactor = homefactor + (1 - (((homegameawaymasseyrating.floatValue() + homegamehomemasseyrating.floatValue())/commonDivisionFactor) * commonFactor.floatValue()));
+						}
+					}
+
+//					LOGGER.error(awayteam + " awayfactor: " + awayfactor);
+//					LOGGER.error(awayteam + " aafactor: " + aafactor);
+//					LOGGER.error(hometeam + " homefactor: " + homefactor);
+//					LOGGER.error(hometeam + " hhfactor: " + hhfactor);
+
+//					final Double afactor = (Double)Math.pow(awayfactor.intValue(), (1/aafactor.intValue()));
+//					final Double hfactor = (Double)Math.pow(homefactor.intValue(), (1/hhfactor.intValue()));
+					
+					LOGGER.error(awayteam + " awayfactor: " + awayfactor);
+					LOGGER.error(awayteam + " aoppfactor: " + aoppfactor);
+					LOGGER.error(hometeam + " homefactor: " + homefactor);	
+					LOGGER.error(hometeam + " hoppfactor: " + hoppfactor);
+
+					
+/*
+					if (homemassey < awaymassey) {
+						afactor = awayfactor.floatValue() + (1/Math.abs(homemassey - awaymassey));
+						hfactor = homefactor.floatValue() + (1/hhfactor.floatValue());
+					} else {
+						afactor = awayfactor.floatValue() + (1/aafactor.floatValue());
+						hfactor = homefactor.floatValue() + (1/Math.abs(homemassey - awaymassey));			
+					}
+					
+					if (awaymassey < 10) {
+						
+					} else if (awaymassey < 20) {
+						
+					} else if (awaymassey < 30) {
+						afactor = (1 - (Math.abs(awaymassey) * commonFactor.floatValue()));  
+					}
+
+					awayfactor = awayfactor + afactor.floatValue();
+					homefactor = homefactor + hfactor.floatValue();
+*/
+				}
+
+				// Process the game data
+				processGameData(awayteam,
+						hometeam,
+						awayGame,
+						homeGame,
+						awayfactor, 
+						aoppfactor, 
+						homefactor, 
+						hoppfactor);
+
+				// Process the data
+				// processTheData(week, year, originalweek, awayteam, hometeam, awayfactor, aoppfactor, homefactor, hoppfactor);
+			}
+		}
+
+		// Determine the spread
+		spread = determineSpread(week, 
+				year, 
+				originalweek, 
+				awayteam, 
+				hometeam);
+
+		LOGGER.info("Exiting runGameAlgorithm()");
+		return spread;
+	}
+
+	/**
+	 * 
+	 * @param awaymasseyrating
+	 * @param homemasseyrating
+	 * @return
+	 */
+	private Map<String, Float> determineFactor(Float awaymasseyrating, Float homemasseyrating) {
+		LOGGER.debug("awaymasseyrating: " + awaymasseyrating);
+		LOGGER.debug("homemasseyrating: " + homemasseyrating);
+
+		final Map<String, Float> factors = new HashMap<String, Float>();
+		Float awayfinal = null;
+		Float homefinal = null;
+
+		if (awaymasseyrating.floatValue() < homemasseyrating.floatValue()) {
+			for (int x = 1; x < 24; x++) {
+				// UAB 89.25
+				// Coastal Carolina 119.66
+				if (awaymasseyrating.floatValue() < (10 * x)) {
+					if (homemasseyrating.floatValue() < 10) {
+						LOGGER.error("awaymasseyrating1: " + awaymasseyrating);
+						LOGGER.error("homemasseyrating1: " + homemasseyrating);
+						awayfinal = new Float(1);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 20) {
+						awayfinal = new Float(1 / 1.05);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 30) {
+						awayfinal = new Float(1 / 1.11);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 40) {
+						awayfinal = new Float(1 / 1.18);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 50) {
+						awayfinal = new Float(1 / 1.26);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1.1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 60) {
+						awayfinal = new Float(1 / 1.35);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 70) {
+						awayfinal = new Float(1 / 1.45);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 80) {
+						awayfinal = new Float(1 / 1.56);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 90) {
+						awayfinal = new Float(1 / 1.68);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 100) {
+						awayfinal = new Float(1 / 1.81);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 110) {
+						awayfinal = new Float(1 / 1.95);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 120) {
+						awayfinal = new Float(1 / 2.10);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 130) {
+						awayfinal = new Float(1 / 2.26);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 140) {
+						awayfinal = new Float(1 / 2.43);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 150) {
+						awayfinal = new Float(1 / 2.61);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 160) {
+						awayfinal = new Float(1 / 2.80);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 170) {
+						awayfinal = new Float(1 / 3.00);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 180) {
+						awayfinal = new Float(1 / 3.21);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 190) {
+						awayfinal = new Float(1 / 3.43);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 200) {
+						awayfinal = new Float(1 / 3.66);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 210) {
+						awayfinal = new Float(1 / 3.90);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 220) {
+						awayfinal = new Float(1 / 4.15);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (homemasseyrating.floatValue() < 240) {
+						awayfinal = new Float(1 / 4.41);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else {
+						awayfinal = new Float(1 / 4.68);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					}
+				}
+			}
+		} else {
+			for (int x = 1; x < 24; x++) {
+				// UAB 89.25
+				// Coastal Carolina 119.66
+				if (homemasseyrating.floatValue() < (10 * x)) {
+					if (awaymasseyrating.floatValue() < 10) {
+						LOGGER.error("awaymasseyrating2: " + awaymasseyrating);
+						LOGGER.error("homemasseyrating2: " + homemasseyrating);
+						awayfinal = new Float(1);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1.1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 20) {
+						awayfinal = new Float(1 / 1.05);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1.05);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 30) {
+						awayfinal = new Float(1 / 1.11);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1.025);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 40) {
+						awayfinal = new Float(1 / 1.18);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1.020);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 50) {
+						awayfinal = new Float(1 / 1.26);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 2);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 60) {
+						awayfinal = new Float(1 / 1.35);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 70) {
+						awayfinal = new Float(1 / 1.45);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 80) {
+						awayfinal = new Float(1 / 1.56);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 90) {
+						awayfinal = new Float(1 / 1.68);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 100) {
+						awayfinal = new Float(1 / 1.81);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 110) {
+						awayfinal = new Float(1 / 1.95);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 120) {
+						awayfinal = new Float(1 / 2.10);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 130) {
+						awayfinal = new Float(1 / 2.26);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 140) {
+						awayfinal = new Float(1 / 2.43);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 150) {
+						awayfinal = new Float(1 / 2.61);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 160) {
+						awayfinal = new Float(1 / 2.80);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 170) {
+						awayfinal = new Float(1 / 3.00);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 180) {
+						awayfinal = new Float(1 / 3.21);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 190) {
+						awayfinal = new Float(1 / 3.43);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 200) {
+						awayfinal = new Float(1 / 3.66);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 210) {
+						awayfinal = new Float(1 / 3.90);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 220) {
+						awayfinal = new Float(1 / 4.15);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else if (awaymasseyrating.floatValue() < 240) {
+						awayfinal = new Float(1 / 4.41);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					} else {
+						awayfinal = new Float(1 / 4.68);
+						awayfinal = ((1 - awayfinal)/x) + awayfinal;
+						homefinal = new Float((1 - awayfinal) + 1);
+						factors.put("awayfactor", awayfinal);
+						factors.put("homefactor", homefinal);
+						break;
+					}
+				}
+			}
+		}
+
+		return factors;
+	}
+
+	/**
+	 * 
+	 * @param awayfactor
+	 * @param homefactor
+	 * @param a
+	 * @param aa
+	 * @param h
+	 * @param hh
+	 * @param factor
+	 * @return
+	 */
+	private Double determineDataUsage(Float awayfactor, Float homefactor, Float aoppfactor, Float hoppfactor, Float a, Float aa, Float h, Float hh, Double factor) {
+		Double retValue = null;
+
+		if (aa == 0 && hh == 0) {
+			retValue = ((a * awayfactor) - ((h * homefactor))) * factor;
+		} else if (aa == 0) {
+			retValue = ((a * awayfactor) - ((hh * homefactor))) * factor;
+		} else if (hh == 0) {
+			retValue = ((aa * awayfactor) - ((h * homefactor))) * factor;
+		} else {
+			retValue = ((aa * awayfactor) - ((hh * homefactor))) * factor;
+		}
+
+		return retValue;
+	}
+
+	/**
+	 * 
+	 * @param awayfactor
+	 * @param homefactor
+	 * @param a
+	 * @param h
+	 * @param factor
+	 * @return
+	 */
+	private Double calculateValue(Float awayfactor, Float homefactor, Float a, Float h, Double factor) {
+		return ((a * awayfactor) - ((h * homefactor))) * factor;
+	}
+
+	/**
+	 * 
+	 * @param awayfactor
+	 * @param homefactor
+	 * @param a
+	 * @param aa
+	 * @param aOpp
+	 * @param aaOpp
+	 * @param h
+	 * @param hh
+	 * @param hOpp
+	 * @param hhOpp
+	 * @param factor
+	 * @return
+	 */
+	private Double determineDataUsageBoth(Float awayfactor, Float homefactor, Float aoppfactor, Float hoppfactor, Float a, Float aa, Float aOpp, Float aaOpp, Float h, Float hh, Float hOpp, Float hhOpp, Double factor) {
+		Double retValue = null;
+
+		if (aa == 0 && hh == 0) {
+			retValue = (((a * awayfactor) - (h * homefactor)) + (-((aOpp * aoppfactor) - (hOpp * hoppfactor)))) * factor;
+		} else if (aa == 0) {
+			retValue = (((a * awayfactor) - (hh * homefactor)) + (-((aOpp * aoppfactor) - (hhOpp * hoppfactor)))) * factor;
+		} else if (hh == 0) {
+			retValue = (((aa * awayfactor) - (h * homefactor)) + (-((aaOpp * aoppfactor) - (hOpp * hoppfactor)))) * factor;
+		} else {
+			retValue = (((aa * awayfactor) - (hh * homefactor)) + (-((aaOpp * aoppfactor) - (hhOpp * hoppfactor)))) * factor;
+		}
+
+		return retValue;
+	}
+
+	/**
+	 * 
+	 * @param awayfactor
+	 * @param homefactor
+	 * @param aoppfactor
+	 * @param hoppfactor
+	 * @param a
+	 * @param aOpp
+	 * @param h
+	 * @param hOpp
+	 * @param factor
+	 * @return
+	 */
+	private Double calculateValueBoth(Float awayfactor, Float homefactor, Float aoppfactor, Float hoppfactor, Float a, Float aOpp, Float h, Float hOpp, Double factor) {
+		LOGGER.debug("awayfactor: " + awayfactor);
+		LOGGER.debug("homefactor: " + homefactor);
+		LOGGER.debug("aoppfactor: " + aoppfactor);
+		LOGGER.debug("hoppfactor: " + hoppfactor);
+		LOGGER.debug("a: " + a);
+		LOGGER.debug("aOpp: " + aOpp);
+		LOGGER.debug("h: " + h);
+		LOGGER.debug("hOpp: " + hOpp);
+		LOGGER.debug("values: " + ((a * awayfactor) - (h * homefactor)));
+		LOGGER.debug("Oppvalues: " + (-((aOpp * aoppfactor) - (hOpp * hoppfactor))));
+
+		return (((a * awayfactor) - (h * homefactor)) + (-((aOpp * aoppfactor) - (hOpp * hoppfactor)))) * factor;
+	}
+
+	/**
+	 * 
+	 * @param awayfactor
+	 * @param homefactor
+	 * @param a
+	 * @param aa
+	 * @param aOpp
+	 * @param aaOpp
+	 * @param h
+	 * @param hh
+	 * @param hOpp
+	 * @param hhOpp
+	 * @param factor
+	 * @return
+	 */
+	private Double determineDataUsageBothNegative(Float awayfactor, Float homefactor, Float aoppfactor, Float hoppfactor, Float a, Float aa, Float aOpp, Float aaOpp, Float h, Float hh, Float hOpp, Float hhOpp, Double factor) {
+		Double retValue = null;
+
+		if (aa == 0 && hh == 0) {
+			retValue = (-((a * awayfactor) - (h * homefactor)) + (((aOpp * aoppfactor) - (hOpp * hoppfactor)))) * factor;
+		} else if (aa == 0) {
+			retValue = (-((a * awayfactor) - (hh * homefactor)) + (((aOpp * aoppfactor) - (hhOpp * hoppfactor)))) * factor;
+		} else if (hh == 0) {
+			retValue = (-((aa * awayfactor) - (h * homefactor)) + (((aaOpp * aoppfactor) - (hOpp * hoppfactor)))) * factor;
+		} else {
+			retValue = (-((aa * awayfactor) - (hh * homefactor)) + (((aaOpp * aoppfactor) - (hhOpp * hoppfactor)))) * factor;
+		}
+
+		return retValue;
+	}
+
+	/**
+	 * 
+	 * @param awayfactor
+	 * @param homefactor
+	 * @param aoppfactor
+	 * @param hoppfactor
+	 * @param a
+	 * @param aOpp
+	 * @param h
+	 * @param hOpp
+	 * @param factor
+	 * @return
+	 */
+	private Double calculateValueBothNegative(Float awayfactor, Float homefactor, Float aoppfactor, Float hoppfactor, Float a, Float aOpp, Float h, Float hOpp, Double factor) {
+		return (-((a * awayfactor) - (h * homefactor)) + (((aOpp * aoppfactor) - (hOpp * hoppfactor)))) * factor;
+	}
+
+	/**
+	 * 
+	 * @param game
+	 * @param week
+	 * @param year
+	 * @param sag
+	 * @throws SQLException
+	 */
+	private void storeGameData(EspnFootballGameData game, Integer week, Integer year) throws SQLException {
+		LOGGER.info("Entering storeGameData()");
+
+		final String acollegename = game.getAwaycollegename();
+		final String hcollegename = game.getHomecollegename();
+		if (game.getYear() != null && game.getYear() == 0) {
+			game.setYear(year);
+		} else if (game.getYear() == null) {
+			game.setYear(year);
+		}
+
+		// Number of games
+		Integer anumgames = DATAMINERDB.numberOfGames(game.getYear(), acollegename);
+		Integer hnumgames = DATAMINERDB.numberOfGames(game.getYear(), hcollegename);
+		Integer aanumgames = DATAMINERDB.numberOfAwayGames(game.getYear(), acollegename);
+		Integer hhnumgames = DATAMINERDB.numberOfHomeGames(game.getYear(), hcollegename);
+
+		if (anumgames == null) {
+			anumgames = new Integer(1);
+		} else if (anumgames == 0) {
+			anumgames = new Integer(1);
+		} else {
+			anumgames++;
+		}
+		if (hnumgames == null) {
+			hnumgames = new Integer(1);
+		} else if (hnumgames == 0) {
+			hnumgames = new Integer(1);
+		} else {
+			hnumgames++;
+		}
+		if (aanumgames == null) {
+			aanumgames = new Integer(1);
+		} else if (aanumgames == 0) {
+			aanumgames = new Integer(1);
+		} else {
+			aanumgames++;
+		}
+		if (hhnumgames == null) {
+			hnumgames = new Integer(1);
+		} else if (hnumgames == 0) {
+			hhnumgames = new Integer(1);
+		} else {
+			hhnumgames++;
+		}
+
+		LOGGER.debug("Away team: " + game.getAwaycollegename() + " number of games: " + anumgames);
+		LOGGER.debug("Home team: " + game.getHomecollegename() + " number of games: " + hnumgames);
+		LOGGER.debug("Away team: " + game.getAwaycollegename() + " number of away games: " + aanumgames);
+		LOGGER.debug("Home team: " + game.getHomecollegename() + " number of home games: " + hhnumgames);
+		
+		try {
+			// Prepare the offsets
+			final Boolean awayisfbs = game.getAwayisfbs();
+			Float awaymasseyrating = game.getAwaymasseyrating();
+			final Float awaysagrinrating = game.getAwaysagrinrating();
+			final Float awaysos = game.getAwaysos();
+
+			final Boolean homeisfbs = game.getHomeisfbs();
+			Float homemasseyrating = game.getHomemasseyrating();
+			final Float homesagrinrating = game.getHomesagrinrating();
+			final Float homesos = game.getHomesos();
+			Float awayfinal = new Float(1);
+			Float homefinal = new Float(1);
+
+			// First Downs	
+			final Float afirstdowns = game.getAwayfirstdowns().floatValue() * awayfinal;
+			final Float hfirstdowns = game.getHomefirstdowns().floatValue() * homefinal;
+			final FloatData affdpg = DATAMINERDB.getFootballfirstdownspergame(year, "all", acollegename);
+			final FloatData hffdpg = DATAMINERDB.getFootballfirstdownspergame(year, "all", hcollegename);
+			final FloatData aaffdpg = DATAMINERDB.getFootballfirstdownspergame(year, "away", acollegename);
+			final FloatData hhffdpg = DATAMINERDB.getFootballfirstdownspergame(year, "home", hcollegename);
+			final Float afd = getFloatValue(afirstdowns, affdpg.getFloatdatatotal());
+			final Float aafd = getFloatValue(afirstdowns, aaffdpg.getFloatdatatotal());
+			final Float aoppfd = getFloatValue(hfirstdowns, affdpg.getOppfloatdatatotal());
+			final Float aaoppfd = getFloatValue(hfirstdowns, aaffdpg.getOppfloatdatatotal());
+			final Float hfd = getFloatValue(hfirstdowns, hffdpg.getFloatdatatotal());
+			final Float hhfd = getFloatValue(hfirstdowns, hhffdpg.getFloatdatatotal());
+			final Float hoppfd = getFloatValue(afirstdowns, hffdpg.getOppfloatdatatotal());
+			final Float hhoppfd = getFloatValue(afirstdowns, hhffdpg.getOppfloatdatatotal());
+			DATAMINERDB.persistFootballfirstdownspergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(afd/anumgames), new Float(aoppfd/anumgames), afd, aoppfd, anumgames);
+			DATAMINERDB.persistFootballfirstdownspergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hfd/hnumgames), new Float(hoppfd/hnumgames), hfd, hoppfd, hnumgames);
+			DATAMINERDB.persistFootballfirstdownspergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aafd/aanumgames), new Float(aaoppfd/aanumgames), aafd, aaoppfd, aanumgames);
+			DATAMINERDB.persistFootballfirstdownspergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhfd/hhnumgames), new Float(hhoppfd/hhnumgames), hhfd, hhoppfd, hhnumgames);
+
+			// Fourth Down Efficiency
+			final Float afem = game.getAwayfourthefficiencymade().floatValue() * awayfinal;
+			final Float afea = game.getAwayfourthefficiencyattempts().floatValue() * awayfinal;
+			final Float hfem = game.getHomefourthefficiencymade().floatValue() * homefinal;
+			final Float hfea = game.getHomefourthefficiencyattempts().floatValue() * homefinal;
+			final Efficiencies afde = DATAMINERDB.getFootballfourthdowneffpergame(year, "all", acollegename);  
+			final Efficiencies hfde = DATAMINERDB.getFootballfourthdowneffpergame(year, "all", hcollegename);
+			final Efficiencies aafde = DATAMINERDB.getFootballfourthdowneffpergame(year, "away", acollegename);  
+			final Efficiencies hhfde = DATAMINERDB.getFootballfourthdowneffpergame(year, "home", hcollegename);
+			final Float afemtotal = getFloatValue(afem, afde.getMadetotal());
+			final Float afeatotal = getFloatValue(afea, afde.getAttemptstotal());
+			final Float aafemtotal = getFloatValue(afem, aafde.getMadetotal());
+			final Float aafeatotal = getFloatValue(afea, aafde.getAttemptstotal());
+			final Float hfemtotal = getFloatValue(hfem, afde.getOppmadetotal());
+			final Float hfeatotal = getFloatValue(hfea, afde.getOppattemptstotal());
+			final Float hhhhfemtotal = getFloatValue(hfem, aafde.getOppmadetotal());
+			final Float hhhhfeatotal = getFloatValue(hfea, aafde.getOppattemptstotal());
+			final Float hhfemtotal = getFloatValue(hfem, hfde.getMadetotal());
+			final Float hhfeatotal = getFloatValue(hfea, hfde.getAttemptstotal());
+			final Float hhhhhfemtotal = getFloatValue(hfem, hhfde.getMadetotal());
+			final Float hhhhhfeatotal = getFloatValue(hfea, hhfde.getAttemptstotal());
+			final Float hafemtotal = getFloatValue(afem, hfde.getOppmadetotal());
+			final Float hafeatotal = getFloatValue(afea, hfde.getOppattemptstotal());
+			final Float hhhhafemtotal = getFloatValue(afem, hhfde.getOppmadetotal());
+			final Float hhhhafeatotal = getFloatValue(afea, hhfde.getOppattemptstotal());
+
+			Float afed = null;
+			if (afemtotal == 0 && afeatotal == 0) {
+				afed = new Float(0); 
+			} else {
+				afed = new Float(afemtotal/afeatotal);
+			}
+			Float aafed = null;
+			if (aafemtotal == 0 && aafeatotal == 0) {
+				aafed = new Float(0); 
+			} else {
+				aafed = new Float(aafemtotal/aafeatotal);
+			}
+			Float aoppfed = null;
+			if (hfemtotal == 0 && hfeatotal == 0) {
+				aoppfed = new Float(0); 
+			} else {
+				aoppfed = new Float(hfemtotal/hfeatotal);
+			}
+			Float aaoppfed = null;
+			if (hhfemtotal == 0 && hhfeatotal == 0) {
+				aaoppfed = new Float(0); 
+			} else {
+				aaoppfed = new Float(hhfemtotal/hhfeatotal);
+			}
+			Float aoppfedtotal = null;
+			if (afemtotal == 0 && afeatotal == 0) {
+				aoppfedtotal = new Float(0); 
+			} else {
+				aoppfedtotal = new Float(afemtotal/afeatotal);
+			}
+			Float aaoppfedtotal = null;
+			if (aafemtotal == 0 && aafeatotal == 0) {
+				aaoppfedtotal = new Float(0); 
+			} else {
+				aaoppfedtotal = new Float(aafemtotal/aafeatotal);
+			}
+			Float hoppfedtotal = null;
+			if (hfemtotal == 0 && hfeatotal == 0) {
+				hoppfedtotal = new Float(0); 
+			} else {
+				hoppfedtotal = new Float(hfemtotal/hfeatotal);
+			}
+			Float hhhhoppfedtotal = null;
+			if (hhfemtotal == 0 && hhfeatotal == 0) {
+				hhhhoppfedtotal = new Float(0); 
+			} else {
+				hhhhoppfedtotal = new Float(hhhhhfemtotal/hhhhhfeatotal);
+			}
+			Float hfed = null;
+			if (hhfemtotal == 0 && hhfeatotal == 0) {
+				hfed = new Float(0); 
+			} else {
+				hfed = new Float(hhfemtotal/hhfeatotal);
+			}
+			Float hhhhfed = null;
+			if (hhhhfemtotal == 0 && hhhhfeatotal == 0) {
+				hhhhfed = new Float(0); 
+			} else {
+				hhhhfed = new Float(hhhhfemtotal/hhhhfeatotal);
+			}
+			Float hoppfed = null;
+			if (hafemtotal == 0 && hafeatotal == 0) {
+				hoppfed = new Float(0); 
+			} else {
+				hoppfed = new Float(hafemtotal/hafeatotal);
+			}
+			Float hhhhoppfed = null;
+			if (hhhhafemtotal == 0 && hhhhafeatotal == 0) {
+				hhhhoppfed = new Float(0); 
+			} else {
+				hhhhoppfed = new Float(hhhhafemtotal/hhhhafeatotal);
+			}
+			Float hhoppfedtotal = null;
+			if (hhfemtotal == 0 && hhfeatotal == 0) {
+				hhoppfedtotal = new Float(0); 
+			} else {
+				hhoppfedtotal = new Float(hhfemtotal/hhfeatotal);
+			}
+			Float hhhhhoppfedtotal = null;
+			if (hhhhfemtotal == 0 && hhhhfeatotal == 0) {
+				hhhhhoppfedtotal = new Float(0); 
+			} else {
+				hhhhhoppfedtotal = new Float(hhhhfemtotal/hhhhfeatotal);
+			}
+			Float hhhoppfedtotal = null;
+			if (hafemtotal == 0 && hafeatotal == 0) {
+				hhhoppfedtotal = new Float(0); 
+			} else {
+				hhhoppfedtotal = new Float(hafemtotal/hafeatotal);
+			}
+			Float hhhhhhoppfedtotal = null;
+			if (hhhhafemtotal == 0 && hhhhafeatotal == 0) {
+				hhhhhhoppfedtotal = new Float(0); 
+			} else {
+				hhhhhhoppfedtotal = new Float(hhhhafemtotal/hhhhafeatotal);
+			}
+
+			DATAMINERDB.persistFootballfourthdowneffpergame(game.getWeek(), 
+					game.getYear(), 
+					"all", 
+					acollegename, 
+					afed, 
+					aoppfed, 
+					aoppfedtotal, 
+					hoppfedtotal, 
+					anumgames,
+					afem,
+					afea,
+					hfem,
+					hfea,
+					getFloatValue(afem, afde.getMadetotal()),
+					getFloatValue(afea, afde.getAttemptstotal()),
+					getFloatValue(hfem, afde.getOppmadetotal()),
+					getFloatValue(hfea, afde.getOppattemptstotal()));
+			DATAMINERDB.persistFootballfourthdowneffpergame(game.getWeek(), 
+					game.getYear(), 
+					"all", 
+					hcollegename, 
+					hfed,
+					hoppfed, 
+					hhoppfedtotal, 
+					hhhoppfedtotal,
+					hnumgames,
+					hfem,
+					hfea,
+					afem,
+					afea,
+					getFloatValue(hfem, hfde.getMadetotal()),
+					getFloatValue(hfea, hfde.getAttemptstotal()),
+					getFloatValue(afem, hfde.getOppmadetotal()),
+					getFloatValue(afea, hfde.getOppattemptstotal()));
+			DATAMINERDB.persistFootballfourthdowneffpergame(game.getWeek(), 
+					game.getYear(), 
+					"away", 
+					acollegename, 
+					aafed, 
+					aaoppfed, 
+					aaoppfedtotal, 
+					hhhhoppfedtotal, 
+					aanumgames,
+					afem,
+					afea,
+					hfem,
+					hfea,
+					getFloatValue(afem, aafde.getMadetotal()),
+					getFloatValue(afea, aafde.getAttemptstotal()),
+					getFloatValue(hfem, aafde.getOppmadetotal()),
+					getFloatValue(hfea, aafde.getOppattemptstotal()));
+			DATAMINERDB.persistFootballfourthdowneffpergame(game.getWeek(), 
+					game.getYear(), 
+					"home", 
+					hcollegename, 
+					hhhhfed,
+					hhhhoppfed, 
+					hhhhhoppfedtotal, 
+					hhhhhhoppfedtotal,
+					hhnumgames,
+					hfem,
+					hfea,
+					afem,
+					afea,
+					getFloatValue(hfem, hhfde.getMadetotal()),
+					getFloatValue(hfea, hhfde.getAttemptstotal()),
+					getFloatValue(afem, hhfde.getOppmadetotal()),
+					getFloatValue(afea, hhfde.getOppattemptstotal()));
+
+			// Pass Attempts Per Game
+			final Float apassatemptspergame = game.getAwaypassattempts().floatValue() * awayfinal;
+			final Float hpassatemptspergame = game.getHomepassattempts().floatValue() * homefinal;
+			final FloatData apafd = DATAMINERDB.getFootballpassattemptspergame(year, "all", acollegename);  
+			final FloatData hpafd = DATAMINERDB.getFootballpassattemptspergame(year, "all", hcollegename);
+			final FloatData aapafd = DATAMINERDB.getFootballpassattemptspergame(year, "away", acollegename);  
+			final FloatData hhpafd = DATAMINERDB.getFootballpassattemptspergame(year, "home", hcollegename);
+			final Float apa = getFloatValue(apassatemptspergame, apafd.getFloatdatatotal()); 
+			final Float aopppa = getFloatValue(hpassatemptspergame, apafd.getOppfloatdatatotal()); 
+			final Float aapa = getFloatValue(apassatemptspergame, aapafd.getFloatdatatotal()); 
+			final Float aaopppa = getFloatValue(hpassatemptspergame, aapafd.getOppfloatdatatotal()); 
+			final Float hpa = getFloatValue(hpassatemptspergame, hpafd.getFloatdatatotal());
+			final Float hopppa = getFloatValue(apassatemptspergame, hpafd.getOppfloatdatatotal());
+			final Float hhpa = getFloatValue(hpassatemptspergame, hhpafd.getFloatdatatotal());
+			final Float hhopppa = getFloatValue(apassatemptspergame, hhpafd.getOppfloatdatatotal());
+			DATAMINERDB.persistFootballpassattemptspergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(apa/anumgames), new Float(aopppa/anumgames), apa, aopppa, anumgames);
+			DATAMINERDB.persistFootballpassattemptspergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hpa/hnumgames), new Float(hopppa/hnumgames), hpa, hopppa, hnumgames);
+			DATAMINERDB.persistFootballpassattemptspergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aapa/aanumgames), new Float(aaopppa/aanumgames), aapa, aaopppa, aanumgames);
+			DATAMINERDB.persistFootballpassattemptspergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhpa/hhnumgames), new Float(hhopppa/hhnumgames), hhpa, hhopppa, hhnumgames);
+
+			// Pass Completions Per Game
+			final Float apasscompletionspergame = game.getAwaypasscomp().floatValue() * awayfinal;
+			final Float hpasscompletionspergame = game.getHomepasscomp().floatValue() * homefinal;
+			final FloatData apcfd = DATAMINERDB.getFootballpasscompletionspergame(year, "all", acollegename);  
+			final FloatData hpcfd = DATAMINERDB.getFootballpasscompletionspergame(year, "all", hcollegename);
+			final FloatData aapcfd = DATAMINERDB.getFootballpasscompletionspergame(year, "away", acollegename);  
+			final FloatData hhpcfd = DATAMINERDB.getFootballpasscompletionspergame(year, "home", hcollegename);
+			final Float apc = getFloatValue(apasscompletionspergame, apcfd.getFloatdatatotal()); 
+			final Float aopppc = getFloatValue(hpasscompletionspergame, apcfd.getOppfloatdatatotal());
+			final Float aapc = getFloatValue(apasscompletionspergame, aapcfd.getFloatdatatotal()); 
+			final Float aaopppc = getFloatValue(hpasscompletionspergame, aapcfd.getOppfloatdatatotal()); 
+			final Float hpc = getFloatValue(hpasscompletionspergame, hpcfd.getFloatdatatotal()); 
+			final Float hopppc = getFloatValue(apasscompletionspergame, hpcfd.getOppfloatdatatotal());
+			final Float hhpc = getFloatValue(hpasscompletionspergame, hhpcfd.getFloatdatatotal()); 
+			final Float hhopppc = getFloatValue(apasscompletionspergame, hhpcfd.getOppfloatdatatotal()); 
+			DATAMINERDB.persistFootballpasscompletionspergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(apc/anumgames), new Float(aopppc/anumgames), apc, aopppc, anumgames);
+			DATAMINERDB.persistFootballpasscompletionspergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hpc/hnumgames), new Float(hopppc/hnumgames), hpc, hopppc, hnumgames);
+			DATAMINERDB.persistFootballpasscompletionspergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aapc/aanumgames), new Float(aaopppc/aanumgames), aapc, aaopppc, aanumgames);
+			DATAMINERDB.persistFootballpasscompletionspergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhpc/hhnumgames), new Float(hhopppc/hhnumgames), hhpc, hhopppc, hhnumgames);
+	
+			// Pass Yards Per Game
+			final Float apassyardspergame = game.getAwaypassingyards().floatValue() * awayfinal;
+			final Float hpassyardspergame = game.getHomepassingyards().floatValue() * homefinal;
+			final FloatData apyfd = DATAMINERDB.getFootballpassyardspergame(year, "all", acollegename);  
+			final FloatData hpyfd = DATAMINERDB.getFootballpassyardspergame(year, "all", hcollegename);
+			final FloatData aapyfd = DATAMINERDB.getFootballpassyardspergame(year, "away", acollegename);  
+			final FloatData hhpyfd = DATAMINERDB.getFootballpassyardspergame(year, "home", hcollegename);
+			final Float apy = getFloatValue(apassyardspergame, apyfd.getFloatdatatotal());
+			final Float aopppy = getFloatValue(hpassyardspergame, apyfd.getOppfloatdatatotal()); 
+			final Float aapy = getFloatValue(apassyardspergame, aapyfd.getFloatdatatotal());
+			final Float aaopppy = getFloatValue(hpassyardspergame, aapyfd.getOppfloatdatatotal());
+			final Float hpy = getFloatValue(hpassyardspergame, hpyfd.getFloatdatatotal());
+			final Float hopppy = getFloatValue(apassyardspergame, hpyfd.getOppfloatdatatotal());
+			final Float hhpy = getFloatValue(hpassyardspergame, hhpyfd.getFloatdatatotal());
+			final Float hhopppy = getFloatValue(apassyardspergame, hhpyfd.getOppfloatdatatotal());
+			DATAMINERDB.persistFootballpassyardspergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(apy/anumgames), new Float(aopppy/anumgames), apy, aopppy, anumgames);
+			DATAMINERDB.persistFootballpassyardspergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hpy/hnumgames), new Float(hopppy/hnumgames), hpy, hopppy, hnumgames);
+			DATAMINERDB.persistFootballpassyardspergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aapy/aanumgames), new Float(aaopppy/aanumgames), aapy, aaopppy, anumgames);
+			DATAMINERDB.persistFootballpassyardspergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhpy/hhnumgames), new Float(hhopppy/hhnumgames), hhpy, hhopppy, hhnumgames);
+	
+			// Points Per Game 
+			final Float apointspergame = game.getAwayfinalscore().floatValue() * awayfinal;
+			final Float hpointspergame = game.getHomefinalscore().floatValue() * homefinal;
+			final FloatData apfd = DATAMINERDB.getFootballpointspergame(year, "all", acollegename);  
+			final FloatData hpfd = DATAMINERDB.getFootballpointspergame(year, "all", hcollegename);
+			final FloatData aapfd = DATAMINERDB.getFootballpointspergame(year, "away", acollegename);  
+			final FloatData hhpfd = DATAMINERDB.getFootballpointspergame(year, "home", hcollegename);
+			final Float ap = getFloatValue(apointspergame, apfd.getFloatdatatotal()); 
+			final Float aoppp = getFloatValue(hpointspergame, apfd.getOppfloatdatatotal()); 
+			final Float aap = getFloatValue(apointspergame, aapfd.getFloatdatatotal()); 
+			final Float aaoppp = getFloatValue(hpointspergame, aapfd.getOppfloatdatatotal()); 
+			final Float hp = getFloatValue(hpointspergame, hpfd.getFloatdatatotal()); 
+			final Float hoppp = getFloatValue(apointspergame, hpfd.getOppfloatdatatotal());
+			final Float hhp = getFloatValue(hpointspergame, hhpfd.getFloatdatatotal()); 
+			final Float hhoppp = getFloatValue(apointspergame, hhpfd.getOppfloatdatatotal()); 
+			DATAMINERDB.persistFootballpointspergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(ap/anumgames), new Float(aoppp/anumgames), ap, aoppp, anumgames);
+			DATAMINERDB.persistFootballpointspergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hp/hnumgames), new Float(hoppp/hnumgames), hp, hoppp, hnumgames);
+			DATAMINERDB.persistFootballpointspergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aap/aanumgames), new Float(aaoppp/aanumgames), aap, aaoppp, aanumgames);
+			DATAMINERDB.persistFootballpointspergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhp/hhnumgames), new Float(hhoppp/hhnumgames), hhp, hhoppp, hhnumgames);
+	
+			// Possession Time Per Game
+			final Float apossessiontimepergame = game.getAwaypossessionminutes().floatValue() * awayfinal;
+			final Float hpossessiontimepergame = game.getHomepossessionminutes().floatValue() * homefinal;
+			final FloatData aptfd = DATAMINERDB.getFootballpossessiontimepergame(year, "all", acollegename);  
+			final FloatData hptfd = DATAMINERDB.getFootballpossessiontimepergame(year, "all", hcollegename);
+			final FloatData aaptfd = DATAMINERDB.getFootballpossessiontimepergame(year, "away", acollegename);  
+			final FloatData hhptfd = DATAMINERDB.getFootballpossessiontimepergame(year, "home", hcollegename);
+			final Float apt = getFloatValue(apossessiontimepergame, aptfd.getFloatdatatotal()); 
+			final Float aopppt = getFloatValue(hpossessiontimepergame, aptfd.getOppfloatdatatotal()); 
+			final Float aapt = getFloatValue(apossessiontimepergame, aaptfd.getFloatdatatotal()); 
+			final Float aaopppt = getFloatValue(hpossessiontimepergame, aaptfd.getOppfloatdatatotal()); 
+			final Float hpt = getFloatValue(hpossessiontimepergame, hptfd.getFloatdatatotal());
+			final Float hopppt = getFloatValue(apossessiontimepergame, hptfd.getOppfloatdatatotal());
+			final Float hhpt = getFloatValue(hpossessiontimepergame, hhptfd.getFloatdatatotal()); 
+			final Float hhopppt = getFloatValue(apossessiontimepergame, hhptfd.getOppfloatdatatotal()); 
+			DATAMINERDB.persistFootballpossessiontimepergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(apt/anumgames), new Float(aopppt/anumgames), apt, aopppt, anumgames);
+			DATAMINERDB.persistFootballpossessiontimepergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hpt/hnumgames), new Float(hopppt/hnumgames), hpt, hopppt, hnumgames);
+			DATAMINERDB.persistFootballpossessiontimepergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aapt/aanumgames), new Float(aaopppt/aanumgames), aapt, aaopppt, aanumgames);
+			DATAMINERDB.persistFootballpossessiontimepergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhpt/hhnumgames), new Float(hhopppt/hhnumgames), hhpt, hhopppt, hhnumgames);
+
+			// Rushing Attempts Per Game
+			final Float arushingattemptspergame = game.getAwayrushingattempts().floatValue() * awayfinal;
+			final Float hrushingattemptspergame = game.getHomerushingattempts().floatValue() * homefinal;
+			final FloatData arafd = DATAMINERDB.getFootballrushingattemptspergame(week, year, "all", acollegename);  
+			final FloatData hrafd = DATAMINERDB.getFootballrushingattemptspergame(week, year, "all", hcollegename);
+			final FloatData aarafd = DATAMINERDB.getFootballrushingattemptspergame(week, year, "away", acollegename);  
+			final FloatData hhrafd = DATAMINERDB.getFootballrushingattemptspergame(week, year, "home", hcollegename);
+			final Float ara = getFloatValue(arushingattemptspergame, arafd.getFloatdatatotal()); 
+			final Float aoppra = getFloatValue(hrushingattemptspergame, arafd.getOppfloatdatatotal());
+			final Float aara = getFloatValue(arushingattemptspergame, aarafd.getFloatdatatotal()); 
+			final Float aaoppra = getFloatValue(hrushingattemptspergame, aarafd.getOppfloatdatatotal());
+			final Float hra = getFloatValue(hrushingattemptspergame, hrafd.getFloatdatatotal());
+			final Float hoppra = getFloatValue(arushingattemptspergame, hrafd.getOppfloatdatatotal());
+			final Float hhra = getFloatValue(hrushingattemptspergame, hhrafd.getFloatdatatotal());
+			final Float hhoppra = getFloatValue(arushingattemptspergame, hhrafd.getOppfloatdatatotal());
+			DATAMINERDB.persistFootballrushingattemptspergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(ara/anumgames), new Float(aoppra/anumgames), ara, aoppra, anumgames);
+			DATAMINERDB.persistFootballrushingattemptspergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hra/hnumgames), new Float(hoppra/hnumgames), hra, hoppra, hnumgames);
+			DATAMINERDB.persistFootballrushingattemptspergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aara/aanumgames), new Float(aaoppra/aanumgames), aara, aaoppra, aanumgames);
+			DATAMINERDB.persistFootballrushingattemptspergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhra/hhnumgames), new Float(hhoppra/hhnumgames), hhra, hhoppra, hhnumgames);
+
+			// Rushing Yards Per Game
+			final Float arushingyardspergame = game.getAwayrushingyards().floatValue() * awayfinal;
+			final Float hrushingyardspergame = game.getHomerushingyards().floatValue() * homefinal;
+			final FloatData aryfd = DATAMINERDB.getFootballrushingyardspergame(week, year, "all", acollegename);
+			final FloatData hryfd = DATAMINERDB.getFootballrushingyardspergame(week, year, "all", hcollegename);
+			final FloatData aaryfd = DATAMINERDB.getFootballrushingyardspergame(week, year, "away", acollegename);
+			final FloatData hhryfd = DATAMINERDB.getFootballrushingyardspergame(week, year, "home", hcollegename);
+			final Float ary = getFloatValue(arushingyardspergame, aryfd.getFloatdatatotal());
+			final Float aoppry = getFloatValue(hrushingyardspergame, aryfd.getOppfloatdatatotal());
+			final Float aary = getFloatValue(arushingyardspergame, aaryfd.getFloatdatatotal());
+			final Float aaoppry = getFloatValue(hrushingyardspergame, aaryfd.getOppfloatdatatotal());
+			final Float hry = getFloatValue(hrushingyardspergame, hryfd.getFloatdatatotal());
+			final Float hoppry = getFloatValue(arushingyardspergame, hryfd.getOppfloatdatatotal());
+			final Float hhry = getFloatValue(hrushingyardspergame, hhryfd.getFloatdatatotal());
+			final Float hhoppry = getFloatValue(arushingyardspergame, hhryfd.getOppfloatdatatotal());
+			DATAMINERDB.persistFootballrushingyardspergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(ary/anumgames), new Float(aoppry/anumgames), ary, aoppry, anumgames);
+			DATAMINERDB.persistFootballrushingyardspergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hry/hnumgames), new Float(hoppry/hnumgames), hry, hoppry, hnumgames);
+			DATAMINERDB.persistFootballrushingyardspergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aary/aanumgames), new Float(aaoppry/aanumgames), aary, aaoppry, aanumgames);
+			DATAMINERDB.persistFootballrushingyardspergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhry/hhnumgames), new Float(hhoppry/hhnumgames), hhry, hhoppry, hhnumgames);
+
+			// 3rd Down Efficiency Per Game
+			final Float atem = game.getAwaythirdefficiencymade().floatValue() * awayfinal;
+			final Float atea = game.getAwaythirdefficiencyattempts().floatValue() * awayfinal;
+			final Float htem = game.getHomethirdefficiencymade().floatValue() * homefinal;
+			final Float htea = game.getHomethirdefficiencyattempts().floatValue() * homefinal;
+			final Efficiencies atde = DATAMINERDB.getFootballthirddowneffpergame(week, year, "all", acollegename);  
+			final Efficiencies htde = DATAMINERDB.getFootballthirddowneffpergame(week, year, "all", hcollegename);
+			final Efficiencies aatde = DATAMINERDB.getFootballthirddowneffpergame(week, year, "away", acollegename);  
+			final Efficiencies hhtde = DATAMINERDB.getFootballthirddowneffpergame(week, year, "home", hcollegename);
+			final Float atemtotal = getFloatValue(atem, atde.getMadetotal());
+			final Float ateatotal = getFloatValue(atea, atde.getAttemptstotal());
+			final Float aatemtotal = getFloatValue(atem, aatde.getMadetotal());
+			final Float aateatotal = getFloatValue(atea, aatde.getAttemptstotal());
+			final Float htemtotal = getFloatValue(htem, atde.getOppmadetotal());
+			final Float hteatotal = getFloatValue(htea, atde.getOppattemptstotal());
+			final Float hhhhtemtotal = getFloatValue(htem, aatde.getOppmadetotal());
+			final Float hhhhteatotal = getFloatValue(htea, aatde.getOppattemptstotal());
+			final Float hhtemtotal = getFloatValue(htem, htde.getMadetotal());
+			final Float hhteatotal = getFloatValue(htea, htde.getAttemptstotal());
+			final Float hhhhhtemtotal = getFloatValue(htem, hhtde.getMadetotal());
+			final Float hhhhhteatotal = getFloatValue(htea, hhtde.getAttemptstotal());
+			final Float hatemtotal = getFloatValue(atem, htde.getOppmadetotal());
+			final Float hateatotal = getFloatValue(atea, htde.getOppattemptstotal());
+			final Float hhhhatemtotal = getFloatValue(atem, hhtde.getOppmadetotal());
+			final Float hhhhateatotal = getFloatValue(atea, hhtde.getOppattemptstotal());
+
+			Float ated = null;
+			if (atemtotal == 0 && ateatotal == 0) {
+				ated = new Float(0); 
+			} else {
+				ated = new Float(atemtotal/ateatotal);
+			}
+			Float aated = null;
+			if (aatemtotal == 0 && aateatotal == 0) {
+				aated = new Float(0); 
+			} else {
+				aated = new Float(aatemtotal/aateatotal);
+			}
+			Float aoppted = null;
+			if (htemtotal == 0 && hteatotal == 0) {
+				aoppted = new Float(0); 
+			} else {
+				aoppted = new Float(htemtotal/hteatotal);
+			}
+			Float aaoppted = null;
+			if (hhhhtemtotal == 0 && hhhhteatotal == 0) {
+				aaoppted = new Float(0); 
+			} else {
+				aaoppted = new Float(hhhhtemtotal/hhhhteatotal);
+			}
+			Float aopptedtotal = null;
+			if (atemtotal == 0 && ateatotal == 0) {
+				aopptedtotal = new Float(0); 
+			} else {
+				aopptedtotal = new Float(atemtotal/ateatotal);
+			}
+			Float aaopptedtotal = null;
+			if (aatemtotal == 0 && aateatotal == 0) {
+				aaopptedtotal = new Float(0); 
+			} else {
+				aaopptedtotal = new Float(aatemtotal/aateatotal);
+			}
+			Float hopptedtotal = null;
+			if (htemtotal == 0 && hteatotal == 0) {
+				hopptedtotal = new Float(0); 
+			} else {
+				hopptedtotal = new Float(htemtotal/hteatotal);
+			}
+			Float hhhhopptedtotal = null;
+			if (hhhhtemtotal == 0 && hhhhteatotal == 0) {
+				hhhhopptedtotal = new Float(0); 
+			} else {
+				hhhhopptedtotal = new Float(hhhhtemtotal/hhhhteatotal);
+			}
+			Float hted = null;
+			if (hhtemtotal == 0 && hhteatotal == 0) {
+				hted = new Float(0); 
+			} else {
+				hted = new Float(hhtemtotal/hhteatotal);
+			}
+			Float hhhhted = null;
+			if (hhhhhtemtotal == 0 && hhhhhteatotal == 0) {
+				hhhhted = new Float(0); 
+			} else {
+				hhhhted = new Float(hhhhhtemtotal/hhhhhteatotal);
+			}
+			Float hoppted = null;
+			if (hatemtotal == 0 && hateatotal == 0) {
+				hoppted = new Float(0); 
+			} else {
+				hoppted = new Float(hatemtotal/hateatotal);
+			}
+			Float hhhhoppted = null;
+			if (hhhhatemtotal == 0 && hhhhateatotal == 0) {
+				hhhhoppted = new Float(0); 
+			} else {
+				hhhhoppted = new Float(hhhhatemtotal/hhhhateatotal);
+			}
+			Float hhopptedtotal = null;
+			if (hhtemtotal == 0 && hhteatotal == 0) {
+				hhopptedtotal = new Float(0); 
+			} else {
+				hhopptedtotal = new Float(hhtemtotal/hhteatotal);
+			}
+			Float hhhhhopptedtotal = null;
+			if (hhhhatemtotal == 0 && hhhhateatotal == 0) {
+				hhhhhopptedtotal = new Float(0); 
+			} else {
+				hhhhhopptedtotal = new Float(hhhhatemtotal/hhhhateatotal);
+			}
+			Float hhhopptedtotal = null;
+			if (hatemtotal == 0 && hateatotal == 0) {
+				hhhopptedtotal = new Float(0); 
+			} else {
+				hhhopptedtotal = new Float(hatemtotal/hateatotal);
+			}
+			Float hhhhhhopptedtotal = null;
+			if (hhhhatemtotal == 0 && hhhhateatotal == 0) {
+				hhhhhhopptedtotal = new Float(0); 
+			} else {
+				hhhhhhopptedtotal = new Float(hhhhatemtotal/hhhhateatotal);
+			}
+
+			DATAMINERDB.persistFootballthirddowneffpergame(game.getWeek(), 
+					game.getYear(), 
+					"all", 
+					acollegename, 
+					ated, 
+					aoppted, 
+					aopptedtotal, 
+					hopptedtotal, 
+					anumgames,
+					atem,
+					atea,
+					htem,
+					htea,
+					getFloatValue(atem, atde.getMadetotal()),
+					getFloatValue(atea, atde.getAttemptstotal()),
+					getFloatValue(htem, atde.getOppmadetotal()),
+					getFloatValue(htea, atde.getOppattemptstotal()));
+			DATAMINERDB.persistFootballthirddowneffpergame(game.getWeek(), 
+					game.getYear(), 
+					"all", 
+					hcollegename, 
+					hted,
+					hoppted, 
+					hhopptedtotal, 
+					hhhopptedtotal,
+					hnumgames,
+					htem,
+					htea,
+					atem,
+					atea,
+					getFloatValue(htem, htde.getMadetotal()),
+					getFloatValue(htea, htde.getAttemptstotal()),
+					getFloatValue(atem, htde.getOppmadetotal()),
+					getFloatValue(atea, htde.getOppattemptstotal()));
+			DATAMINERDB.persistFootballthirddowneffpergame(game.getWeek(), 
+					game.getYear(), 
+					"away", 
+					acollegename, 
+					aated, 
+					aaoppted, 
+					aaopptedtotal, 
+					hhhhopptedtotal, 
+					aanumgames,
+					atem,
+					atea,
+					htem,
+					htea,
+					getFloatValue(atem, aatde.getMadetotal()),
+					getFloatValue(atea, aatde.getAttemptstotal()),
+					getFloatValue(htem, aatde.getOppmadetotal()),
+					getFloatValue(htea, aatde.getOppattemptstotal()));
+			DATAMINERDB.persistFootballthirddowneffpergame(game.getWeek(), 
+					game.getYear(), 
+					"home", 
+					hcollegename, 
+					hhhhted,
+					hhhhoppted, 
+					hhhhhopptedtotal, 
+					hhhhhhopptedtotal,
+					hhnumgames,
+					htem,
+					htea,
+					atem,
+					atea,
+					getFloatValue(htem, hhtde.getMadetotal()),
+					getFloatValue(htea, hhtde.getAttemptstotal()),
+					getFloatValue(atem, hhtde.getOppmadetotal()),
+					getFloatValue(atea, hhtde.getOppattemptstotal()));
+
+			// Total Yards Per Game
+			final Float atotalyardspergame = game.getAwaytotalyards().floatValue() * awayfinal;
+			final Float htotalyardspergame = game.getHometotalyards().floatValue() * homefinal;
+			final FloatData atyfd = DATAMINERDB.getFootballtotalyardspergame(week, year, "all", acollegename);
+			final FloatData htyfd = DATAMINERDB.getFootballtotalyardspergame(week, year, "all", hcollegename);
+			final FloatData aatyfd = DATAMINERDB.getFootballtotalyardspergame(week, year, "away", acollegename);
+			final FloatData hhtyfd = DATAMINERDB.getFootballtotalyardspergame(week, year, "home", hcollegename);
+			final Float aty = getFloatValue(atotalyardspergame, atyfd.getFloatdatatotal());
+			final Float aoppty = getFloatValue(htotalyardspergame, atyfd.getOppfloatdatatotal());
+			final Float aaty = getFloatValue(atotalyardspergame, aatyfd.getFloatdatatotal());
+			final Float aaoppty = getFloatValue(htotalyardspergame, aatyfd.getOppfloatdatatotal());
+			final Float hty = getFloatValue(htotalyardspergame, htyfd.getFloatdatatotal());
+			final Float hoppty = getFloatValue(atotalyardspergame, htyfd.getOppfloatdatatotal());
+			final Float hhty = getFloatValue(htotalyardspergame, hhtyfd.getFloatdatatotal());
+			final Float hhoppty = getFloatValue(atotalyardspergame, hhtyfd.getOppfloatdatatotal());
+			DATAMINERDB.persistFootballtotalyardspergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(aty/anumgames), new Float(aoppty/anumgames), aty, aoppty, anumgames);
+			DATAMINERDB.persistFootballtotalyardspergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hty/hnumgames), new Float(hoppty/hnumgames), hty, hoppty, hnumgames);				
+			DATAMINERDB.persistFootballtotalyardspergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aaty/aanumgames), new Float(aaoppty/aanumgames), aaty, aaoppty, aanumgames);
+			DATAMINERDB.persistFootballtotalyardspergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhty/hhnumgames), new Float(hhoppty/hhnumgames), hhty, hhoppty, hhnumgames);				
+
+			// Turnovers Per Game
+			final Float aturnoverspergame = game.getAwayturnovers().floatValue() * awayfinal;
+			final Float hturnoverspergame = game.getHometurnovers().floatValue() * homefinal;
+			final FloatData atfd = DATAMINERDB.getFootballturnoverspergame(year, "all", acollegename);  
+			final FloatData htfd = DATAMINERDB.getFootballturnoverspergame(year, "all", hcollegename);
+			final FloatData aatfd = DATAMINERDB.getFootballturnoverspergame(year, "away", acollegename);  
+			final FloatData hhtfd = DATAMINERDB.getFootballturnoverspergame(year, "home", hcollegename);
+			final Float at = getFloatValue(aturnoverspergame, atfd.getFloatdatatotal());
+			final Float aoppt = getFloatValue(hturnoverspergame, atfd.getOppfloatdatatotal());
+			final Float aat = getFloatValue(aturnoverspergame, aatfd.getFloatdatatotal());
+			final Float aaoppt = getFloatValue(hturnoverspergame, aatfd.getOppfloatdatatotal());
+			final Float ht = getFloatValue(hturnoverspergame, htfd.getFloatdatatotal());
+			final Float hoppt = getFloatValue(aturnoverspergame, htfd.getOppfloatdatatotal());
+			final Float hht = getFloatValue(hturnoverspergame, hhtfd.getFloatdatatotal());
+			final Float hhoppt = getFloatValue(aturnoverspergame, hhtfd.getOppfloatdatatotal());
+			DATAMINERDB.persistFootballturnoverspergame(game.getWeek(), game.getYear(), "all", acollegename, new Float(at/anumgames), new Float(aoppt/anumgames), at, aoppt, anumgames);
+			DATAMINERDB.persistFootballturnoverspergame(game.getWeek(), game.getYear(), "all", hcollegename, new Float(ht/hnumgames), new Float(hoppt/hnumgames), ht, hoppt, hnumgames);
+			DATAMINERDB.persistFootballturnoverspergame(game.getWeek(), game.getYear(), "away", acollegename, new Float(aat/aanumgames), new Float(aaoppt/aanumgames), aat, aaoppt, aanumgames);
+			DATAMINERDB.persistFootballturnoverspergame(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hht/hhnumgames), new Float(hhoppt/hhnumgames), hht, hhoppt, hhnumgames);
+
+			// Yards Per Pass
+			final Float ayardsperpass = game.getAwayyardsperpass().floatValue() * awayfinal;
+			final Float hyardsperpass = game.getHomeyardsperpass().floatValue() * homefinal;
+			final FloatData ayfd = DATAMINERDB.getFootballyardsperpass(year, "all", acollegename);  
+			final FloatData hyfd = DATAMINERDB.getFootballyardsperpass(year, "all", hcollegename);
+			final FloatData aayfd = DATAMINERDB.getFootballyardsperpass(year, "away", acollegename);  
+			final FloatData hhyfd = DATAMINERDB.getFootballyardsperpass(year, "home", hcollegename);
+			final Float ay = getFloatValue(ayardsperpass, ayfd.getFloatdatatotal()); 
+			final Float aoppy = getFloatValue(hyardsperpass, ayfd.getOppfloatdatatotal());
+			final Float aay = getFloatValue(ayardsperpass, aayfd.getFloatdatatotal()); 
+			final Float aaoppy = getFloatValue(hyardsperpass, aayfd.getOppfloatdatatotal());
+			final Float hy = getFloatValue(hyardsperpass, hyfd.getFloatdatatotal());
+			final Float hoppy = getFloatValue(ayardsperpass, hyfd.getOppfloatdatatotal());
+			final Float hhy = getFloatValue(hyardsperpass, hhyfd.getFloatdatatotal());
+			final Float hhoppy = getFloatValue(ayardsperpass, hhyfd.getOppfloatdatatotal());
+			DATAMINERDB.persistFootballyardsperpass(game.getWeek(), game.getYear(), "all", acollegename, new Float(ay/anumgames), new Float(aoppy/anumgames), ay, aoppy, anumgames);
+			DATAMINERDB.persistFootballyardsperpass(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hy/hnumgames), new Float(hoppy/hnumgames), hy, hoppy, hnumgames);
+			DATAMINERDB.persistFootballyardsperpass(game.getWeek(), game.getYear(), "away", acollegename, new Float(aay/aanumgames), new Float(aaoppy/aanumgames), aay, aaoppy, aanumgames);
+			DATAMINERDB.persistFootballyardsperpass(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhy/hhnumgames), new Float(hhoppy/hhnumgames), hhy, hhoppy, hhnumgames);
+
+			// Yards Per Rush
+			final Float ayardsperrush = game.getAwayyardsperrush().floatValue() * awayfinal;
+			final Float hyardsperrush = game.getHomeyardsperrush().floatValue() * homefinal;
+			final FloatData arfd = DATAMINERDB.getFootballyardsperrush(year, "all", acollegename);  
+			final FloatData hrfd = DATAMINERDB.getFootballyardsperrush(year, "all", hcollegename);
+			final FloatData aarfd = DATAMINERDB.getFootballyardsperrush(year, "away", acollegename);  
+			final FloatData hhrfd = DATAMINERDB.getFootballyardsperrush(year, "home", hcollegename);
+			final Float ar = getFloatValue(ayardsperrush, arfd.getFloatdatatotal());
+			final Float aoppr = getFloatValue(hyardsperrush, arfd.getOppfloatdatatotal());
+			final Float aar = getFloatValue(ayardsperrush, aarfd.getFloatdatatotal());
+			final Float aaoppr = getFloatValue(hyardsperrush, aarfd.getOppfloatdatatotal());
+			final Float hr = getFloatValue(hyardsperrush, hrfd.getFloatdatatotal());
+			final Float hoppr = getFloatValue(ayardsperrush, hrfd.getOppfloatdatatotal());
+			final Float hhr = getFloatValue(hyardsperrush, hhrfd.getFloatdatatotal());
+			final Float hhoppr = getFloatValue(ayardsperrush, hhrfd.getOppfloatdatatotal());
+			DATAMINERDB.persistFootballyardsperrush(game.getWeek(), game.getYear(), "all", acollegename, new Float(ar/anumgames), new Float(aoppr/anumgames), ar, aoppr, anumgames);
+			DATAMINERDB.persistFootballyardsperrush(game.getWeek(), game.getYear(), "all", hcollegename, new Float(hr/hnumgames), new Float(hoppr/hnumgames), hr, hoppr, hnumgames);
+			DATAMINERDB.persistFootballyardsperrush(game.getWeek(), game.getYear(), "away", acollegename, new Float(aar/aanumgames), new Float(aaoppr/aanumgames), aar, aaoppr, aanumgames);
+			DATAMINERDB.persistFootballyardsperrush(game.getWeek(), game.getYear(), "home", hcollegename, new Float(hhr/hhnumgames), new Float(hhoppr/hhnumgames), hhr, hhoppr, hhnumgames);
+		} catch (Throwable t) {
+			LOGGER.error(t.getMessage(), t);
+		}
+
+		LOGGER.info("Exiting storeGameData()");
+	}
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param fromdate
+	 * @param todate
+	 * @return
+	 */
+	public List<XandYObject> plotXandYDelta(String x, String y, Date fromdate, Date todate) {
+		LOGGER.info("Entering plotXandYDelta()");
+		List<XandYObject> xyObjects = null;
+
+		try {
+			DATAMINERDB.start();
+			xyObjects = DATAMINERDB.plotXandYDelta(x, y, fromdate, todate);
+			DATAMINERDB.complete();
+		} catch (Throwable t) {
+			LOGGER.error(t.getMessage(), t);
+		}
+
+		LOGGER.info("Exiting plotXandYDelta()");
+		return xyObjects;
+	}
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param fromdate
+	 * @param todate
+	 * @return
+	 */
+	public List<XandYObject> plotXandY(String x, String y, Date fromdate, Date todate) {
+		return null;
+	}
+}

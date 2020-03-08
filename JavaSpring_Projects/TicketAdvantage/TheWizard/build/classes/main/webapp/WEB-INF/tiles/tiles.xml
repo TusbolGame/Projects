@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- Templates -->
+	<definition name="layout.basic" template="/WEB-INF/tiles/layout/basic.jsp">
+		<put-attribute name="title" value="The Wizard" />
+		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
+	</definition>
+
+	<!-- Pages -->
+	<definition name="site.home" extends="layout.basic">
+		<put-attribute name="pageTitle" value="NCAA Football"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/ncaafootball.jsp" />
+	</definition>	
+	<definition name="site.ncaafootball" extends="layout.basic">
+		<put-attribute name="pageTitle" value="NCAA Football"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/ncaafootball.jsp" />
+	</definition>
+	<definition name="site.ncaafootballresults" extends="layout.basic">
+		<put-attribute name="pageTitle" value="NCAA Football Results"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/ncaafootballresults.jsp" />
+	</definition>
+	<definition name="site.ncaabasketball" extends="layout.basic">
+		<put-attribute name="pageTitle" value="NCAA Basketball"/>
+		<put-attribute name="body" value="/WEB-INF/tiles/view/ncaabasketball.jsp" />
+	</definition>
+</tiles-definitions>

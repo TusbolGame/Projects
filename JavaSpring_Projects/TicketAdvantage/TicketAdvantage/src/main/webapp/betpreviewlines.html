@@ -1,0 +1,39 @@
+<div id="previewlines" class="previewlinesactions">
+	<div class="previewlines_container">
+		<div class="bets">
+			<div id="bet-row">
+				<div style="display: inline-block;">
+					<label style="display: inline-block;">Rotation #:&nbsp;</label><div id="bet-rotationnumber" style="display: inline-block;"></div>
+				</div>
+				<div class="bet_riskwin">
+					<div>
+						<input id="bet-riskwin" type="radio" value="1" name="bet-riskwin" />
+						<label id="bet-label-risk" for="bet-riskwin">Risk</label>
+						<input id="bet-riskwin" type="radio" value="2" name="bet-riskwin" checked />
+						<label id="bet-label-win" for="bet-riskwin">Win</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<table id="previewlines-header">
+			<thead>
+				<tr class="previewlines_header">
+					<th class="previewlines_data_header_play previewlines_header_border">Play</th>
+					<th class="previewlines_data_header_amount previewlines_header_border">Amount</th>
+					<th class="previewlines_data_header_line previewlines_header_border">Line</th>
+					<th class="previewlines_data_header_juice previewlines_header_border">Juice</th>
+					<th class="previewlines_data_header_accountname previewlines_header_border">Account Name</th>
+				</tr>
+			</thead>
+			<tbody id="previewlines-data" class="previewlines_data">
+			</tbody>
+		</table>
+		<div class="bet_buttons">
+			<div class="bet_button">
+				<button id="bet-button-betpreview" type="submit">
+					<span class="btn-menu-text">Bet</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

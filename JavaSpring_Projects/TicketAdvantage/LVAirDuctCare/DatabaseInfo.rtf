@@ -1,0 +1,92 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red64\green128\blue128;\red127\green0\blue85;\red64\green0\blue200;
+\red0\green128\blue0;}
+{\*\expandedcolortbl;;\csgenericrgb\c25098\c50196\c50196;\csgenericrgb\c49804\c0\c33333;\csgenericrgb\c25098\c0\c78431;
+\csgenericrgb\c0\c50196\c0;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf2 -- Sequence: public.calendardata_id_seq\cf0 \
+\
+\cf2 -- DROP SEQUENCE public.calendardata_id_seq;\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 CREATE\cf0  SEQUENCE public.calendardata_id_seq\
+  INCREMENT 1\
+  MINVALUE 1\
+  MAXVALUE 9223372036854775807\
+  START 1\
+  CACHE 1;\
+\cf3 ALTER\cf0  \cf3 TABLE\cf0  public.calendardata_id_seq\
+  OWNER TO lvairductcare;\
+\
+\cf3 CREATE\cf0  \cf3 TABLE\cf0  public.calendardata\
+(\
+  id bigserial \cf3 NOT\cf0  \cf4 NULL\cf0 ,\
+  firstname \cf3 character\cf0  \cf3 varying\cf0 (100),\
+  lastname \cf3 character\cf0  \cf3 varying\cf0 (100),\
+  phone \cf3 character\cf0  \cf3 varying\cf0 (12) \cf3 NOT\cf0  \cf4 NULL\cf0 ,\
+  email \cf3 character\cf0  \cf3 varying\cf0 (150),\
+  address \cf3 character\cf0  \cf3 varying\cf0 (400) \cf3 NOT\cf0  \cf4 NULL\cf0 ,\
+  city \cf3 character\cf0  \cf3 varying\cf0 (100) \cf3 NOT\cf0  \cf4 NULL\cf0 ,\
+  zipcode \cf4 integer\cf0  \cf3 NOT\cf0  \cf4 NULL\cf0 ,\
+  servicetype \cf3 character\cf0  \cf3 varying\cf0 (30),\
+  serviceunits \cf3 character\cf0  \cf3 varying\cf0 (30),\
+  message \cf3 character\cf0  \cf3 varying\cf0 (500),\
+  appointmentstarttime \cf4 integer\cf0  \cf3 NOT\cf0  \cf4 NULL\cf0 ,\
+  appointmentendtime \cf4 integer\cf0  \cf3 NOT\cf0  \cf4 NULL\cf0 ,\
+  appointmentday \cf3 character\cf0  \cf3 varying\cf0 (10) \cf3 NOT\cf0  \cf4 NULL\cf0 ,\
+  \cf3 CONSTRAINT\cf0  calendardata_pkey \cf3 PRIMARY\cf0  \cf3 KEY\cf0  (id)\
+)\
+\cf3 WITH\cf0  (\
+  OIDS=\cf4 FALSE\cf0 \
+);\
+\cf3 ALTER\cf0  \cf3 TABLE\cf0  public.calendardata\
+  OWNER TO lvair;\
+GRANT \cf3 SELECT\cf0 (id), \cf3 UPDATE\cf0 (id), \cf3 INSERT\cf0 (id), \cf3 REFERENCES\cf0 (id) \cf3 ON\cf0  public.calendardata TO public;\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 -- Index: public.calendardata_appointmentday_idx\cf0 \
+\
+\cf2 -- DROP INDEX public.calendardata_appointmentday_idx;\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 CREATE\cf0  \cf3 INDEX\cf0  calendardata_appointmentday_idx\
+  \cf3 ON\cf0  public.calendardata\
+  \cf3 USING\cf0  btree\
+  (appointmentday \cf3 COLLATE\cf0  pg_catalog.\cf5 "default"\cf0 );\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 -- Index: public.calendardata_appointmentendtime_idx\cf0 \
+\
+\cf2 -- DROP INDEX public.calendardata_appointmentendtime_idx;\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 CREATE\cf0  \cf3 INDEX\cf0  calendardata_appointmentendtime_idx\
+  \cf3 ON\cf0  public.calendardata\
+  \cf3 USING\cf0  btree\
+  (appointmentendtime);\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 -- Index: public.calendardata_appointmentstarttime_idx\cf0 \
+\
+\cf2 -- DROP INDEX public.calendardata_appointmentstarttime_idx;\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 CREATE\cf0  \cf3 INDEX\cf0  calendardata_appointmentstarttime_idx\
+  \cf3 ON\cf0  public.calendardata\
+  \cf3 USING\cf0  btree\
+  (appointmentstarttime);\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 -- Index: public.calendardata_phone_idx\cf0 \
+\
+\cf2 -- DROP INDEX public.calendardata_phone_idx;\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 CREATE\cf0  \cf3 INDEX\cf0  calendardata_phone_idx\
+  \cf3 ON\cf0  public.calendardata\
+  \cf3 USING\cf0  btree\
+  (phone \cf3 COLLATE\cf0  pg_catalog.\cf5 "default"\cf0 );}

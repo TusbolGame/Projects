@@ -1,0 +1,194 @@
+@CHARSET "utf-8";
+
+/* padding-top padding-right padding-bottom padding-left */
+
+/* Games */
+.game_package {
+	background: #ffffff none repeat scroll 0 0;
+    color: #111111;
+    padding: 5px;
+}
+	.game_list {
+	    background: #ffffff none repeat scroll 0 0 ;
+	    border-radius: 5px;
+	    padding: 5px;
+	}
+		.game_list a {
+			background: #ffffff none no-repeat scroll 0 0;
+			border: 1px solid #000;
+			border-radius: 5px;
+			color: #111111;
+		    display: block;
+		}
+			.game_list a:hover {
+				background: #0896ff none repeat scroll 0 0;
+				color: #ffffff;
+			}
+			.game_list a:active {
+				background: #0896ff none repeat scroll 0 0;
+				color: #ffffff;
+			}
+		.game_anchor {
+			display: block;
+			padding: 0;
+		}
+			.game_rotation_div {
+				display: block;
+				padding-bottom: 10px;
+			}
+				.game_id1 {
+				    font-weight: bold;
+				    float: left;
+				    text-align: left;
+				    width: 20%;
+				}
+				.game_date_div {
+					display: inline-block;
+				    text-align: center;
+				    width: 60%;
+				}
+				.game_id2 {
+				    font-weight: bold;
+				    float: right;
+				    text-align: right;
+				    width: 20%;
+				}
+			.game_teams_div {
+			    display: block;
+			    overflow: hidden;
+				padding-top: 10px;
+			}
+				.game_team_name1 {
+				    float: left;
+				    font-size: 16px;
+				    text-align: left;
+				    width: 46%;
+				}
+				.game_team_vs {
+				    display: inline-block;
+				    font-size: 16px;
+				    font-weight: bold;
+				    text-align: center;
+				    vertical-align: bottom;
+				    width: 8%;
+				}
+				.game_team_name2 {
+				    float: right;
+				    font-size: 16px;
+				    text-align: right;
+				    width: 46%;
+				}
+
+	.game_package_over, .game_package_even {
+	    background: none repeat scroll 0 0 #dedede;
+	    border: 1px solid #000;
+	    border-radius: 5px;
+	    margin: 10px 0;
+	    padding: 5px;
+	}
+		.game_package_wrapper {
+			
+		}
+.plus-div {
+    float: right;
+    padding: 10px;
+}
+.team-logo {
+    height: 48px;
+    margin: 0 auto 10px;
+    width: 68px;
+}
+.game-team-name1-ou {
+    float: left;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: left;
+    width: 40%;
+}
+.game-team-ou {
+    display: inline-block;
+    float: none;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 10px 2px;
+    text-align: center;
+    width: 20%;
+}
+.game-team-name2-ou {
+    float: right;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: right;
+    width: 40%;
+}
+.game_line_account_info {
+	font-weight: bold;
+	padding: 5px;
+}
+.game_line_teams {
+	background: none repeat scroll 0 0 #efefef;
+	border-top: 4px solid #dedede;
+	display: inline-block;
+	height: 100%;
+	padding: 2px;
+	width: 100%;
+}
+.game_line_team_name {
+    background: none repeat scroll 0 0 #efefef;
+    border-radius: 0 0 7px 7px;
+    display: inline-block;
+    float: left;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: left;
+}
+.game_line_team_name2 {
+    background: none repeat scroll 0 0 #efefef;
+    border-radius: 0 0 7px 7px;
+    display: inline-block;
+    float: right;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    padding: 10px 2px;
+    text-align: right;
+}
+.game_line_odds {
+    background: none repeat scroll 0 0 #efefef;
+    float: right;
+    font-weight: bold;
+    padding: 5px 5px 5px;
+    text-align: right;
+}
+input[type="checkbox"] {
+    background: none repeat scroll 0 0 #fff;
+    border: 2px solid #555;
+    border-radius: 5px;
+    height: 25px;
+    margin-bottom: -8px;
+    width: 25px;
+}
+.game_line_teams input {
+	size: 5;
+}
+.badge {
+    background-color: #e21e25;
+    border-radius: 12px;
+    color: white;
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: normal;
+    margin: 0 1px 0 70px;
+    min-width: 10px;
+    padding: 0 4px 1px;
+    position: relative;
+    text-align: center;
+    top: -30px;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+/* End Games */

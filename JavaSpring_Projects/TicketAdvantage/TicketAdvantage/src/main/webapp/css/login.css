@@ -1,0 +1,103 @@
+@CHARSET "utf-8";
+
+/* padding-top padding-right padding-bottom padding-left */
+body {
+	background: #0896ff none repeat scroll 0 0;
+    color: #ffffff;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    margin: 0px;
+    width: 100%;
+}
+.menu_logo_login {
+}
+	.ticket_info {
+		color: #22ff22;
+		font-size: 36px;
+		font-style: italic;
+		font-weight: bolder;	
+	}
+	.advantage_info {
+		color: #ffffff;
+		font-size: 36px;
+		font-style: italic;
+		font-weight: bolder;	
+	}
+.login_main_wrapper {
+	overflow: auto;
+}
+	.login_wrapper {
+		border: 0 none;
+	    margin: auto;
+	    padding: 2em 0;
+	    position: relative;
+	    top: 0;
+	    width: 25em;
+	}
+	.login_group {
+	}
+		.login_group label {
+			color: #ffffff;
+		    font-size: 16px;
+		    font-weight: bold;
+		    line-height: 20px;
+		    margin-bottom: 10px;
+		}
+			.login_group label a:link, a:visited {
+				color: #22ff22;
+			}
+		.login_group input {
+			background-color: #ffffff;
+		    border: 1px solid #779bca;
+		    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+		    box-sizing: border-box;
+		    display: block;
+		    font-size: 16px;
+		    margin-bottom: 10px;
+		    padding: 8px 2%;
+		    transition: background 0.25s ease 0s, box-shadow 0.25s ease 0s, border 0.25s ease 0s;
+		    width: 96%;
+		}
+	.show_password {
+	    overflow: hidden;
+	    padding: 0 0 20px;
+	    position: relative;
+	}
+		.show_password label input {
+		    background-color: #f4f9ff;
+		    border: 1px solid #0896ff;
+		    border-radius: 4px;
+		    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+		    display: inline-block;
+		    height: 16px;
+		    left: 2px;
+		    top: 0;
+		    width: 16px;
+		}
+		.show_password label span {
+		    color: #ffffff;
+		    font-weight: normal;
+		    padding: 0 0 0 3px;
+		    position: relative;
+		}
+	.login_wrapper button {
+	    background-color: #22ff22;
+	    border: 1px solid #ffffff;
+	    color: #ffffff;
+	    cursor: pointer;
+	    font-size: 16px;
+	    padding: 10px;
+	    text-align: center;
+	    width: auto;
+	}
+		.login_wrapper button:hover {
+			border: 1px solid #0896ff;
+			color: #0896ff;
+		}
+.login-message {
+    color: #003580;
+    cursor: pointer;
+	font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+}

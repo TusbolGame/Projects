@@ -1,0 +1,256 @@
+@CHARSET "utf-8";
+
+/* padding-top padding-right padding-bottom padding-left */
+
+/* Bet */
+.bet_header {
+	border-bottom: 1px solid #333333;
+	color: #000000;
+	font-family: Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+.bet_s {
+}
+.bet_row {
+	background: #333333 linear-gradient(#0896ff, #333333) repeat scroll 0 0;
+	border-bottom: 1px solid #333333;
+	font-family: Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 40px;
+    vertical-align: middle;
+}
+.bet_odd {
+	background-color: #dcdcdc;
+}
+	.bet_row input {
+		border: 1px solid #333333;
+	}
+	.bet_row select {
+	}
+.bet_buttons {
+}
+	.bet_button {
+		display: inline-block;
+		padding: 5px;
+	}
+	#bet-button-bet {
+		background: rgba(0, 0, 0, 0) linear-gradient(to bottom, rgba(0, 0, 255, 1) 0%, rgba(0, 0, 0, 1) 100%) repeat scroll 0 0;
+		color: #ffffff;
+		font-family: Helvetica,Arial,sans-serif;
+	    font-size: 16px;
+		line-height: 35px;
+		width: 200px;
+	}
+	#bet-button-preview {
+		background: #7ec44f linear-gradient(to bottom, #69c62b 0%, #244b0a 100%) repeat scroll 0 0;
+		color: #ffffff;
+		font-family: Helvetica,Arial,sans-serif;
+	    font-size: 16px;
+		line-height: 35px;
+		width: 200px;
+	}
+	#bet-button-betpreview {
+		background: rgba(0, 0, 0, 0) linear-gradient(to bottom, rgba(0, 0, 255, 1) 0%, rgba(0, 0, 0, 1) 100%) repeat scroll 0 0;
+		color: #ffffff;
+		font-family: Helvetica,Arial,sans-serif;
+	    font-size: 16px;
+		line-height: 35px;
+		width: 200px;
+	}
+
+/* Label */
+.bet_rotationnumber_label {
+	display: inline-block;
+	padding: 2px;
+	text-align: center;
+	width: 70px;
+}
+.bet_sport_label {
+	display: inline-block;
+	padding: 2px;
+	text-align: center;
+	width: 74px;
+}
+.bet_type_label {
+	display: inline-block;
+	padding: 2px;
+	text-align: center;
+	width: 67px;
+}
+.bet_linetype_label {
+	display: inline-block;
+	padding: 2px;
+	text-align: center;
+	width: 350px;
+}
+.bet_line_label {
+	display: inline-block;
+	padding: 2px;
+	text-align: center;
+	width: 85px;
+}
+.bet_juice_label {
+	display: inline-block;
+	padding: 2px;
+	text-align: center;
+	width: 85px;
+}
+.bet_buyorder_label {
+	display: inline-block;
+	padding: 2px;
+	text-align: center;
+	width: 70px;
+}
+.bet_amount_label {
+	display: inline-block;
+	padding: 2px;
+	text-align: center;
+	width: 65px;
+}
+.bet_riskwin_label {
+	display: inline-block;
+	padding: 2px;
+	text-align: center;
+	width: 120px;
+}
+
+/* Data */
+.bet_rotationnumber {
+	border-right: 1px dotted #ffffff;
+	display: inline-block;
+	padding: 2px;
+	width: 70px;
+	vertical-align: middle;
+}
+.bet_rotationnumber input {
+	display: block;
+  	margin: 0 auto;
+}
+.bet_sport {
+	border-right: 1px dotted #ffffff;
+	display: inline-block;
+	padding: 2px;
+	width: 73px;
+}
+.bet_type {
+	border-right: 1px dotted #ffffff;
+	display: inline-block;
+	padding: 2px;
+	width: 66px;
+}
+.bet_linetype {
+	border-right: 1px dotted #ffffff;
+	display: inline-block;
+	padding: 2px;
+	vertical-align: middle;
+	width: 355px;
+}
+	.bet_linetype_input {
+	}
+	.bet_linetype_input label {
+		color: #ffffff;
+		padding: 2px;
+	}
+.bet_line {
+	border-right: 1px dotted #ffffff;
+	display: inline-block;
+	padding: 2px;
+	vertical-align: middle;
+	width: 85px;
+}
+.bet_juice {
+	border-right: 1px dotted #ffffff;
+	display: inline-block;
+	padding: 2px;
+	vertical-align: middle;
+	width: 85px;
+}
+.bet_buyorder {
+	border-right: 1px dotted #ffffff;
+	display: inline-block;
+	padding: 2px;
+	vertical-align: middle;
+	width: 70px;
+}
+	.bet_buyorder_input {
+		padding-left: 22.5px;
+	}
+.bet_amount {
+	border-right: 1px dotted #ffffff;
+	display: inline-block;
+	padding: 2px;
+	vertical-align: middle;
+	width: 65px;
+}
+.bet_riskwin {
+	display: inline-block;
+	padding: 2px;
+	vertical-align: middle;
+	width: 120px;
+}
+	.bet_riskwin_input {
+	}
+	.bet_riskwin_input label {
+		color: #ffffff;
+		padding: 2px;
+	}
+
+/* Accounts */
+.bet_acctgrpwrapper {
+	padding: 10px;
+}
+	.bet_acctgrpmessage {
+		color: #ff0000;
+		font-family: Helvetica,Arial,sans-serif;
+	    font-size: 16px;
+	    font-weight: bold;
+	}
+.bet_acctgrpwrapper {
+	display: flex;
+	overflow: auto;
+	padding: 5px;
+	vertical-align: middle;
+}
+.bet_acctwrapper {
+	background-color: #d3d3d3;
+	border: 1px solid #000000;
+	flex: 1; /* additionally, equal width */
+	float: left; 
+	margin-top: 10px;
+	margin-right: 5px;
+	padding: 5px;
+	width: 450px;
+}
+.bet_grpwrapper {
+	background-color: #d3d3d3;
+	border: 1px solid #000000;
+	flex: 1; /* additionally, equal width */
+	margin-top: 10px;
+	padding: 5px;
+	width: 450px;
+}
+.acctdiv {
+	font-weight: bold;
+	vertical-align: middle;
+}
+	.acctdiv input[type="checkbox"] {
+		margin-bottom: 0px;
+	}
+	.acctdivspan {
+		line-height: 25px;
+		text-align: center;
+		vertical-align: middle;
+	}
+.grpdiv {
+	font-weight: bold;
+}
+	.grpdiv input[type="checkbox"] {
+		margin-bottom: 0px;
+	}
+	.grpdivspan {
+		line-height: 25px;
+		text-align: center;
+		vertical-align: middle;
+	}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans      
+            http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- It register the beans in context and scan the annotations inside beans 
+		and activate them -->
+	<tx:annotation-driven/>
+	<context:annotation-config/>
+    <context:component-scan base-package="com.ticketadvantage.services">
+     	<context:include-filter type="aspectj" expression="com.ticketadvantage.services.*" />
+	</context:component-scan>
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation">
+			<value>classpath:META-INF/persistence.xml</value>
+		</property>
+	</bean>
+    
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    	<property name="entityManagerFactory" ref="entityManagerFactory"/>
+  	</bean>
+
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+	<!-- <bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource"> -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem://productDb" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+</beans>

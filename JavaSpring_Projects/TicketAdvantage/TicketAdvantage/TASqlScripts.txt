@@ -1,0 +1,755 @@
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+SET search_path = public, pg_catalog;
+SET default_tablespace = '';
+SET default_with_oids = false;
+
+CREATE TABLE accountevent (
+    id bigint NOT NULL,
+    accountconfirmation character varying(4000),
+    accounthtml text,
+    accountid bigint NOT NULL,
+    amount character varying(20),
+    actualamount character varying(20),
+    attempts integer NOT NULL,
+    attempttime timestamp with time zone,
+    currentattempts integer,
+    datecreated timestamp with time zone NOT NULL,
+    datemodified timestamp with time zone NOT NULL,
+    errorcode integer,
+    errorexception character varying(4000),
+    errormessage character varying(4000),
+    eventdatetime timestamp with time zone NOT NULL,
+    eventid integer,
+    eventname character varying(100) NOT NULL,
+    groupid bigint NOT NULL,
+    iscompleted boolean,
+    maxspreadamount integer,
+    maxtotalamount integer,
+    maxmlamount integer,
+    mlindicator character varying(10),
+    timezone character varying(100),
+    ml double precision,
+    mlid bigint,
+    mljuice double precision,
+    name character varying(100) NOT NULL,
+    ownerpercentage integer,
+    partnerpercentage integer,
+    proxy character varying(255),
+    sport character varying(100) NOT NULL,
+    spreadindicator character varying(10),
+    spread double precision,
+    spreadid bigint,
+    spreadjuice double precision,
+    total double precision,
+    totalid bigint,
+    totalindicator character varying(10),
+    totaljuice double precision,
+    type character varying(100) NOT NULL,
+    userid bigint NOT NULL,
+    wagertype character varying(10),
+    status character varying(20),
+    riskamount character varying(20),
+    towinamount character varying(20),
+    eventresult character varying(20),
+    eventresultamount numeric(10,2),
+	accesstoken character varying(200)
+);
+
+CREATE TABLE accounteventfinal (
+    id bigint NOT NULL,
+    accounteventid bigint NOT NULL,
+    rotation1 character varying(100),
+    rotation2 character varying(100),
+    rotation1team character varying(100),
+    rotation2team character varying(100),
+    rotation1score character varying(100),
+    rotation2score character varying(100),
+    outcomewin boolean,
+    spreadindicator character varying(5),
+    spreadnumber integer,
+    spreadjuiceindicator character varying(5),
+    spreadjuicenumber integer,
+    totalindicator character varying(5),
+    totalnumber integer,
+    totaljuiceindicator character varying(5),
+    totaljuicenumber integer
+);
+
+CREATE TABLE accountsta (
+    id bigint NOT NULL,
+    datecreated timestamp with time zone NOT NULL,
+    datemodified timestamp with time zone NOT NULL,
+    isactive boolean NOT NULL,
+    spreadlimitamount integer,
+    totallimitamount integer,
+    mllimitamount integer,
+    name character varying(100) NOT NULL,
+    timezone character varying(100),
+    ownerpercentage integer,
+    partnerpercentage integer,
+    password character varying(100),
+    proxylocation character varying(200),
+    sitetype character varying(255),
+    url character varying(200) NOT NULL,
+    username character varying(100),
+    ismobile boolean,
+    showrequestresponse boolean
+);
+
+CREATE TABLE public.emailaccountsta (
+  id bigint NOT NULL,
+  name character varying(100) NOT NULL,
+  inet character varying(50) NOT NULL,
+  address character varying(100) NOT NULL,
+  password character varying(50) NOT NULL,
+  host character varying(50) NOT NULL,
+  port character varying(6) NOT NULL,
+  tls boolean NOT NULL,
+  timezone character varying(50),
+  sitetype character varying(50) NOT NULL,
+  provider character varying(50) NOT NULL,
+  emailtype character varying(20) NOT NULL,
+  authenticationtype character varying(20),
+  clientid character varying(200),
+  clientsecret character varying(100),
+  refreshtoken character varying(200),
+  granttype character varying(50),
+  isactive boolean NOT NULL,
+  datecreated timestamp with time zone NOT NULL,
+  datemodified timestamp with time zone NOT NULL,
+  accountid character varying(100)
+);
+
+CREATE TABLE emailevent (
+	id bigint NOT NULL,
+	messagenum integer,
+	emailname varchar(100),
+	fromemail varchar(400),
+	toemail varchar(400),
+	ccemail varchar(400),
+	bccemail varchar(400),
+	subject varchar(400),
+	bodytext varchar(4000),
+	bodyhtml varchar(4000),
+	inet varchar(50),
+	datesent timestamp with time zone,
+	datereceived timestamp with time zone,
+	datecreated timestamp with time zone, 
+	datemodified timestamp with time zone
+);
+
+CREATE TABLE emailmiddledestinations (
+  emailid bigint NOT NULL,
+  accountsid bigint NOT NULL
+);
+
+CREATE TABLE emailscrapper (
+  id bigint NOT NULL,
+  userid bigint NOT NULL,
+  scrappername character varying(100) NOT NULL,
+  spreadlineadjustment character varying(10),
+  spreadjuiceindicator character varying(10),
+  spreadjuice character varying(10),
+  spreadjuiceadjustment character varying(10),
+  spreadmaxamount character varying(10),
+  totallineadjustment character varying(10),
+  totaljuiceindicator character varying(10),
+  totaljuice character varying(10),
+  totaljuiceadjustment character varying(10),
+  totalmaxamount character varying(10),
+  mlindicator character varying(10),
+  mlline character varying(10),
+  mllineadjustment character varying(10),
+  mlmaxamount character varying(10),
+  pullinginterval character varying(10),
+  mobiletext character varying(50),
+  telegramnumber character varying(12),
+  middlerules boolean NOT NULL,
+  onoff boolean NOT NULL,
+  gameonoff boolean NOT NULL,
+  firstonoff boolean NOT NULL,
+  secondonoff boolean NOT NULL,
+  thirdonoff boolean NOT NULL,
+  nflspreadonoff boolean NOT NULL,
+  nfltotalonoff boolean NOT NULL,
+  nflmlonoff boolean NOT NULL,
+  ncaafspreadonoff boolean NOT NULL,
+  ncaaftotalonoff boolean NOT NULL,
+  ncaafmlonoff boolean NOT NULL,
+  nbaspreadonoff boolean NOT NULL,
+  nbatotalonoff boolean NOT NULL,
+  nbamlonoff boolean NOT NULL,
+  ncaabspreadonoff boolean NOT NULL,
+  ncaabtotalonoff boolean NOT NULL,
+  ncaabmlonoff boolean NOT NULL,
+  wnbaspreadonoff boolean NOT NULL,
+  wnbatotalonoff boolean NOT NULL,
+  wnbamlonoff boolean NOT NULL,
+  nhlspreadonoff boolean NOT NULL,
+  nhltotalonoff boolean NOT NULL,
+  nhlmlonoff boolean NOT NULL,
+  mlbspreadonoff boolean NOT NULL,
+  mlbtotalonoff boolean NOT NULL,
+  mlbmlonoff boolean NOT NULL,
+  internationalbaseballspreadonoff boolean NOT NULL,
+  internationalbaseballtotalonoff boolean NOT NULL,
+  internationalbaseballmlonoff boolean NOT NULL,
+  datecreated timestamp with time zone NOT NULL,
+  datemodified timestamp with time zone NOT NULL
+);
+
+CREATE TABLE emailscrapperdestinations (
+  emailid bigint NOT NULL,
+  accountsid bigint NOT NULL
+);
+
+CREATE TABLE emailscrappersources (
+  emailid bigint NOT NULL,
+  emailaccountsid bigint NOT NULL
+);
+
+CREATE TABLE groupsaccounts (
+    groupsid bigint NOT NULL,
+    accountsid bigint NOT NULL
+);
+
+CREATE TABLE groupsta (
+    id bigint NOT NULL,
+    datecreated timestamp with time zone NOT NULL,
+    datemodified timestamp with time zone NOT NULL,
+    isactive boolean NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+CREATE TABLE hibernate_sequences (
+    sequence_name character varying(255),
+    sequence_next_hi_value integer
+);
+
+CREATE TABLE middledestinations (
+    scrapperid bigint NOT NULL,
+    accountsid bigint NOT NULL
+);
+
+CREATE TABLE mlrecordevents (
+    id bigint NOT NULL,
+    accountid bigint,
+    amount character varying(10),
+    attempts integer NOT NULL,
+    attempttime timestamp with time zone,
+    currentattempts integer,
+    datecreated timestamp with time zone NOT NULL,
+    datemodified timestamp with time zone,
+    datentime timestamp with time zone NOT NULL,
+    eventdatetime timestamp with time zone,
+    eventid integer NOT NULL,
+    eventid1 integer,
+    eventid2 integer,
+    eventname character varying(100),
+    eventteam1 character varying(100),
+    eventteam2 character varying(100),
+    eventtype character varying(100) NOT NULL,
+    groupid bigint,
+    iscompleted boolean NOT NULL,
+    sport character varying(100) NOT NULL,
+    userid bigint NOT NULL,
+    wtype character varying(10),
+    mlinputfirstone character varying(255),
+    mlinputfirsttwo character varying(255),
+    mlinputsecondone character varying(255),
+    mlinputsecondtwo character varying(255),
+    mlplusminusfirstone character varying(255),
+    mlplusminusfirsttwo character varying(255),
+    mlplusminussecondone character varying(255),
+    mlplusminussecondtwo character varying(255),
+    scrappername character varying(100),
+    actiontype character varying(10),
+    textnumber character varying(40)
+);
+
+CREATE TABLE pendingevents (
+    id bigint NOT NULL,
+    userid bigint NOT NULL,
+    ticketnum character varying(20) NOT NULL,
+    eventtype character varying(10),
+    linetype character varying(20),
+    eventdate character varying(80),
+    gamesport character varying(80),
+    gametype character varying(80),
+    team character varying(100),
+    rotationid character varying(10),
+    line character varying(20),
+    lineplusminus character varying(10),
+    juice character varying(10),
+    juiceplusminus character varying(10),
+    risk character varying(20),
+    win character varying(20),
+    pendingtype character varying(10),
+    accountname character varying(200),
+    accountid character varying(100),
+    doposturl boolean,
+    posturl character varying(255),
+	customerid character varying(200),
+	inet character varying(200),
+    dateaccepted character varying(50),
+    datecreated timestamp with time zone,
+    datemodified timestamp with time zone
+);
+
+CREATE TABLE scrapperdestinations (
+    scrapperid bigint NOT NULL,
+    accountsid bigint NOT NULL
+);
+
+CREATE TABLE scrappersources (
+    scrapperid bigint NOT NULL,
+    accountsid bigint NOT NULL
+);
+
+CREATE TABLE spreadrecordevents (
+    id bigint NOT NULL,
+    accountid bigint,
+    amount character varying(10),
+    attempts integer NOT NULL,
+    attempttime timestamp with time zone,
+    currentattempts integer,
+    datecreated timestamp with time zone NOT NULL,
+    datemodified timestamp with time zone,
+    datentime timestamp with time zone NOT NULL,
+    eventdatetime timestamp with time zone NOT NULL,
+    eventid integer NOT NULL,
+    eventid1 integer,
+    eventid2 integer,
+    eventname character varying(100),
+    eventteam1 character varying(100),
+    eventteam2 character varying(100),
+    eventtype character varying(100) NOT NULL,
+    groupid bigint,
+    iscompleted boolean NOT NULL,
+    sport character varying(100) NOT NULL,
+    userid bigint NOT NULL,
+    wtype character varying(10),
+    spreadinputfirstone character varying(255),
+    spreadinputfirsttwo character varying(255),
+    spreadinputjuicefirstone character varying(255),
+    spreadinputjuicefirsttwo character varying(255),
+    spreadinputjuicesecondone character varying(255),
+    spreadinputjuicesecondtwo character varying(255),
+    spreadinputsecondone character varying(255),
+    spreadinputsecondtwo character varying(255),
+    spreadjuiceplusminusfirstone character varying(255),
+    spreadjuiceplusminusfirsttwo character varying(255),
+    spreadjuiceplusminussecondone character varying(255),
+    spreadjuiceplusminussecondtwo character varying(255),
+    spreadplusminusfirstone character varying(255),
+    spreadplusminusfirsttwo character varying(255),
+    spreadplusminussecondone character varying(255),
+    spreadplusminussecondtwo character varying(255),
+    scrappername character varying(100),
+    actiontype character varying(10),
+    textnumber character varying(40)
+);
+
+CREATE TABLE totalrecordevents (
+    id bigint NOT NULL,
+    accountid bigint,
+    amount character varying(10),
+    attempts integer NOT NULL,
+    attempttime timestamp with time zone,
+    currentattempts integer,
+    datecreated timestamp with time zone NOT NULL,
+    datemodified timestamp with time zone,
+    datentime timestamp with time zone NOT NULL,
+    eventdatetime timestamp with time zone NOT NULL,
+    eventid integer NOT NULL,
+    eventid1 integer,
+    eventid2 integer,
+    eventname character varying(100),
+    eventteam1 character varying(100),
+    eventteam2 character varying(100),
+    eventtype character varying(100) NOT NULL,
+    groupid bigint,
+    iscompleted boolean NOT NULL,
+    sport character varying(100) NOT NULL,
+    userid bigint NOT NULL,
+    wtype character varying(10),
+    totalinputfirstone character varying(255),
+    totalinputfirsttwo character varying(255),
+    totalinputjuicefirstone character varying(255),
+    totalinputjuicefirsttwo character varying(255),
+    totalinputjuicesecondone character varying(255),
+    totalinputjuicesecondtwo character varying(255),
+    totalinputsecondone character varying(255),
+    totalinputsecondtwo character varying(255),
+    totaljuiceplusminusfirstone character varying(255),
+    totaljuiceplusminusfirsttwo character varying(255),
+    totaljuiceplusminussecondone character varying(255),
+    totaljuiceplusminussecondtwo character varying(255),
+    scrappername character varying(100),
+    actiontype character varying(10),
+    textnumber character varying(40)
+);
+
+CREATE TABLE userbilling (
+    id bigint NOT NULL,
+    userid bigint NOT NULL,
+    weekstartdate date NOT NULL,
+    accountrate numeric(8,2),
+    ispaid boolean NOT NULL,
+    weeklybalance numeric(8,2),
+    numberofaccounts integer DEFAULT 0 NOT NULL
+);
+
+CREATE TABLE usersaccounts (
+    usersid bigint NOT NULL,
+    accountsid bigint NOT NULL
+);
+
+CREATE TABLE usersgroups (
+    usersid bigint NOT NULL,
+    groupsid bigint NOT NULL
+);
+
+CREATE TABLE usersta (
+    id bigint NOT NULL,
+    datecreated timestamp with time zone NOT NULL,
+    datemodified timestamp with time zone NOT NULL,
+    email character varying(100),
+    isactive boolean NOT NULL,
+    mobilenumber character varying(16),
+    password character varying(50),
+    username character varying(50) NOT NULL
+);
+
+CREATE TABLE webscrapper (
+  id bigint NOT NULL,
+  userid bigint NOT NULL,
+  scrappername character varying(100) NOT NULL,
+  spreadlineadjustment character varying(10),
+  spreadjuiceindicator character varying(10),
+  spreadjuice character varying(10),
+  spreadjuiceadjustment character varying(10),
+  spreadmaxamount character varying(10),
+  totallineadjustment character varying(10),
+  totaljuiceindicator character varying(10),
+  totaljuice character varying(10),
+  totaljuiceadjustment character varying(10),
+  totalmaxamount character varying(10),
+  mlindicator character varying(10),
+  mlline character varying(10),
+  mllineadjustment character varying(10),
+  mlmaxamount character varying(10),
+  pullinginterval character varying(10),
+  mobiletext character varying(50),
+  telegramnumber character varying(12),
+  middlerules boolean,
+  gameonoff boolean NOT NULL,
+  firstonoff boolean NOT NULL,
+  secondonoff boolean NOT NULL,
+  thirdonoff boolean NOT NULL,
+  nflspreadonoff boolean NOT NULL,
+  nfltotalonoff boolean NOT NULL,
+  nflmlonoff boolean NOT NULL,
+  ncaafspreadonoff boolean NOT NULL,
+  ncaaftotalonoff boolean NOT NULL,
+  ncaafmlonoff boolean NOT NULL,
+  nbaspreadonoff boolean NOT NULL,
+  nbatotalonoff boolean NOT NULL,
+  nbamlonoff boolean NOT NULL,
+  ncaabspreadonoff boolean NOT NULL,
+  ncaabtotalonoff boolean NOT NULL,
+  ncaabmlonoff boolean NOT NULL,
+  wnbaspreadonoff boolean NOT NULL,
+  wnbatotalonoff boolean NOT NULL,
+  wnbamlonoff boolean NOT NULL,
+  nhlspreadonoff boolean NOT NULL,
+  nhltotalonoff boolean NOT NULL,
+  nhlmlonoff boolean NOT NULL,
+  mlbspreadonoff boolean NOT NULL,
+  mlbtotalonoff boolean NOT NULL,
+  mlbmlonoff boolean NOT NULL,
+  onoff boolean NOT NULL,
+  internationalbaseballspreadonoff boolean NOT NULL,
+  internationalbaseballtotalonoff boolean NOT NULL,
+  internationalbaseballmlonoff boolean NOT NULL,
+  datecreated timestamp with time zone NOT NULL,
+  datemodified timestamp with time zone NOT NULL
+);
+
+ALTER TABLE accountevent OWNER TO tauser;
+CREATE SEQUENCE accountevent_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE accountevent_id_seq OWNER TO tauser;
+ALTER SEQUENCE accountevent_id_seq OWNED BY accountevent.id;
+ALTER TABLE ONLY accountevent ALTER COLUMN id SET DEFAULT nextval('accountevent_id_seq'::regclass);
+
+ALTER TABLE accounteventfinal OWNER TO tauser;
+CREATE SEQUENCE accounteventfinal_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE accounteventfinal_id_seq OWNER TO tauser;
+ALTER SEQUENCE accounteventfinal_id_seq OWNED BY accountevent.id;
+ALTER TABLE ONLY accountevent ALTER COLUMN id SET DEFAULT nextval('accounteventfinal_id_seq'::regclass);
+
+ALTER TABLE accountsta OWNER TO tauser;
+CREATE SEQUENCE accountsta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE accountsta_id_seq OWNER TO tauser;
+ALTER SEQUENCE accountsta_id_seq OWNED BY accountsta.id;
+ALTER TABLE ONLY accountsta ALTER COLUMN id SET DEFAULT nextval('accountsta_id_seq'::regclass);
+
+ALTER TABLE public.emailaccountsta OWNER TO tauser;
+CREATE SEQUENCE emailaccountsta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE emailaccountsta_id_seq OWNER TO tauser;
+ALTER SEQUENCE emailaccountsta_id_seq OWNED BY emailaccountsta.id;
+ALTER TABLE ONLY emailaccountsta ALTER COLUMN id SET DEFAULT nextval('emailaccountsta_id_seq'::regclass);
+
+ALTER TABLE emailevent OWNER TO tauser;
+CREATE SEQUENCE emailevent_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE emailevent_id_seq OWNER TO tauser;
+ALTER SEQUENCE emailevent_id_seq OWNED BY emailevent.id;
+ALTER TABLE ONLY emailevent ALTER COLUMN id SET DEFAULT nextval('emailevent_id_seq'::regclass);
+
+ALTER TABLE emailmiddledestinations OWNER TO tauser;
+ALTER TABLE emailscrapperdestinations OWNER TO tauser;
+ALTER TABLE emailscrappersources OWNER TO tauser;
+
+ALTER TABLE emailscrapper OWNER TO tauser;
+CREATE SEQUENCE emailscrapper_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE emailscrapper_id_seq OWNER TO tauser;
+ALTER SEQUENCE emailscrapper_id_seq OWNED BY emailscrapper.id;
+ALTER TABLE ONLY emailscrapper ALTER COLUMN id SET DEFAULT nextval('emailscrapper_id_seq'::regclass);
+
+ALTER TABLE groupsaccounts OWNER TO tauser;
+
+ALTER TABLE groupsta OWNER TO tauser;
+CREATE SEQUENCE groupsta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE groupsta_id_seq OWNER TO tauser;
+ALTER SEQUENCE groupsta_id_seq OWNED BY groupsta.id;
+ALTER TABLE ONLY groupsta ALTER COLUMN id SET DEFAULT nextval('groupsta_id_seq'::regclass);
+
+ALTER TABLE hibernate_sequences OWNER TO tauser;
+
+ALTER TABLE middledestinations OWNER TO tauser;
+
+ALTER TABLE mlrecordevents OWNER TO tauser;
+CREATE SEQUENCE mlrecordevents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE mlrecordevents_id_seq OWNER TO tauser;
+ALTER SEQUENCE mlrecordevents_id_seq OWNED BY mlrecordevents.id;
+ALTER TABLE ONLY mlrecordevents ALTER COLUMN id SET DEFAULT nextval('mlrecordevents_id_seq'::regclass);
+
+ALTER TABLE pendingevents OWNER TO tauser;
+CREATE SEQUENCE pendingevents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE pendingevents_id_seq OWNER TO tauser;
+ALTER SEQUENCE pendingevents_id_seq OWNED BY pendingevents.id;
+ALTER TABLE ONLY pendingevents ALTER COLUMN id SET DEFAULT nextval('pendingevents_id_seq'::regclass);
+
+
+ALTER TABLE scrapperdestinations OWNER TO tauser;
+ALTER TABLE scrappersources OWNER TO tauser;
+
+ALTER TABLE spreadrecordevents OWNER TO tauser;
+CREATE SEQUENCE spreadrecordevents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE spreadrecordevents_id_seq OWNER TO tauser;
+ALTER SEQUENCE spreadrecordevents_id_seq OWNED BY spreadrecordevents.id;
+ALTER TABLE ONLY spreadrecordevents ALTER COLUMN id SET DEFAULT nextval('spreadrecordevents_id_seq'::regclass);
+
+ALTER TABLE totalrecordevents OWNER TO tauser;
+CREATE SEQUENCE totalrecordevents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE totalrecordevents_id_seq OWNER TO tauser;
+ALTER SEQUENCE totalrecordevents_id_seq OWNED BY totalrecordevents.id;
+ALTER TABLE ONLY totalrecordevents ALTER COLUMN id SET DEFAULT nextval('totalrecordevents_id_seq'::regclass);
+
+ALTER TABLE userbilling OWNER TO tauser;
+CREATE SEQUENCE userbilling_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE userbilling_id_seq OWNER TO tauser;
+ALTER SEQUENCE userbilling_id_seq OWNED BY userbilling.id;
+ALTER TABLE ONLY userbilling ALTER COLUMN id SET DEFAULT nextval('userbilling_id_seq'::regclass);
+
+ALTER TABLE usersaccounts OWNER TO tauser;
+ALTER TABLE usersgroups OWNER TO tauser;
+
+ALTER TABLE usersta OWNER TO tauser;
+CREATE SEQUENCE usersta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE usersta_id_seq OWNER TO tauser;
+ALTER SEQUENCE usersta_id_seq OWNED BY usersta.id;
+ALTER TABLE ONLY usersta ALTER COLUMN id SET DEFAULT nextval('usersta_id_seq'::regclass);
+
+ALTER TABLE webscrapper OWNER TO tauser;
+CREATE SEQUENCE webscrapper_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE webscrapper_id_seq OWNER TO tauser;
+ALTER SEQUENCE webscrapper_id_seq OWNED BY usersta.id;
+ALTER TABLE ONLY webscrapper ALTER COLUMN id SET DEFAULT nextval('webscrapper_id_seq'::regclass);
+
+ALTER TABLE accountevent ADD CONSTRAINT accountevent_pkey PRIMARY KEY (id);
+ALTER TABLE accounteventfinal ADD CONSTRAINT accounteventfinal_pkey PRIMARY KEY (id);
+ALTER TABLE accountsta ADD CONSTRAINT accountsta_pkey PRIMARY KEY (id);
+ALTER TABLE emailaccountsta ADD CONSTRAINT emailaccountsta_pkey PRIMARY KEY (id, name, address);
+ALTER TABLE emailevent ADD CONSTRAINT emailevent_pkey PRIMARY KEY (id);
+ALTER TABLE emailmiddledestinations ADD CONSTRAINT emailmiddledestinations_pkey PRIMARY KEY (emailid, accountsid);
+ALTER TABLE emailscrapper ADD CONSTRAINT emailscrapper_pkey PRIMARY KEY (id, scrappername, userid);
+ALTER TABLE emailscrapperdestinations ADD CONSTRAINT emailscrapperdestinations_pkey PRIMARY KEY (emailid, accountsid);
+ALTER TABLE emailscrappersources ADD CONSTRAINT emailscrappersources_pkey PRIMARY KEY (emailid, emailaccountsid);
+ALTER TABLE groupsaccounts ADD CONSTRAINT groupsaccounts_pkey PRIMARY KEY (groupsid, accountsid);
+ALTER TABLE groupsta ADD CONSTRAINT groupsta_pkey PRIMARY KEY (id);
+ALTER TABLE middledestinations ADD CONSTRAINT middledestinations_pkey PRIMARY KEY (scrapperid, accountsid);
+ALTER TABLE mlrecordevents ADD CONSTRAINT mlrecordevents_pkey PRIMARY KEY (id);
+ALTER TABLE pendingevents ADD CONSTRAINT pendingevents_pkey PRIMARY KEY (id);
+ALTER TABLE scrapperdestinations ADD CONSTRAINT scrapperdestinations_pkey PRIMARY KEY (scrapperid, accountsid);
+ALTER TABLE scrappersources ADD CONSTRAINT scrappersources_pkey PRIMARY KEY (scrapperid, accountsid);
+ALTER TABLE spreadrecordevents ADD CONSTRAINT spreadrecordevents_pkey PRIMARY KEY (id);
+ALTER TABLE totalrecordevents ADD CONSTRAINT totalrecordevents_pkey PRIMARY KEY (id, datecreated, datentime, eventdatetime, eventid, userid);
+ALTER TABLE userbilling ADD CONSTRAINT userbilling_pkey PRIMARY KEY (id);
+ALTER TABLE usersaccounts ADD CONSTRAINT usersaccounts_pkey PRIMARY KEY (usersid, accountsid);
+ALTER TABLE usersgroups ADD CONSTRAINT usersgroups_pkey PRIMARY KEY (usersid, groupsid);
+ALTER TABLE usersta ADD CONSTRAINT usersta_pkey PRIMARY KEY (id);
+ALTER TABLE webscrapper ADD CONSTRAINT webscrapper_pkey PRIMARY KEY (id, scrappername, userid);
+
+CREATE INDEX accountevent_accountid_idx ON accountevent USING btree (accountid);
+CREATE INDEX accountevent_datecreated_idx ON accountevent USING btree (datecreated);
+CREATE INDEX accountevent_userid_idx ON accountevent USING btree (userid);
+CREATE INDEX accounteventfinal_accounteventid_idx ON accounteventfinal USING btree (accounteventid);
+CREATE INDEX accountsta_isactive_idx ON accountsta USING btree (isactive);
+CREATE INDEX emailevent_datecreated_idx ON emailevent USING btree (datecreated);
+CREATE INDEX emailevent_messagenum_idx ON emailevent USING btree(messagenum);
+CREATE INDEX emailevent_subject_idx ON emailevent USING btree (subject);
+CREATE INDEX emailscrapper_name_idx ON emailscrapper USING btree (scrappername);
+CREATE INDEX emailscrapper_userid_idx ON emailscrapper USING btree (userid);
+CREATE INDEX accountsta_name_idx ON accountsta USING btree (name);
+CREATE INDEX groupsta_isactive_idx ON groupsta USING btree (isactive);
+CREATE INDEX groupsta_name_idx ON groupsta USING btree (name);
+CREATE INDEX mlrecordevents_datecreated_idx ON mlrecordevents USING btree (datecreated);
+CREATE INDEX mlrecordevents_datentime_idx ON mlrecordevents USING btree (datentime);
+CREATE INDEX mlrecordevents_eventdatetime_idx ON mlrecordevents USING btree (eventdatetime);
+CREATE INDEX mlrecordevents_eventid_idx ON mlrecordevents USING btree (eventid);
+CREATE INDEX mlrecordevents_userid_idx ON mlrecordevents USING btree (userid);
+CREATE INDEX pendingevents_datecreated_idx ON pendingevents USING btree (datecreated);
+CREATE INDEX pendingevents_pendingtype_idx ON pendingevents USING btree (pendingtype);
+CREATE INDEX pendingevents_ticketnum_idx ON pendingevents USING btree (ticketnum);
+CREATE INDEX pendingevents_userid_idx ON pendingevents USING btree (userid);
+CREATE INDEX spreadrecordevents_datecreated_idx ON spreadrecordevents USING btree (datecreated);
+CREATE INDEX spreadrecordevents_datentime_idx ON spreadrecordevents USING btree (datentime);
+CREATE INDEX spreadrecordevents_eventdatetime_idx ON spreadrecordevents USING btree (eventdatetime);
+CREATE INDEX spreadrecordevents_eventid_idx ON spreadrecordevents USING btree (eventid);
+CREATE INDEX spreadrecordevents_userid_idx ON spreadrecordevents USING btree (userid);
+CREATE INDEX totalrecordevents_datecreated_idx ON totalrecordevents USING btree (datecreated);
+CREATE INDEX totalrecordevents_datentime_idx ON totalrecordevents USING btree (datentime);
+CREATE INDEX totalrecordevents_eventdatetime_idx ON totalrecordevents USING btree (eventdatetime);
+CREATE INDEX totalrecordevents_eventid_idx ON totalrecordevents USING btree (eventid);
+CREATE INDEX totalrecordevents_userid_idx ON totalrecordevents USING btree (userid);
+CREATE INDEX userbilling_userid_idx ON userbilling USING btree (userid);
+CREATE INDEX userbilling_week_idx ON userbilling USING btree (weekstartdate);
+CREATE INDEX usersta_isactive_idx ON usersta USING btree (isactive);
+CREATE INDEX usersta_username_idx ON usersta USING btree (username);
+CREATE INDEX webscrapper_name_idx ON webscrapper USING btree (scrappername);
+CREATE INDEX webscrapper_userid_idx ON webscrapper USING btree (userid);
+
+
+GRANT ALL(id) ON TABLE accountevent TO PUBLIC;
+GRANT ALL(id) ON TABLE accounteventfinal TO PUBLIC;
+GRANT ALL(id) ON TABLE accountsta TO PUBLIC;
+GRANT ALL(id) ON TABLE emailevent TO PUBLIC;
+GRANT ALL(emailid) ON TABLE emailmiddledestinations TO public;
+GRANT ALL(id) ON TABLE emailscrapper TO public;
+GRANT ALL(emailid) ON TABLE emailscrapperdestinations TO public;
+GRANT ALL(emailid) ON TABLE emailscrappersources TO public;
+GRANT ALL(groupsid) ON TABLE groupsaccounts TO PUBLIC;
+GRANT ALL(id) ON TABLE groupsta TO PUBLIC;
+GRANT ALL(sequence_name) ON TABLE hibernate_sequences TO PUBLIC;
+GRANT ALL(scrapperid) ON TABLE middledestinations TO PUBLIC;
+GRANT ALL(id) ON TABLE mlrecordevents TO PUBLIC;
+GRANT ALL(id) ON TABLE pendingevents TO PUBLIC;
+GRANT ALL(scrapperid) ON TABLE scrapperdestinations TO PUBLIC;
+GRANT ALL(scrapperid) ON TABLE scrappersources TO PUBLIC;
+GRANT ALL(id) ON TABLE spreadrecordevents TO PUBLIC;
+GRANT ALL(id) ON TABLE totalrecordevents TO PUBLIC;
+GRANT ALL(id) ON TABLE userbilling TO PUBLIC;
+GRANT ALL(usersid) ON TABLE usersaccounts TO PUBLIC;
+GRANT ALL(usersid) ON TABLE usersgroups TO PUBLIC;
+GRANT ALL(id) ON TABLE usersta TO PUBLIC;
+GRANT ALL(id) ON TABLE webscrapper TO PUBLIC;
+
+/Library/PostgreSQL/9.5/bin/pg_dump --table=public.accountsta --data-only --column-inserts ticketadvantage > data.sql
+
+INSERT INTO usersta(datecreated, datemodified, email, isactive, mobilenumber, password, username) VALUES ('2017-09-30 18:15:16.785', '2017-09-30 18:15:16.785', '7852173453@txt.att.net',TRUE,'8885551212','3id39d','jhmojax');
+INSERT INTO usersta(datecreated, datemodified, email, isactive, mobilenumber, password, username) VALUES ('2017-09-30 18:15:16.785', '2017-09-30 18:15:16.785', 't@v.com',TRUE,'8885551212','vegas5432','lasvegasgroup');
+INSERT INTO usersta(datecreated, datemodified, email, isactive, mobilenumber, password, username) VALUES ('2017-09-30 18:15:16.785', '2017-09-30 18:15:16.785', 'b@n.com',TRUE,'8885551212','la5432','lagroup');
+INSERT INTO usersta(datecreated, datemodified, email, isactive, mobilenumber, password, username) VALUES ('2017-09-30 18:15:16.785', '2017-09-30 18:15:16.785', '4804798844@txt.att.net',TRUE,'8885551212','phoenix5432','phoenixgroup');
+INSERT INTO usersta(datecreated, datemodified, email, isactive, mobilenumber, password, username) VALUES ('2017-09-30 18:15:16.785', '2017-09-30 18:15:16.785', '6467085712@txt.att.net',TRUE,'8885551212','nyc5432','nycgroup');

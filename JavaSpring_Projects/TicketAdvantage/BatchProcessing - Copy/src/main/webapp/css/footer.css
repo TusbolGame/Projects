@@ -1,0 +1,8 @@
+@CHARSET "utf-8";
+/* padding-top padding-right padding-bottom padding-left */
+
+.footer_wrapper {
+	display: block;
+    padding-top: 50px;
+    text-align: center;
+}

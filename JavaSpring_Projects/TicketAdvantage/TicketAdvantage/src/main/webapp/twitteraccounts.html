@@ -1,0 +1,90 @@
+<div class="account">
+	<div class="account_left">
+		<div class="account_info">
+			<div class="account_field">
+				<label class="account_settings" for="twittername">Twitter Account Settings</label>
+			</div>
+			<div class="account_field">
+				<div class="account_row_left">
+					<label for="twittername">Name</label>
+				</div>
+				<div class="account_row_right">
+					<input id="twittername" type="text" name="twittername" value=""/>
+					<input id="twitternameid" type="hidden" value=""/>
+				</div>
+			</div>
+			<div class="account_field">
+				<div class="account_row_left">
+					<label for="twitterinet">Inet</label>
+				</div>
+				<div class="account_row_right">
+					<input id="twitterinet" type="text" name="twitterinet" value=""/>
+				</div>
+			</div>
+			<div class="account_field">
+				<div class="account_row_left">
+					<label for="twitteraccountid">Customer ID</label>
+				</div>
+				<div class="account_row_right">
+					<input id="twitteraccountid" type="text" name="twitteraccountid" value=""/>
+				</div>
+			</div>
+			<div class="account_field">
+				<div class="account_row_left">
+					<label for="twitterscreenname">Screen Name</label>
+				</div>
+				<div class="account_row_right">
+					<input id="twitterscreenname" type="text" name="twitterscreenname" value=""/>
+				</div>
+			</div>
+			<div class="account_field">
+				<div class="account_row_left">
+					<label for="twitterhandleid">Handle ID</label>
+				</div>
+				<div class="account_row_right">
+					<input id="twitterhandleid" type="text" name="twitterhandleid" value=""/>
+				</div>
+			</div>
+			<div class="account_field">
+				<div class="account_row_left">
+					<label for="twittersitetype">Site Type</label>
+				</div>
+				<div style="display: inline;">
+					<select id="twittersitetype" name="twittersitetype" style="height: 25px; width: 219px;">
+						<option value="ThreeManWeaveTwitter">Three Man Weave</option>
+						<option value="JerryPicksTwitter">Jerry's Picks</option>
+						<option value="PoissonSportsTwitter">Poisson Sports</option>
+					</select>
+				</div>
+			</div>
+			<div class="account_field">
+				<div class="account_row_left">
+					<label for="twitterisactive">Active</label>
+				</div>
+				<div class="account_row_right" style="border: medium none; box-shadow: none;">
+					<input id="twitterisactive" type="checkbox" name="twitterisactive" value="active" checked />
+				</div>
+			</div>
+			<div id="account-buttons" class="account_buttons">
+				<button id="button-add-account" type="submit">
+					<span class="btn-menu-text">Add</span>
+				</button>
+				<button id="button-update-account" type="submit">
+					<span class="btn-menu-text">Update</span>
+				</button>
+				<button id="button-delete-account" type="submit">
+					<span class="btn-menu-text">Delete</span>
+				</button>
+				<button id="button-reset-account" type="submit">
+					<span class="btn-menu-text">Reset</span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="account_right">
+		<div class="account_listing">
+			<div id="twitter-list-nav"></div>
+			<ul id="twitter-list" class="account_list"></ul>
+		</div>
+	</div>
+</div>

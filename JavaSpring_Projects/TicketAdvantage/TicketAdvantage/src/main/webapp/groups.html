@@ -1,0 +1,46 @@
+<div class="group">
+	<div class="group_left">
+		<div class="group_info">
+			<div class="group_field">
+				<label class="group_settings" for="accountname">Group Settings</label>
+			</div>
+			<div class="group_field">
+				<div class="group_row_left">
+					<label for="groupname">Name</label>
+				</div>
+				<div class="group_row_right">
+					<input id="groupname" type="text" name="groupname" value=""/>
+					<input id="groupnameid" type="hidden" value=""/>
+				</div>
+			</div>
+			<div class="group_field">
+				<div class="group_row_left">
+					<label for="groupisactive">Active</label>
+				</div>
+				<div class="group_row_right" style="border: medium none; box-shadow: none;">
+					<input id="groupisactive" type="checkbox" name="groupisactive" value="active" checked />
+				</div>
+			</div>
+			<div id="group-buttons" class="group_buttons">
+				<button id="button-add-group" type="submit">
+					<span class="btn-menu-text">Add</span>
+				</button>
+				<button id="button-update-group" type="submit">
+					<span class="btn-menu-text">Update</span>
+				</button>
+				<button id="button-delete-group" type="submit">
+					<span class="btn-menu-text">Delete</span>
+				</button>
+				<button id="button-reset-group" type="submit">
+					<span class="btn-menu-text">Reset</span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="group_right">
+		<div class="group_listing">
+			<div id="group-list-nav"></div>
+			<ul id="group-list" class="group_list"></ul>
+		</div>
+	</div>
+</div>

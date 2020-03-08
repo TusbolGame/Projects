@@ -1,0 +1,250 @@
+@CHARSET "utf-8";
+/* padding-top padding-right padding-bottom padding-left */
+
+.account_event_table {
+	border: none;
+	width: 100%;
+}
+
+.previewlines_container {
+	background-color: #ffffff;
+    box-sizing: border-box;
+    color: #000000;
+	font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    line-height: 25px;
+    overflow: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+	#previewlines-header {
+		width: 100%;
+	}
+	.previewlines_filter_wrapper {
+		display: inline-block;
+	}
+		.previewlines_filter {
+			display: inline-block;
+			height: 25px;
+			min-width: 180px;
+		}
+			.previewlines_filter_label {
+				display: inline-block;
+				font-size: 15px;
+				min-width: 60px;
+			}
+	.previewlines_dates_wrapper {
+		display: inline-block;
+	}
+		.previewlines_dates {
+			display: inline-block;
+		}
+		.previewlines_dates_right {
+			display: inline-block;
+			padding-left: 5px;
+		}
+			.previewlines_dates_label {
+				display: inline-block;
+				font-size: 15px;
+				min-width: 40px;
+			}
+				.previewlines_dates_label_right {
+					display: inline-block;
+					min-width: 0px;
+				}
+			.previewlines_dates_container {
+				-moz-border-bottom-colors: none;
+				-moz-border-left-colors: none;
+				-moz-border-right-colors: none;
+				-moz-border-top-colors: none;
+				border-color: #949494 #a6a6a6 #a6a6a6;
+				border-image: none;
+				border-radius: 0.3rem;
+				border-style: solid;
+				border-width: 0.1rem;
+				box-shadow: 0 0.1rem 0 rgba(255, 255, 255, 0.5), 0 0.1rem 0 rgba(0, 0, 0, 0.07) inset;
+				display: inline-block;
+				outline: 0 none;
+			}
+				.previewlines_dates_container input {
+					background-color: previewlinesparent;
+					border: 0 none;
+					box-shadow: none;
+					box-sizing: border-box;
+					float: none;
+					font-size: 100%;
+					margin: 0.2rem 0 0;
+					width: 100px;
+				}
+	.previewlines_buttons_wrapper {
+		display: inline-block;
+	}
+		.previewlines_buttons {
+			display: inline-block;
+		}
+			.previewlines_buttons button {
+				background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #f7f8fa, #e7e9ec) repeat scroll 0 0;
+				border-color: #adb1b8 #a2a6ac #8d9096;
+				border-radius: 0.2rem;
+				border-style: solid;
+				border-width: 0.1rem;
+				box-shadow: 0 0.1rem 0 rgba(255, 255, 255, 0.6) inset;
+				color: #111111;
+				cursor: pointer;
+				font-family: Arial,sans-serif;
+				font-size: 1.0rem;
+				line-height: 1.35;
+				margin: 10px 5px;
+				min-width: 90px;
+				outline: 0 none;
+				padding: 2px;
+				text-align: center;
+				text-decoration: none;
+				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);
+				white-space: normal;
+			}
+			.previewlines_buttons button:hover {
+				border-color: #0896ff;
+			}
+			.previewlines_buttons button:active {
+				background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #0896ff, #0896ff) repeat scroll 0 0;
+				color: #ffffff;
+			}
+	
+.previewlines_header {
+	background-color: #111111;
+	box-sizing: border-box;
+	color: #ffffff;
+	font-size: 16px;
+	line-height: 30px;
+	overflow: auto;
+}
+	.previewlines_header_border {
+	}
+.previewlines_data {	
+}
+	.previewlines_data_header {
+		line-height: 25px;
+	}
+	.previewlines_data_odd {
+		background-color: #f3f3f3;
+	}
+		.previewlines_data_header_play {
+			border: none !important;
+			padding-left: 5px;
+			width: 10%;
+		}
+		.previewlines_data_header_amount {
+			border: none !important;
+			padding-left: 5px;
+			width: 15%;
+		}
+		.previewlines_data_header_line {
+			border: none !important;
+			padding-left: 5px;
+			width: 15%;
+		}
+		.previewlines_data_header_juice {
+			border: none !important;
+			padding-left: 5px;
+			width: 15%;
+		}
+		.previewlines_data_header_accountname {
+			border: none !important;
+			padding-left: 5px;
+			width: 45%;
+		}
+
+	/* 
+	Max width before this PARTICULAR table gets nasty
+	This query will take effect for any screen smaller than 760px
+	and also iPads specifically.
+	*/
+	@media 
+	only screen and (max-width: 760px),
+	(min-device-width: 768px) and (max-device-width: 1024px)  {
+	
+		/* Force table to not be like tables anymore */
+		table, thead, tbody, th, td, tr { 
+			display: block; 
+		}
+		
+		/* Hide table headers (but not display: none;, for accessibility) */
+		thead tr { 
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+		
+		tr { border: 1px solid #ccc; }
+		
+		.previewlines_data_header td { 
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #eee; 
+			position: relative;
+			padding-left: 50%; 
+		}
+		
+		.previewlines_data_header td:before { 
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */
+			left: 6px;
+			width: 45%; 
+			padding-right: 10px; 
+			white-space: nowrap;
+		}
+
+		.previewlines_data_header_play {
+			padding-left: 50%;
+			width: auto;
+		}
+		.previewlines_data_header_amount {
+			padding-left: 50%;
+			width: auto;
+		}
+		.previewlines_data_header_line {
+			padding-left: 50%;
+			width: auto;
+		}
+		.previewlines_data_header_juice {
+			padding-left: 50%;
+			width: auto;
+		}
+		.previewlines_data_header_accountname {
+			padding-left: 50%;
+			width: auto;
+		}
+
+		/*
+		Label the data
+		*/
+		.previewlines_data_header_play:before {
+			content: "Play:";
+			font-size: 16px;
+			font-weight: bold;
+		}
+		.previewlines_data_header_amount:before { 
+			content: "Amount:";
+			font-size: 16px;
+			font-weight: bold;
+		}
+		.previewlines_data_header_line:before {
+			content: "Line:";
+			font-size: 16px;
+			font-weight: bold;
+		}
+		.previewlines_data_header_juice:before {
+			content: "Juice:";
+			font-size: 16px;
+			font-weight: bold;
+		}
+		.previewlines_data_header_accountname:before {
+			content: "Account Name:";
+			font-size: 16px;
+			font-weight: bold;
+		}
+	}
+}

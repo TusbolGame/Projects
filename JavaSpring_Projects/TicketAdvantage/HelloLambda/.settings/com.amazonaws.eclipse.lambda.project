@@ -1,0 +1,7 @@
+#Lambda Function Project Metadata
+#Thu Nov 24 17:09:13 CST 2016
+lastInvokeShowLiveLog=false
+lastDeploymentFunctionName=HelloFunction
+lastDeploymentBucketName=lambdaticketadvantage
+lastDeploymentEndpoint=https\://lambda.us-west-2.amazonaws.com/
+lastInvokeInput="ABC"

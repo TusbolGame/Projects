@@ -1,0 +1,98 @@
+<div id="transactions" class="transactions">
+	<div class="trans_container">
+		<div style="display: block">
+			<div class="trans_filter_wrapper">
+				<div class="trans_filter_label">
+					<label for="transfilter">Week:</label>
+				</div>
+				<select id="transfilter" class="trans_filter" name="transfilter">
+				</select>
+				<div class="trans_dates_wrapper">
+					<div id="trans-dates" class="trans_dates">
+						<div class="trans_dates_label">
+							<label for="fromdate">From:</label>
+						</div>
+						<div class="trans_dates_container">
+							<input id="fromdate" type="text" name="fromdate" value=""/>
+						</div>
+					</div>
+					<div id="trans-dates" class="trans_dates trans_dates_right">
+						<div class="trans_dates_label_right">
+							<label for="todate">To:</label>
+						</div>
+						<div class="trans_dates_container">
+							<input id="todate" type="text" name="todate" value=""/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="display: block">
+			<div class="trans_filter_wrapper">
+				<div class="trans_filter_label">
+					<label for="transgroup">Group:</label>
+				</div>
+				<select id="transgroup" class="trans_filter" name="transgroup" >
+				</select>
+			</div>
+		</div>
+		<div style="display: block">
+			<div class="trans_filter_wrapper">
+				<div class="trans_filter_label">
+					<label for="transaccount">Account:</label>
+				</div>
+				<select id="transaccount" class="trans_filter" name="transaccount" >
+				</select>
+			</div>
+		</div>
+		<div style="display: block">
+			<div class="trans_buttons_wrapper">
+				<div id="trans-buttons" class="trans_buttons">
+					<button id="trans-view" type="submit">
+						<span class="trans_view_text">View Dates</span>
+					</button>
+				</div>
+				<div id="trans-buttons" class="trans_buttons">
+					<button id="trans-export" type="submit">
+						<span class="trans_view_text">Export</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="trans-header" class="trans_header">
+		<div class="trans_data_header_plusminus trans_header_border">&nbsp;</div>
+		<div class="trans_data_header_datetime trans_header_border">Accepted</div>
+		<div class="trans_data_header_type trans_header_border">Type</div>
+		<div class="trans_data_header_status trans_header_border">Status</div>
+		<div class="trans_data_header_description trans_header_border">Description</div>
+		<div class="trans_data_header_eventdatetime trans_header_border">Game Time</div>
+		<div class="trans_data_header_amount">Amount</div>
+	</div>
+	<div id="trans-data" class="trans_data">
+		<div id="trans-data-header" class="trans_data_header trans_data_odd">
+		</div>
+		<div id="showaccounts">
+			<div class="trans_group" style="display: none;">
+				<div class="trans_group_acct">
+				</div>
+			</div>
+			<div class="trans_data_acct" style="display: none;">
+				<div class="trans_data_acct_header">
+					<div class="trans_data_acct_event_name trans_data_acct_header_border">Acct Name</div>
+					<div class="trans_data_acct_event_type trans_data_acct_header_border">Type</div>
+					<div class="trans_data_acct_event_status trans_data_acct_header_border">Status</div>
+					<div class="trans_data_acct_event_line trans_data_acct_header_border">Line</div>
+					<div class="trans_data_acct_event_juice trans_data_acct_header_border">Juice</div>
+					<div class="trans_data_acct_event_owner trans_data_acct_header_border">Owner %</div>
+					<div class="trans_data_acct_event_partner trans_data_acct_header_border">Partner %</div>
+					<div class="trans_data_acct_event_info">Information</div>
+				</div>
+				<div class="trans_data_acct_event trans_data_acct_event_notcompleted">
+				</div>
+				<div class="trans_data_acct_event trans_data_acct_event_completed">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

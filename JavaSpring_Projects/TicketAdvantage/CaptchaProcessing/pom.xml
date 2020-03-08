@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ticketadvantage.pom</groupId>
+	<artifactId>captchaprocessing</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Captcha Processing</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk.version>1.8</jdk.version>
+		<java.version>1.8</java.version>
+		<javax.ws.rs.version>2.0</javax.ws.rs.version>
+		<javax.validation.version>1.1.0.Final</javax.validation.version>
+		<spring.version>5.2.1.RELEASE</spring.version>
+		<spring.security.version>5.2.1.RELEASE</spring.security.version>
+		<hibernate.version>5.4.8.Final</hibernate.version>
+		<hibernate.validator.version>6.1.0.Final</hibernate.validator.version>
+		<jersey.version>2.29.1</jersey.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<httpclient.version>4.5.1</httpclient.version>
+		<tagsoup.version>1.2</tagsoup.version>
+	</properties>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>javax.servlet.jsp-api</artifactId>
+		    <version>2.2.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+            <groupId>com.ticketadvantage.pom</groupId>
+            <artifactId>commonpackage</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<finalName>captchaprocessing</finalName>
+	</build>
+</project>

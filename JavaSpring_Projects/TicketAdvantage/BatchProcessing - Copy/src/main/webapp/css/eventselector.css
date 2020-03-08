@@ -1,0 +1,65 @@
+@CHARSET "utf-8";
+
+/* padding-top padding-right padding-bottom padding-left */
+
+.selector_label {
+	padding: 10px;	
+}
+	.selector_label label {
+		color: #ff0000;
+		font-size: 22px;
+	}
+	.sports_options_even {
+		background-color: #ffffff;
+	}
+	.sports_options_odd {
+		background-color: #f3f3f3;
+	}
+	.header_section {
+	    font-size: 20px;
+	    font-weight: bold;
+	    padding-bottom: 10px;
+	    padding-left: 5px;
+	    padding-top: 5px;
+	}
+	.sports_options nav ul li {
+		font-size: 15px;
+		line-height: 22px;
+		overflow: hidden;
+	}
+		.sports_options nav ul li a, .sports_options nav ul li a:active, .sports_options nav ul li a:link, .sports_options nav ul li a:visited {
+			color: #0066c0;
+			display: block;
+			text-decoration: none;
+		}
+		.sports_options nav ul li a:hover {
+			color: #c45500;
+			cursor: pointer;
+			text-decoration: underline;
+		}
+	.right-arrow {
+		display: none;
+	}
+
+/* Media Queries */
+@media screen and (max-width: 1024px) {
+	.sports_options nav ul {
+		padding-left: 10px;
+		padding-right: 10px;
+	}	
+		.sports_options nav ul li {
+			border-bottom: 0.1rem solid #e7e7e7;
+			font-size: 18px;
+			line-height: 30px;
+		}
+		.first {
+			border-top: 0.1rem solid #e7e7e7;
+		}
+		.right-arrow {
+			display: block;
+			float: right;
+			padding-top: 6px;
+			text-align: center;
+			vertical-align: middle;
+		}
+}

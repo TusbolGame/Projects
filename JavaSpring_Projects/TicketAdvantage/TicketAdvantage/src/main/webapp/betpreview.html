@@ -1,0 +1,128 @@
+<div id="bet-package" class="bet_package">
+	<div class="bet_header">
+		<div class="bet_rotationnumber_label">Rotation #</div>
+		<div class="bet_sport_label">Sport</div>
+		<div class="bet_type_label">Type</div>
+		<div class="bet_linetype_label">Line Type</div>
+		<div class="bet_line_label">Line</div>
+		<div class="bet_juice_label">Juice</div>
+		<div class="bet_buyorder_label">Buy Order</div>
+		<div id="bet_buyamount_label" class="bet_amount_label" style="display: none">Buy $</div>
+		<div class="bet_amount_label">Amount</div>
+		<div class="bet_riskwin_label">Risk/Win</div>
+	</div>
+	<div class="bets">
+		<div id="bet-row" class="bet_row">
+			<div class="bet_rotationnumber">
+				<input id="bet-rotation" type="text" name="bet-rotation" value="" size="5" />
+			</div>
+			<div class="bet_sport">
+				<select id="bet-sport" name="bet-sport">
+					<option selected="selected" value="mlb">MLB</option>
+					<option value="nba">NBA</option>
+					<option value="nhl">NHL</option>
+					<option value="wnba">WNBA</option>
+					<option value="nfl">NFL</option>
+					<option value="ncaaf">NCAAF</option>
+					<option value="ncaab">NCAAB</option>
+				</select>
+			</div>
+			<div class="bet_type">
+				<select id="bet-type" name="bet-type">
+					<option selected="selected" value="lines">Game</option>
+					<option value="first">1H</option>
+					<option value="second">2H</option>
+					<option value="third">3H</option>
+					<option value="live">Live</option>
+				</select>
+			</div>
+			<div class="bet_linetype">
+				<div class="bet_linetype_input">
+					<input id="bet-linetype-spread" type="radio" value="spread" name="bet-linetype" checked />
+					<label id="bet-label-spread" for="bet-line">Spread</label>
+					<input id="bet-linetype-total" type="radio" value="total" name="bet-linetype" />
+					<label id="bet-label-total" for="bet-line">Total</label>
+					<input id="bet-linetype-ml" type="radio" value="ml" name="bet-linetype" />
+					<label id="bet-label-money-line" for="bet-line">Money Line</label>
+					
+					<input id="bet-linetype-teamtotal" type="radio" value="teamtotal" name="bet-linetype" />
+					<label id="bet-label-teamtotal" for="bet-line">Team Total</label>
+				</div>
+			</div>
+			<div class="bet_line">
+				<div id="bet-lineindicator-div" style="display: inline-block;">
+					<select id="bet-lineindicator">
+						<option value="+">+</option>
+						<option selected="selected" value="-">-</option>
+					</select>
+				</div>
+				<div id="bet-totalindicator-div" style="display: none;">
+					<select id="bet-totalindicator">
+						<option selected="selected" value="o">o</option>
+						<option value="u">u</option>
+					</select>
+				</div>
+				<input id="bet-line" type="text" size="3" />
+			</div>
+			<div class="bet_juice">
+				<div id="bet-juice-div" style="display: inline-block;">
+					<select id="bet-juiceindicator">
+						<option value="+">+</option>
+						<option selected="selected" value="-">-</option>
+					</select>
+					<input id="bet-juice" type="text" size="3" />
+				</div>
+			</div>
+			<div class="bet_buyorder">
+				<div class="bet_buyorder_input">
+					<input id="bet-buyorder" value="0" type="checkbox" />
+				</div>
+			</div>
+			<div id="bet-buyamount-div" class="bet_amount" style="display: none">					
+				$&nbsp;<input id="bet-buyamount" type="text" size="5" />
+			</div>
+			<div class="bet_amount">					
+				$&nbsp;<input id="bet-amount" type="text" size="5" />
+			</div>
+			<div class="bet_riskwin">
+				<div class="bet_riskwin_input">
+					<input id="bet-riskwin" type="radio" value="1" name="bet-riskwin" />
+					<label id="bet-label-risk" for="bet-riskwin">Risk</label>
+					<input id="bet-riskwin" type="radio" value="2" name="bet-riskwin" checked />
+					<label id="bet-label-win" for="bet-riskwin">Win</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bet_buttons">
+		<div class="bet_button">
+			<button id="bet-button-bet" type="submit">
+				<span class="btn-menu-text">Bet</span>
+			</button>
+		</div>
+		<div class="bet_button">
+			<button id="bet-button-preview" type="submit">
+				<span class="btn-menu-text">Preview</span>
+			</button>
+		</div>
+	</div>
+	<div class="bet_acctgrpwrapper">
+		<div>
+			<span class="bet_acctgrpmessage">Please select account(s) or groups(s) before continuing</span>
+		</div>
+	</div>
+	<div class="bet_acctgrpwrapper">
+		<div class="bet_acctwrapper">
+			<div class="group_management_headers">Accounts:</div>
+			<div class="account_listing" style="margin-top: 13px;">
+				<div id="account-list" class="account_list" style="margin-top: 13px; padding-left: 0px;"></div>
+			</div>
+		</div>
+		<div class="bet_grpwrapper">
+			<div class="group_management_headers">Groups:</div>
+			<div class="group_listing" style="margin-top: 13px;">
+				<div id="group-list" class="group_list" style="margin-top: 13px; padding-left: 0px;"></div>
+			</div>
+		</div>
+	</div>	
+</div>

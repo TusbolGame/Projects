@@ -1,0 +1,151 @@
+@CHARSET "utf-8";
+
+/* padding-top padding-right padding-bottom padding-left */
+
+.group_management {
+	color: #111111;
+	cursor: auto;
+	margin: 10px 0 0;
+}
+	.group_management_listing {
+		float: left;
+		margin-left: 8px;
+		min-width: 210px;
+		width: auto;
+	}
+		.group_management_headers {
+			font-size: 22px;
+			font-weight: bold;
+		}
+		.group_management_listing option {
+			font-size: 15px;
+			width: auto;
+		}
+		.group_management_listing ul {
+		    background: #d0d0d0 none repeat scroll 0 0;
+		    border-top: 1px solid #ededed;
+		    color: #003580;
+		    display: block;
+		    height: 700px;
+		    list-style: outside none none;
+		    margin-top: 13px;
+		    margin-bottom: 0;
+		    overflow: scroll;
+		    padding-left: 0;
+		    text-decoration: none;
+		    width: auto;
+		}
+			.group_management_listing ul li {
+				border: 1px solid #555555;
+				width:auto;
+			}
+
+	.group_selected {
+	    background: #0896ff none repeat scroll 0 0;
+	    border: 5px solid #ffffff;
+	    color: #ffffff;
+	    cursor: move;
+	    display: block;
+	    font-weight: bold;
+	    margin-bottom: 2px;
+	    padding: 5px;
+	    width:auto;
+	}
+	.group_not_selected {
+		background: #ffffff none repeat scroll 0 0;
+		border-top: 1px solid #ededed;
+	    display: block;
+	    color: #003580;
+	    cursor: move;
+	    font-weight: bold;
+	    margin-bottom: 2px;
+	    padding: 5px;
+		text-decoration: none;
+	    width: auto;
+	}
+
+	.account_info {
+		float: left;
+	}
+		.accounts_available {
+			float: left;
+			margin-left: 2%;
+			min-width: 210px;
+		    width: auto;
+		}
+			.group-not-selected a:hover, .account_list li a:hover {
+			    background: #ededed none repeat scroll 0 0;
+			    border: 0;
+			    color: #003580;
+			    display: block;
+			    font-weight: bold;
+			    margin-bottom: 5px;
+			    width: auto;
+			}
+
+
+.account-info li a {
+	background: #ffffff none repeat scroll 0 0;
+	border-top: 1px solid #ededed;
+    display: block;
+    color: #003580;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 5px;
+	text-decoration: none;
+    width: auto;
+}
+		.accounts_selected {
+			float: left;
+			margin-left: 2%;
+			min-width: 210px;
+		    width: auto;
+		}
+
+/* Sortable items */
+.sortable-list {
+    background: #d0d0d0 none repeat scroll 0 0;
+    border-top: 1px solid #ededed;
+    color: #111111;
+    display: block;
+    height:700px;
+	list-style: outside none none;
+	margin-bottom: 0px;
+	margin-top: 13px;
+    overflow:scroll;
+	padding-left: 0px;
+    text-decoration: none;
+}
+.sortable-item {
+	background-color: #ffffff;
+	border: 1px solid #555555;
+	cursor: move;
+	display: block;
+	font-weight: bold;
+	margin-bottom: 2px;
+	padding: 5px 5px;
+}
+
+/* Containment area */
+#containment {
+	background-color: #FFA;
+	height: 230px;
+}
+
+/* Item placeholder (visual helper) */
+.placeholder {
+	background-color: #BFB;
+	border: 1px dashed #666;
+	height: 58px;
+	margin-bottom: 5px;
+}
+
+.clearer {
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+}
+.clear, .clearer {
+    clear: both;
+}

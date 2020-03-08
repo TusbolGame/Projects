@@ -1,0 +1,15 @@
+delete from espnfootballgame;
+delete from footballfirstdownspergame;
+delete from footballfourthdowneffpergame;
+delete from footballpassattemptspergame;
+delete from footballpasscompletionspergame;
+delete from footballpassyardspergame;
+delete from footballpointspergame;
+delete from footballpossessiontimepergame;
+delete from footballrushingattemptspergame;
+delete from footballrushingyardspergame;
+delete from footballthirddowneffpergame;
+delete from footballtotalyardspergame;
+delete from footballturnoverspergame;
+delete from footballyardsperpass;
+delete from footballyardsperrush;

@@ -1,0 +1,776 @@
+/**
+ * 
+ */
+package com.ticketadvantage.services.dao.sites.tdsportsnew;
+
+import java.net.URI;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.log4j.Logger;
+
+import com.ticketadvantage.services.dao.sites.SiteProcessor;
+import com.ticketadvantage.services.dao.sites.SiteProcessorTest;
+import com.ticketadvantage.services.dao.sites.SiteTransaction;
+import com.ticketadvantage.services.dao.sites.SiteWagers;
+import com.ticketadvantage.services.errorhandling.AppErrorCodes;
+import com.ticketadvantage.services.errorhandling.AppErrorMessage;
+import com.ticketadvantage.services.errorhandling.AppException;
+import com.ticketadvantage.services.errorhandling.BatchErrorCodes;
+import com.ticketadvantage.services.errorhandling.BatchErrorMessage;
+import com.ticketadvantage.services.errorhandling.BatchException;
+import com.ticketadvantage.services.model.AccountEvent;
+import com.ticketadvantage.services.model.BaseRecordEvent;
+import com.ticketadvantage.services.model.EventPackage;
+import com.ticketadvantage.services.model.EventsPackage;
+import com.ticketadvantage.services.model.MlRecordEvent;
+import com.ticketadvantage.services.model.SpreadRecordEvent;
+import com.ticketadvantage.services.model.TotalRecordEvent;
+
+/**
+ * @author jmiller
+ *
+ */
+public class TDSportsNewProcessSite extends SiteProcessor {
+	private static final Logger LOGGER = Logger.getLogger(TDSportsNewProcessSite.class);
+	private static final String WELCOME_URL = "/wager/Welcome.aspx";
+	private static final String SETUP_URL = "/wager/CreateSports.aspx";
+	private static final TDSportsNewParser TDP = new TDSportsNewParser();
+
+	/**
+	 * 
+	 */
+	public TDSportsNewProcessSite(String host, String username, String password) {
+		super("TDSportsNew");
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try {
+			final String[][] sites = new String [][] { 
+                { "http://www.gamedayplay.net", "Pc1795", "jags", "1000", "1000", "1000", "Chicago"}
+			};
+			final String[][] lineTypes = new String [][] { 
+				{"ncaaflines", "Dallas"},
+                {"ncaaffirst", "Asheville"},
+                {"ncaafsecond", "Chicago"},
+                {"nfllines", "Phoenix"},
+                {"nflfirst", "Los Angeles"},
+                {"nflsecond", "Baltimore"}
+			};
+
+			final SiteProcessorTest spt = new SiteProcessorTest();
+
+			// Loop through the sites
+			for (int i = 0; i < sites.length; i++) {
+				// Loop through the types
+				for (int l = 0; l < lineTypes.length; l++) {
+					int count = 0;
+					try {
+					    final TDSportsNewProcessSite processSite = new TDSportsNewProcessSite(sites[i][0], sites[i][1], sites[i][2]);
+//					    processSite.setupHttpClient(lineTypes[l][1]);
+					    processSite.processTransaction = false;
+
+//						String xhtml = processSite.fullyAuthenticate(processSite.client, processSite.username, processSite.password);
+					    String xhtml = null;
+						LOGGER.debug("xhtml: " + xhtml);
+
+						final Iterator<EventPackage> ep = processSite.getEventsFromSite(lineTypes[l][0], xhtml);
+						while (ep != null && ep.hasNext()) {
+							final EventPackage eventPackage = ep.next();
+							LOGGER.warn("eventPackage: " + eventPackage);
+							if (count++ == 0) {
+//								spt.processTests(processSite, eventPackage, lineTypes[l][0], Integer.parseInt(sites[i][3]), Integer.parseInt(sites[i][4]), Integer.parseInt(sites[i][5]), sites[i][0], sites[i][6]);
+							}
+						}
+					} catch (Exception e) {
+						LOGGER.error("Exception: ", e);
+					}
+				}
+			}
+		} catch (Throwable t) {
+			LOGGER.info("Throwable: ", t);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.SiteProcessor#fullyAuthenticate(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public String fullyAuthenticate(String username, String password) throws BatchException {
+		LOGGER.info("Entering fullyAuthenticate()");
+		LOGGER.debug("username: " + username);
+		LOGGER.debug("password: " + password);
+		String xhtml = "";
+		
+		// Setup the timezone
+		TDP.setTimezone(timezone);
+/*
+		List<NameValuePair> retValue = getSitePage(client, host, domain, null, null);
+		retValue = checkForRedirect(retValue, host, null, null, "");
+		xhtml = getCookiesAndXhtml(retValue);
+		LOGGER.debug("XHTML: " + xhtml);
+		String originalHost = host;
+
+		// Get home page data
+		Map<String, String> indexMap = TDP.parseIndex(xhtml);
+		LOGGER.debug("Map: " + indexMap);
+		List<NameValuePair> postPairs = new ArrayList<NameValuePair>(1);
+		String actionLogin = setupPostPairs(indexMap, postPairs);
+		LOGGER.debug("ActionLogin: " + actionLogin);
+
+		// Call the login
+		List<NameValuePair> headerValuePairs = new ArrayList<NameValuePair>(1);
+		headerValuePairs.add(new BasicNameValuePair("Upgrade-Insecure-Requests", "1"));
+		headerValuePairs.add(new BasicNameValuePair("Content-Type", "application/x-www-form-urlencoded"));
+		headerValuePairs.add(new BasicNameValuePair("Referer", originalHost));
+		retValue = authenticateSite(client, actionLogin, domain, postPairs, headerValuePairs);
+		retValue = checkForRedirect(retValue, host, headerValuePairs, null, "");
+
+		// Parse the login if there is one
+		xhtml = getCookiesAndXhtml(retValue);
+		LOGGER.debug("XHTML: " + xhtml);
+		indexMap = TDP.parseLogin(xhtml);
+		LOGGER.debug("Map: " + indexMap);
+
+		// Get the Welcome page
+		retValue = getSitePage(client, host + WELCOME_URL, domain, null, headerValuePairs);
+		xhtml = getCookiesAndXhtml(retValue);
+		LOGGER.debug("XHTML: " + xhtml);
+		indexMap = TDP.parseWelcome(xhtml);
+		LOGGER.debug("Map: " + indexMap);
+
+		// Process the setup page
+		headerValuePairs = new ArrayList<NameValuePair>(1);
+		headerValuePairs.add(new BasicNameValuePair("Upgrade-Insecure-Requests", "1"));
+		headerValuePairs.add(new BasicNameValuePair("Content-Type", "application/x-www-form-urlencoded"));
+		headerValuePairs.add(new BasicNameValuePair("Referer", host + WELCOME_URL));
+
+		// Call the welcome again
+		postPairs = new ArrayList<NameValuePair>(1);
+		actionLogin = setupPostPairs(indexMap, postPairs);
+		retValue = postSitePage(client, actionLogin, domain, null, postPairs, headerValuePairs);
+		retValue = checkForRedirect(retValue, host, headerValuePairs, null, "");
+		xhtml = getCookiesAndXhtml(retValue);
+
+		LOGGER.info("Exiting fullyAuthenticate()");
+		return xhtml;
+*/
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.SiteProcessor#createSiteTransaction()
+	 */
+	@Override
+	protected SiteTransaction createSiteTransaction() {
+		LOGGER.info("Entering createSiteTransaction()");
+
+		final TDSportsNewTransaction tdSportsTransaction = new TDSportsNewTransaction();
+
+		LOGGER.info("Exiting createSiteTransaction()");
+		return tdSportsTransaction;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.ProcessSite#processSpread(com.ticketadvantage.services.model.SpreadRecordEvent, com.ticketadvantage.services.model.EventPackage, com.ticketadvantage.services.model.AccountEvent)
+	 */
+	@Override
+	protected void processSpread(SpreadRecordEvent event, EventPackage checkPackage, AccountEvent ae) throws BatchException {
+		LOGGER.info("Entering processSpread()");
+		LOGGER.debug("SpreadRecordEvent: " + event);
+		LOGGER.debug("checkPackage: " + checkPackage);
+		LOGGER.debug("AccountEvent: " + ae);
+
+		// Setup the wager
+		TDSportsNewTeamPackage teamPackage = (TDSportsNewTeamPackage)SiteWagers.setupTeam(SiteWagers.determineSpreadData(event), checkPackage);
+
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+		nameValuePairs.add(new BasicNameValuePair(teamPackage.getGameSpreadInputName(), teamPackage.getGameSpreadInputValue()));
+
+		// Setup the wager with the correct team and checklist
+		String xhtml = setupWager(nameValuePairs);
+		LOGGER.debug("xhtml: " + xhtml);
+
+		processSetupWager("spread", xhtml, teamPackage);
+
+		// First check for which team/transaction
+		final TDSportsNewTransaction tdSportsTransaction = (TDSportsNewTransaction)determineSpreadTransactionData(event, (TDSportsNewEventPackage)checkPackage, ae);
+		LOGGER.debug("JWSportsTransaction: " + tdSportsTransaction);
+		if (tdSportsTransaction == null) {
+			throw new BatchException("Transaction not setup successfully");
+		}
+
+		// Complete the transaction
+		completeTransaction(event, tdSportsTransaction, ae);
+
+		LOGGER.info("Exiting processSpread()");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.ProcessSite#processTotal(com.ticketadvantage.services.model.TotalRecordEvent, com.ticketadvantage.services.model.EventPackage, com.ticketadvantage.services.model.AccountEvent)
+	 */
+	@Override
+	protected void processTotal(TotalRecordEvent event, EventPackage checkPackage, AccountEvent ae) throws BatchException {
+		LOGGER.info("Entering processTotal()");
+		LOGGER.debug("TotalRecordEvent: " + event);
+		LOGGER.debug("checkPackage: " + checkPackage);
+		LOGGER.debug("AccountEvent: " + ae);
+
+		// Setup the wager
+		TDSportsNewTeamPackage teamPackage = (TDSportsNewTeamPackage)SiteWagers.setupTeam(SiteWagers.determineTotalData(event), checkPackage);
+
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+		nameValuePairs.add(new BasicNameValuePair(teamPackage.getGameTotalInputName(), teamPackage.getGameTotalInputValue()));
+
+		// Setup the wager with the correct team and checklist
+		String xhtml = setupWager(nameValuePairs);
+		processSetupWager("total", xhtml, teamPackage);
+
+		// First check for which team/transaction
+		final TDSportsNewTransaction tdSportsTransaction = (TDSportsNewTransaction)determineTotalTransactionData(event, (TDSportsNewEventPackage)checkPackage, ae);
+		LOGGER.debug("TDSportsTransaction: " + tdSportsTransaction);
+		if (tdSportsTransaction == null) {
+			throw new BatchException("Transaction not setup successfully");
+		}
+
+		// Complete the transaction
+		completeTransaction(event, tdSportsTransaction, ae);
+
+		LOGGER.info("Exiting processTotal()");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.ProcessSite#processMoneyLine(com.ticketadvantage.services.model.MlRecordEvent, com.ticketadvantage.services.model.EventPackage, com.ticketadvantage.services.model.AccountEvent)
+	 */
+	@Override
+	protected void processMoneyLine(MlRecordEvent event, EventPackage checkPackage, AccountEvent ae) throws BatchException {
+		LOGGER.info("Entering processMoneyLine()");
+		LOGGER.debug("MlRecordEvent: " + event);
+		LOGGER.debug("checkPackage: " + checkPackage);
+		LOGGER.debug("AccountEvent: " + ae);
+
+		// Setup the wager
+		TDSportsNewTeamPackage teamPackage = (TDSportsNewTeamPackage)SiteWagers.setupTeam(SiteWagers.determineMoneyLineData(event), checkPackage);
+
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+		nameValuePairs.add(new BasicNameValuePair(teamPackage.getGameMLInputName(), teamPackage.getGameMLInputValue().get("0")));
+
+		// Setup the wager with the correct team and checklist
+		String xhtml = setupWager(nameValuePairs);
+		processSetupWager("ml", xhtml, teamPackage);
+
+		// First check for which team/transaction
+		final TDSportsNewTransaction tdSportsTransaction = (TDSportsNewTransaction)determineMlTransactionData(event, (TDSportsNewEventPackage)checkPackage, ae);
+		LOGGER.debug("TDSportsTransaction: " + tdSportsTransaction);
+		if (tdSportsTransaction == null) {
+			throw new BatchException("Transaction not setup successfully");
+		}
+
+		// Complete the transaction
+		completeTransaction(event, tdSportsTransaction, ae);
+
+		LOGGER.info("Exiting processMoneyLine()");
+	}
+
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 * @throws BatchException
+	 */
+	protected EventsPackage retrievePackage(String type) throws BatchException {
+		LOGGER.info("Entering retrievePackage()");
+		LOGGER.info("type: " + type);
+		final EventsPackage esp = new EventsPackage();
+
+/*
+		// Process the setup page
+		final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+		String href = null;
+		if (MAP_DATA != null && !MAP_DATA.isEmpty()) {
+			if (MAP_DATA.containsKey("href")) {
+				href = MAP_DATA.get("href");
+			} else {
+				final Set<Entry<String, String>> indexs = MAP_DATA.entrySet();
+				if (indexs != null && !indexs.isEmpty()) {
+					final Iterator<Entry<String, String>> itr = indexs.iterator();
+					while (itr != null && itr.hasNext()) {
+						final Entry<String, String> values = itr.next();
+						if (values.getValue() != null && values.getValue().length() > 0) {
+							nameValuePairs.add(new BasicNameValuePair(values.getKey(), values.getValue()));
+						}
+					}
+				}
+			}
+		}
+		final List<NameValuePair> headerValuePairs = new ArrayList<NameValuePair>(1);
+		headerValuePairs.add(new BasicNameValuePair("Upgrade-Insecure-Requests", "1"));
+		headerValuePairs.add(new BasicNameValuePair("Content-Type", "application/x-www-form-urlencoded"));
+		headerValuePairs.add(new BasicNameValuePair("Referer", host + SETUP_URL));
+		List<NameValuePair> retValue = null;
+
+		// Check for links vs. post
+		if (href != null) {
+			retValue = getSitePage(client, host + href, domain, null, headerValuePairs);
+		} else {
+			// Post to site page
+			retValue = postSitePage(client, host + SETUP_URL + "?WT=0", domain, null, nameValuePairs, headerValuePairs);
+		}
+		retValue = checkForRedirect(retValue, host, headerValuePairs, null, "");
+
+		// Get all new cookies and the XHTML for website
+		String xhtml = getCookiesAndXhtml(retValue);
+		LOGGER.info("XHTML: " + xhtml);
+		MAP_DATA.clear();
+		final List<TDSportsNewEventPackage> eventsPackage = TDP.parseGames(xhtml, type, MAP_DATA);
+
+		LOGGER.info("List<TDSportsEventPackage>: " + eventsPackage);
+		if (eventsPackage != null) {
+			for (int x = 0; x < eventsPackage.size(); x++) {
+				TDSportsNewEventPackage aep = eventsPackage.get(x);
+				LOGGER.debug("TDSportsEventPackage: " + aep);
+				esp.addEvent(aep);
+			}
+		} else {
+			LOGGER.error(type + " null eventsPackage"); 
+			new AppException(500, AppErrorCodes.TRANSACTION_EXCEPTION, AppErrorMessage.TRANSACTION_EXCEPTION);
+		}
+
+		LOGGER.info("Exiting retrievePackage()");
+*/
+		return esp;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.ProcessSite#getEventsFromSite(java.lang.String, java.lang.String)
+	 */
+	@Override
+	protected Iterator<EventPackage> getEventsFromSite(String sportType, String xhtml) throws BatchException {
+		LOGGER.info("Entering getEventsFromSite()");
+		LOGGER.info("sportType: " + sportType);
+		LOGGER.info("xhtml: " + xhtml);
+		String labels[]= null;
+		String sport = "";
+		if (sportType != null && sportType.length() > 0) {
+			if ("nfllines".equals(sportType)) {
+				labels = new String[2];
+				labels[0] = "NFL - WEEK";
+				labels[1] = "NFL";
+				sport = "PRO FOOTBALL";
+			} else if ("nflfirst".equals(sportType)) {
+				labels = new String[3];
+				labels[0] = "1ST HALVES - NFL";
+				labels[1] = "NFL 1ST HALVES";
+				labels[2] = "NFL - FIRST HALF LINES";
+				sport = "PRO FOOTBALL";
+			} else if ("nflsecond".equals(sportType)) {
+				labels = new String[1];
+				labels[0] = "2ND HALVES - NFL";
+				sport = "PRO FOOTBALL";
+			} else if ("ncaaflines".equals(sportType)) {
+				labels = new String[5];
+				labels[0] = "NCAA FOOTBALL";
+				labels[1] = "NCAA FOOTBALL - GAME LINES";
+				labels[2] = "NCAA FOOTBALL - MEN";
+				labels[3] = "NCAA FOOTBALL  MEN";
+				labels[4] = "NCAA FOOTBALL MEN";
+				sport = "COLLEGE FOOTBALL";
+			} else if ("ncaaffirst".equals(sportType)) {
+				labels = new String[4];
+				labels[0] = "1ST HALVES - CFB";
+				labels[1] = "NCAA FOOTBALL (1H)";
+				labels[2] = "NCAA FOOTBALL - (1H)";
+				labels[3] = "NCAA FB 1ST HALVES";
+				sport = "COLLEGE FOOTBALL";
+			} else if ("ncaafsecond".equals(sportType)) {
+				labels = new String[4];
+				labels[0] = "2ND HALVES - CFB";
+				labels[1] = "NCAA FOOTBALL (2H)";
+				labels[2] = "NCAA FOOTBALL - (2H)";
+				labels[3] = "NCAA FB HALFTIMES";
+				sport = "COLLEGE FOOTBALL";
+			} else {
+				throw new BatchException("Unsupported sportType");
+			}
+		}
+
+		// Parse the menu
+		MAP_DATA = TDP.parseMenu(xhtml, labels, sport);
+		final Iterator<EventPackage> ep = getEventTypeInfo(sportType);
+		
+		LOGGER.info("Exiting getEventsFromSite()");
+		return ep;
+	}
+
+	/**
+	 * 
+	 * @param event
+	 * @param tdSportsTransaction
+	 * @param ae
+	 * @throws BatchException
+	 */
+	private void completeTransaction(BaseRecordEvent event, TDSportsNewTransaction tdSportsTransaction, AccountEvent ae) throws BatchException {
+		LOGGER.info("Entering completeTransaction()");
+		String xhtml = null;
+
+		try {
+			if (processTransaction) {
+				// Process the wager transaction
+				xhtml = processWager(tdSportsTransaction, event.getWtype(), event.getAmount());
+	
+				// Parse the ticket number
+				final String ticketNumber = parseTicketNumber(xhtml);
+				LOGGER.debug("TicketNumber: " + ticketNumber);
+		
+				// Set the account data
+				ae.setAccountconfirmation(ticketNumber);
+				ae.setAccounthtml(xhtml);
+			}
+		} catch (BatchException be) {
+			LOGGER.error("Exception getting ticket number for account event " + ae + " spread event " + event, be);
+			ae.setAccounthtml(xhtml);
+			throw be;
+		}
+
+		LOGGER.info("Exiting completeTransaction()");
+	}
+
+	/**
+	 * 
+	 * @param nameValuePairs
+	 * @return
+	 */
+	private String setupWager(List<NameValuePair> nameValuePairs) {
+		LOGGER.info("Entering setupWager()");
+/*
+		final List<NameValuePair> headerValuePairs = new ArrayList<NameValuePair>(1);
+		headerValuePairs.add(new BasicNameValuePair("Content-Type", "application/x-www-form-urlencoded"));
+		headerValuePairs.add(new BasicNameValuePair("Referer", host));
+		headerValuePairs.add(new BasicNameValuePair("Upgrade-Insecure-Requests", "1"));
+
+		String actionUrl = "";
+		if (MAP_DATA != null && !MAP_DATA.isEmpty()) {
+			final Set<Entry<String, String>> indexs = MAP_DATA.entrySet();
+			if (indexs != null && !indexs.isEmpty()) {
+				final Iterator<Entry<String, String>> itr = indexs.iterator();
+				while (itr != null && itr.hasNext()) {
+					final Entry<String, String> values = itr.next();
+					if ("action".equals(values.getKey())) {
+						actionUrl = values.getValue();
+					} else if (!"ctl00$WagerContent$ctl07".equals(values.getKey())) {
+						nameValuePairs.add(new BasicNameValuePair(values.getKey(), values.getValue()));
+					}
+				}
+			}
+		}
+
+		// Setup the wager
+		List<NameValuePair> retValue = postSitePage(client, host + "/wager/" + actionUrl,
+				domain, null, nameValuePairs, headerValuePairs);
+		retValue = checkForRedirect(retValue, host, headerValuePairs, "/DGS", host);
+
+		// Get all new cookies and the XHTML for website
+		String xhtml = getCookiesAndXhtml(retValue);
+		LOGGER.debug("XHTML: " + xhtml);
+
+		// Get the new url
+		actionUrl = TDP.parseSchedule(xhtml);
+
+		// Make sure full url is setup
+		if (!actionUrl.contains("://")) {
+			actionUrl = host + actionUrl;
+		}
+
+		// Call the page
+		retValue = getSitePage(client, actionUrl, domain, null, headerValuePairs);
+		retValue = checkForRedirect(retValue, host, headerValuePairs, "/DGS", host);
+
+		// Get all new cookies and the XHTML for website
+		xhtml = getCookiesAndXhtml(retValue);
+
+		LOGGER.info("Exiting setupWager()");
+		return xhtml;
+*/
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param xhtml
+	 * @return
+	 */
+	private TDSportsNewTeamPackage processSetupWager(String type, String xhtml, TDSportsNewTeamPackage teamPackage) throws BatchException {
+		LOGGER.info("Entering processWagerSetup()");
+		this.MAP_DATA.clear();
+		teamPackage = TDP.parseSetupWager(type, xhtml, this.MAP_DATA, teamPackage);
+
+		LOGGER.info("Exiting processWagerSetup()");
+		return teamPackage;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	private String processWager(TDSportsNewTransaction jwSportsTransaction, String wagerType, String amount) {
+		LOGGER.info("Entering processWager()");
+/*
+		final List<NameValuePair> headerValuePairs = new ArrayList<NameValuePair>(1);
+		headerValuePairs.add(new BasicNameValuePair("Content-Type", "application/x-www-form-urlencoded"));
+		headerValuePairs.add(new BasicNameValuePair("Referer", host + ""));
+		headerValuePairs.add(new BasicNameValuePair("Upgrade-Insecure-Requests", "1"));
+
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+		nameValuePairs.add(new BasicNameValuePair("WAMT", amount));
+		nameValuePairs.add(new BasicNameValuePair("UseSameAmount", "0"));
+		nameValuePairs.add(new BasicNameValuePair("ctl00$WagerContent$chkPostBack", "on"));
+
+		String actionUrl = "";
+		if (MAP_DATA != null && !MAP_DATA.isEmpty()) {
+			final Set<Entry<String, String>> indexs = MAP_DATA.entrySet();
+			if (indexs != null && !indexs.isEmpty()) {
+				final Iterator<Entry<String, String>> itr = indexs.iterator();
+				while (itr != null && itr.hasNext()) {
+					final Entry<String, String> values = itr.next();
+					if ("action".equals(values.getKey())) {
+						actionUrl = values.getValue();
+					} else {
+						if (values.getValue() != null && values.getValue().length() > 0) {
+							nameValuePairs.add(new BasicNameValuePair(values.getKey(), values.getValue()));
+						}
+					}
+				}
+			}
+		}
+
+		// Check for risk or win
+		if ("1".equals(wagerType)) {
+			nameValuePairs.add(new BasicNameValuePair("RISKWIN", "2"));
+		} else {
+			nameValuePairs.add(new BasicNameValuePair("RISKWIN", "1"));
+		}
+
+		// Now check if selection needs to be sent as well
+		if (jwSportsTransaction.getSelectName() != null && jwSportsTransaction.getOptionValue() != null) {
+			nameValuePairs.add(new BasicNameValuePair(jwSportsTransaction.getSelectName(), jwSportsTransaction.getOptionValue()));
+		}
+
+		List<NameValuePair> retValue = postSitePage(client, host + "/wager/" + actionUrl,
+				domain, null, nameValuePairs, headerValuePairs);
+		retValue = checkForRedirect(retValue, host, headerValuePairs, "/DGS", host);
+
+		String xhtml = getCookiesAndXhtml(retValue);
+		LOGGER.debug("XHTML: " + xhtml);
+		
+		Map<String, String> map = TDP.parseSetupWagerFields(xhtml);
+		nameValuePairs = new ArrayList<NameValuePair>(1);
+		nameValuePairs.add(new BasicNameValuePair("checkpassword", password.toUpperCase()));
+		nameValuePairs.add(new BasicNameValuePair("RMV_0", ""));
+		nameValuePairs.add(new BasicNameValuePair("password", password.toUpperCase()));
+
+		if (map != null && !map.isEmpty()) {
+			final Set<Entry<String, String>> indexs = map.entrySet();
+			if (indexs != null && !indexs.isEmpty()) {
+				final Iterator<Entry<String, String>> itr = indexs.iterator();
+				while (itr != null && itr.hasNext()) {
+					final Entry<String, String> values = itr.next();
+					if ("action".equals(values.getKey())) {
+						actionUrl = values.getValue();
+					} else {
+						if (values.getValue() != null && values.getValue().length() > 0) {
+							nameValuePairs.add(new BasicNameValuePair(values.getKey(), values.getValue()));
+						}
+					}
+				}
+			}
+		}
+
+		retValue = postSitePage(client, host + "/wager/" + actionUrl,
+				domain, null, nameValuePairs, headerValuePairs);
+		retValue = checkForRedirect(retValue, host, headerValuePairs, "/DGS", host);
+
+		xhtml = getCookiesAndXhtml(retValue);
+		LOGGER.debug("XHTML: " + xhtml);
+
+		LOGGER.info("Exiting processWager()");
+		return xhtml;
+*/
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param xhtml
+	 * @return
+	 * @throws BatchException
+	 */
+	private String parseTicketNumber(String xhtml) throws BatchException {
+		LOGGER.info("Entering parseTicketNumber()");
+		String ticketNumber = "Ticket Number - ";
+		final String ticketInfo = "\"ticket\">";
+
+		// First check for Wager has been accepted!
+		if (xhtml.contains(ticketInfo)) {
+			// Great, wager is complete; now get the Ticket Number
+			int index = xhtml.indexOf(ticketInfo);
+			if (index != -1) {
+				final String nxhtml = xhtml.substring(index + ticketInfo.length());
+				index = nxhtml.indexOf("</td>");
+				if (index != -1) {
+					ticketNumber = "Ticket Number - " + nxhtml.substring(0, index);
+				} else {
+					ticketNumber = "Failed to get ticket number";
+					throw new BatchException(BatchErrorCodes.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, BatchErrorMessage.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, ticketNumber);
+				}
+			} else {
+				ticketNumber = "Failed to get ticket number";
+				throw new BatchException(BatchErrorCodes.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, BatchErrorMessage.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, ticketNumber);
+			}
+		} else {
+			String spanTicket = "<span>Ticket#:</span>";
+			int index = xhtml.indexOf(spanTicket);
+			if (index != -1) {
+				xhtml = xhtml.substring(index + "<span>Ticket#:</span>".length());
+				index = xhtml.indexOf("</TR></TABLE>");
+				if (index != -1) {
+					xhtml = xhtml.substring(0, index);
+					index = xhtml.indexOf("USD</TD>");
+					if (index != -1) {
+						xhtml = xhtml.substring(index + "USD</TD>".length());
+						xhtml = xhtml.replaceAll("<TD>", "");
+						xhtml = xhtml.replaceAll("</TD>", "");
+						ticketNumber = ticketNumber + xhtml;
+					} else {
+						ticketNumber = "Failed to get ticket number";
+						throw new BatchException(BatchErrorCodes.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, BatchErrorMessage.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, ticketNumber);
+					}
+				} else {
+					ticketNumber = "Failed to get ticket number";
+					throw new BatchException(BatchErrorCodes.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, BatchErrorMessage.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, ticketNumber);	
+				}
+			} else {
+				ticketNumber = "Failed to get ticket number";
+				throw new BatchException(BatchErrorCodes.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, BatchErrorMessage.FAILED_TO_SETUP_TRANSACTION_CORRECTLY, ticketNumber);				
+			}
+		}
+
+		LOGGER.info("Exiting parseTicketNumber()");
+		return ticketNumber;
+	}
+
+	/**
+	 * 
+	 * @param indexMap
+	 * @param postPairs
+	 * @return
+	 * @throws BatchException
+	 */
+	private String setupPostPairs(Map<String, String> indexMap, List<NameValuePair> postPairs) throws BatchException {
+		LOGGER.info("Entering setupPostPairs()");
+/*
+		String actionLogin = null;
+		if (indexMap != null && !indexMap.isEmpty()) {
+			final Set<Entry<String, String>> indexs = indexMap.entrySet();
+			if (indexs != null && !indexs.isEmpty()) {
+				final Iterator<Entry<String, String>> itr = indexs.iterator();
+				while (itr != null && itr.hasNext()) {
+					final Entry<String, String> values = itr.next();
+					String key = values.getKey();
+					String value = values.getValue();
+					LOGGER.debug("key: " + key);
+					LOGGER.debug("Value: " + value);
+
+					if ("action".equals(key)) {
+						actionLogin = setupAction(value, null);
+					} else {
+						if (key != null && key.length() > 0 && value != null && value.length() > 0) {
+							if (key.contains("account") || key.contains("UserName")) {
+								postPairs.add(new BasicNameValuePair(key, username));
+							} else if (key.contains("password") || key.contains("Password")) {
+								postPairs.add(new BasicNameValuePair(key, password));
+							} else {
+								postPairs.add(new BasicNameValuePair(key, value));
+							}
+						} else {
+							if (key != null && (key.contains("account") || key.contains("UserName"))) {
+								postPairs.add(new BasicNameValuePair(key, username));
+							} else if (key != null && (key.contains("password") || key.contains("Password"))) {
+								postPairs.add(new BasicNameValuePair(key, password));
+							} else if (key != null && key.length() > 0 && (value == null || value.length() == 0)) {
+								postPairs.add(new BasicNameValuePair(key, ""));
+							}
+						}
+					}
+				}
+			}
+		}
+
+		LOGGER.info("Exiting setupPostPairs()");
+		return actionLogin;
+*/
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.SiteProcessor#setupAction(java.lang.String, java.lang.String)
+	 */
+	@Override
+	protected String setupAction(String value, String webappName) throws BatchException {
+		LOGGER.info("Entering setupActionLogin()");
+		String actionLogin = null;
+/*
+		try {
+			URL url = null;
+			// http://wager.abcgrand.ag/DefaultLogin.aspx
+			if (value.contains("://")) {
+				url = new URL(value);
+				actionLogin = value;
+			} else {
+				if (value.contains("/")) {
+					url = new URL(host + value);
+					actionLogin = host + value;
+				} else {
+					if (value.contains("Welcome")) {
+						url = new URL(host + "/wager/" + value);
+						actionLogin = host + "/wager/" + value;						
+					} else {
+						url = new URL(host + "/" + value);
+						actionLogin = host + "/" + value;
+					}
+				}
+			}
+			if (actionLogin != null && actionLogin.contains("Message")) {
+				actionLogin = null;
+			}
+
+			String proto = url.getProtocol();
+			String hhost = url.getHost();
+			domain = hhost;
+			host = proto + "://" + hhost;
+		} catch (Exception e) {
+			throw new BatchException(BatchErrorCodes.SITE_PARSER_EXCEPTION, BatchErrorMessage.SITE_PARSER_EXCEPTION, e.getMessage());
+		}
+
+		LOGGER.info("Exiting setupActionLogin()");
+*/
+		return actionLogin;
+	}
+}

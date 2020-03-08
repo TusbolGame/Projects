@@ -1,0 +1,38 @@
+@CHARSET "utf-8";
+
+/* padding-top padding-right padding-bottom padding-left */
+
+body {
+	background: #ffffff none repeat scroll 0 0;
+    color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    margin: 0px;
+    max-height: 100vh;
+	overflow-y: auto;
+    width: 100%;
+}
+input[type="checkbox"] {
+    background: #fff none repeat scroll 0 0;
+    border: 2px solid #555;
+    border-radius: 5px;
+    height: 25px;
+    margin-bottom: -8px;
+    width: 25px;
+}
+.main-wrapper {
+	background: #ffffff none repeat scroll 0 0;
+	border-top: 2px solid #596d7f;
+	margin: 0 auto;
+	padding-bottom: 0px;
+	overflow: auto;
+	width: 60%;
+}
+.error-message {
+    color: #ff0000;
+    cursor: pointer;
+	font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    width: 350px;
+}

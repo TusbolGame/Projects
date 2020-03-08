@@ -1,0 +1,8 @@
+/.settings/
+/logs/
+/target/
+.DS_Store
+/src/main/.DS_Store
+/src/main/java/com/ticketadvantage/services/.DS_Store
+/src/main/java/com/ticketadvantage/services/dao/.DS_Store
+/src/main/java/com/ticketadvantage/services/dao/sites/.DS_Store

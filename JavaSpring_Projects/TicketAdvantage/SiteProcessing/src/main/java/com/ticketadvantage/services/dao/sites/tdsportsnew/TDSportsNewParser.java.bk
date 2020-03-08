@@ -1,0 +1,868 @@
+/**
+ * 
+ */
+package com.ticketadvantage.services.dao.sites.tdsportsnew;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import com.ticketadvantage.services.dao.sites.SelectOptionData;
+import com.ticketadvantage.services.dao.sites.SiteParser;
+import com.ticketadvantage.services.errorhandling.AppErrorCodes;
+import com.ticketadvantage.services.errorhandling.AppErrorMessage;
+import com.ticketadvantage.services.errorhandling.AppException;
+import com.ticketadvantage.services.errorhandling.BatchErrorCodes;
+import com.ticketadvantage.services.errorhandling.BatchErrorMessage;
+import com.ticketadvantage.services.errorhandling.BatchException;
+
+/**
+ * @author jmiller
+ *
+ */
+public class TDSportsNewParser extends SiteParser {
+	private static final Logger LOGGER = Logger.getLogger(TDSportsNewParser.class);
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM dd yyyy hh:mm a z");
+
+	/**
+	 * Constructor
+	 */
+	public TDSportsNewParser() {
+		super();
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.SiteParser#parseIndex(java.lang.String)
+	 */
+	@Override
+	public Map<String, String> parseIndex(String xhtml) throws BatchException {
+		LOGGER.info("Entering parseIndex()");
+		LOGGER.debug("xhtml: " + xhtml);
+		final Map<String, String> retValue = new HashMap<String, String>();
+
+		// Get the document object
+		final Document doc = parseXhtml(xhtml);
+		
+		// Get all input fields
+		getAllElementsByName(doc, "input", "value", retValue);
+		
+		// Get form action field
+		retValue.put("action", getElementByName(doc, "form", "action"));
+
+		LOGGER.info("Exiting parseIndex()");
+		return retValue;
+	}
+
+	/**
+	 * 
+	 * @param xhtml
+	 * @return
+	 */
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.SiteParser#parseLogin(java.lang.String)
+	 */
+	@Override
+	public Map<String, String> parseLogin(String xhtml) throws BatchException {
+		LOGGER.info("Entering parseLogin()");
+		LOGGER.debug("xhtml: " + xhtml);
+
+		final Map<String, String> retValue = new HashMap<String, String>();
+		final Document doc = parseXhtml(xhtml);
+
+		// Get all input fields
+		getAllElementsByName(doc, "input", "value", retValue);
+		
+		// Get form action field
+		retValue.put("action", getElementByName(doc, "form", "action"));
+
+		LOGGER.info("Exiting parseLogin()");
+		return retValue;
+	}
+
+	/**
+	 * 
+	 * @param xhtml
+	 * @param type
+	 * @param sport
+	 * @return
+	 * @throws BatchException
+	 */
+	public Map<String, String> parseMenu(String xhtml, String[] type, String sport) throws BatchException {
+		LOGGER.info("Entering parseMenu()");
+		LOGGER.info("xhtml: " + xhtml);
+		LOGGER.info("type: " + java.util.Arrays.toString(type));
+		LOGGER.info("sport: " + sport);
+		Map<String, String> map = new HashMap<String, String>();
+
+		// Parse to get the Document
+		final Document doc = parseXhtml(xhtml);
+
+		// Get the hidden input fields
+		getAllInputsByNameWithoutCheckbox(doc, "input", "value", map);
+		
+		// Now loop through the list and get rid of what we don't need
+		map = removeInputFields(map);
+
+		// Find the different menu types
+		map = findMenu(doc.select("li ul li ul li"), map, type, sport, "a", "a");
+
+		LOGGER.info("Exiting parseMenu()");
+		return map;
+	}
+
+	/**
+	 * 
+	 * @param xhtml
+	 * @return
+	 * @throws BatchException
+	 */
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.SiteParser#parseWagerTypes(java.lang.String)
+	 */
+	@Override
+	public Map<String, String> parseWagerTypes(String xhtml) throws BatchException {
+		LOGGER.info("Entering parseWagerTypes()");
+		LOGGER.debug("xhtml: " + xhtml);
+		final Map<String, String> wagers = new HashMap<String, String>();
+
+		// Parse to get the Document
+		final Document doc = parseXhtml(xhtml);
+			
+		// First get the Risk
+		String risk = getHtmlFromAllElements(doc, ".offering_pair td a font b");
+		if (risk != null && risk.length() > 0) {
+			risk = risk.substring(1);
+			wagers.put("risk", risk);
+		} else {
+			// Throw Exception
+			throw new BatchException(BatchErrorCodes.ERROR_PARSING_WAGER_INFO, BatchErrorMessage.ERROR_PARSING_WAGER_INFO, "No element found for " + xhtml);
+		}
+
+		// Now get the Win
+		String win = getHtmlFromAllElements(doc, ".offering_pair td a font b");
+		if (win != null && win.length() > 0) {
+			win = win.substring(1);
+			wagers.put("win", win);
+		} else {
+			// Throw Exception
+			throw new BatchException(BatchErrorCodes.ERROR_PARSING_WAGER_INFO, BatchErrorMessage.ERROR_PARSING_WAGER_INFO, "No element found for " + xhtml);
+		}
+
+		LOGGER.info("Exiting parseWagerTypes()");
+		return wagers;
+	}
+
+	/**
+	 * 
+	 * @param xhtml
+	 * @param type
+	 * @return
+	 * @throws BatchException
+	 */
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.SiteParser#parseGames(java.lang.String, java.lang.String, java.util.Map)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <TDSportsEventPackage> List<TDSportsEventPackage> parseGames(String xhtml, String type, Map<String, String> inputFields) throws BatchException {
+		LOGGER.info("Entering parseGames()");
+		LOGGER.debug("xhtml: " + xhtml);
+		LOGGER.debug("type: " + type);
+		LOGGER.debug("InputFields: " + inputFields);
+		
+		List<?> events = null;
+		final Document doc = Jsoup.parse(xhtml, "iso-8859-1");
+
+		// Get all of the input fields
+		getAllElementsByName(doc, "input", "value", inputFields);
+		String actionUrl = getElementByName(doc, "form", "action");
+		inputFields.put("action", actionUrl);
+		inputFields.remove("ctl00$WagerContent$Refesh_1");
+		inputFields.remove("ctl00$WagerContent$Refesh_added");
+		inputFields.remove("ctl00$WagerContent$btn_Continue_added");
+		inputFields.remove("ctl00$WagerContent$ctl06");
+		inputFields.remove("ctl00$WagerContent$ctl07555");
+		inputFields.remove("text_");
+
+		// Get the NFL or NCAA games
+		if ("nfllines".equals(type) || "nflfirst".equals(type) || "nflsecond".equals(type) || 
+			"ncaaflines".equals(type) || "ncaaffirst".equals(type) || "ncaafsecond".equals(type)) {
+			// Could be any of the three
+			Elements elements = doc.select(".line_table tbody tr");
+			if (elements != null && elements.size() > 0) {
+				events = getFootballData(elements);
+			}
+		}
+
+		LOGGER.info("Exiting parseGames()");
+		return (List<TDSportsEventPackage>)events;
+	}
+
+	/**
+	 * 
+	 * @param xhtml
+	 * @param type
+	 * @param sport
+	 * @return
+	 * @throws BatchException
+	 */
+	public Map<String, String> parseWelcome(String xhtml) throws BatchException {
+		LOGGER.info("Entering parseWelcome()");
+		LOGGER.info("xhtml: " + xhtml);
+		Map<String, String> map = new HashMap<String, String>();
+
+		// Parse to get the Document
+		final Document doc = parseXhtml(xhtml);
+
+		// Get the hidden input fields
+		getAllInputsByNameWithoutCheckbox(doc, "input", "value", map);
+		
+		// Get form action field
+		map.put("action", getElementByName(doc, "form", "action"));
+
+		if (xhtml.contains("ctl00$cbxWagerTypes")) {
+			// find the value for Straight
+			Element select = doc.getElementById("ctl00_cbxWagerTypes");
+			if (select != null) {
+				Elements options = select.select("option");
+				for (int x = 0; x < options.size(); x++) {
+					Element option = options.get(x);
+					if (option != null) {
+						String optionData = option.html();
+						if (optionData != null && optionData.length() > 0 && optionData.contains("Straight")) {
+							map.put("ctl00$cbxWagerTypes", option.attr("value"));
+							map.put("__EVENTTARGET", "ctl00$cbxWagerTypes");
+						}
+					}
+				}
+			}
+		}
+		
+		if (xhtml.contains("ctl00$Ddllinetype")) {
+			// find the value for Straight
+			Element select = doc.getElementById("ctl00_Ddllinetype");
+			if (select != null) {
+				Elements options = select.select("option");
+				for (int x = 0; x < options.size(); x++) {
+					Element option = options.get(x);
+					if (option != null) {
+						String optionData = option.html();
+						if (optionData != null && optionData.length() > 0 && optionData.contains("American")) {
+							map.put("ctl00$Ddllinetype", option.attr("value"));
+						}
+					}
+				}
+			}
+		}
+
+		LOGGER.info("Exiting parseWelcome()");
+		return map;
+	}
+
+	/**
+	 * 
+	 * @param xhtml
+	 * @return
+	 */
+	public String parseSchedule(String xhtml) {
+		LOGGER.info("Entering parseSchedule()");
+		LOGGER.debug("xhtml: " + xhtml);
+
+		//window.location= 'http://wager.abcgrand.ag/wager/CreateWager.aspx?WT=0&lg=32&sel=1_2292840_-3.5_-110'}
+		String newUrl = "";
+		int index = xhtml.indexOf("window.location=");
+		if (index != -1) {
+			xhtml = xhtml.substring(index + "window.location=".length());
+			index = xhtml.indexOf("'");
+			if (index != -1) {
+				int endIndex = xhtml.indexOf("'}");
+				if (endIndex != -1) {
+					newUrl = xhtml.substring(index + 1, endIndex);
+				}
+			}
+		} else {
+			index = xhtml.indexOf("Location: ");
+			if (index != -1) {
+				newUrl = xhtml.substring(index + "Location: ".length() + 1);
+			}
+		}
+
+		LOGGER.info("Exiting parseSchedule()");
+		return newUrl;
+	}
+
+	/**
+	 * 
+	 * @param type
+	 * @param xhtml
+	 * @param inputFields
+	 * @param teamPackage
+	 * @return
+	 * @throws BatchException
+	 */
+	public TDSportsNewTeamPackage parseSetupWager(String type, String xhtml, Map<String, String> inputFields, TDSportsNewTeamPackage teamPackage) throws BatchException {
+		LOGGER.info("Entering parseSetupWager()");
+		LOGGER.debug("xhtml: " + xhtml);
+		LOGGER.debug("inputFields: " + inputFields);
+
+		final Document doc = Jsoup.parse(xhtml, "iso-8859-1");
+		if (doc != null) {
+			if (type.equals("spread")) {
+				setupSpreadWager(doc, teamPackage);
+			} else if (type.equals("total")) {
+				setupTotalWager(doc, teamPackage);
+			}
+
+			// Get the hidden input fields
+			inputFields.put("__EVENTTARGET", getValueById(doc, "__EVENTTARGET"));
+			inputFields.put("__EVENTARGUMENT", getValueById(doc, "__EVENTARGUMENT"));
+			inputFields.put("__LASTFOCUS", getValueById(doc, "__LASTFOCUS"));
+			inputFields.put("__VIEWSTATE", getValueById(doc, "__VIEWSTATE"));
+			inputFields.put("__VIEWSTATEGENERATOR", getValueById(doc, "__VIEWSTATEGENERATOR"));
+			inputFields.put("__EVENTVALIDATION", getValueById(doc, "__EVENTVALIDATION"));
+			String cValue = getValueByName(doc, "ctl00$WagerContent$btn_Continue_1");
+			if (cValue != null && cValue.length() > 0) {
+				inputFields.put("ctl00$WagerContent$btn_Continue_1", cValue);
+			}
+			cValue = getValueByName(doc, "ctl00$WagerContent$btn_Continue1");
+			if (cValue != null && cValue.length() > 0) {
+				inputFields.put("ctl00$WagerContent$btn_Continue1", cValue);
+			}
+
+			String actionUrl = getElementByName(doc, "form", "action");
+			inputFields.put("action", actionUrl);
+		}
+
+		LOGGER.info("Exiting parseSetupWager()");
+		return teamPackage;
+	}
+
+	/**
+	 * 
+	 * @param xhtml
+	 * @return
+	 * @throws BatchException
+	 */
+	public Map<String, String> parseSetupWagerFields(String xhtml) {
+		LOGGER.info("Entering parseSetupWagerFields()");
+		LOGGER.debug("xhtml: " + xhtml);
+		Map<String, String> mapFields = new HashMap<String, String>();
+
+		final Document doc = Jsoup.parse(xhtml, "iso-8859-1");
+		if (doc != null) {
+			// Get the hidden input fields
+			mapFields.put("__EVENTTARGET", getValueById(doc, "__EVENTTARGET"));
+			mapFields.put("__EVENTARGUMENT", getValueById(doc, "__EVENTARGUMENT"));
+			mapFields.put("__VIEWSTATE", getValueById(doc, "__VIEWSTATE"));
+			mapFields.put("__VIEWSTATEGENERATOR", getValueById(doc, "__VIEWSTATEGENERATOR"));
+			mapFields.put("__EVENTVALIDATION", getValueById(doc, "__EVENTVALIDATION"));
+			mapFields.put("ctl00$WagerContent$btn_Continue_1", getValueByName(doc, "ctl00$WagerContent$btn_Continue_1"));
+			mapFields.put("ctl00$WagerContent$btn_Continue1", getValueByName(doc, "ctl00$WagerContent$btn_Continue1"));
+//			mapFields.put("ctl00$WagerContent$chkPostBack", getValueByName(doc, "ctl00$WagerContent$chkPostBack"));
+
+			String actionUrl = getElementByName(doc, "form", "action");
+			mapFields.put("action", actionUrl);
+		}
+
+		LOGGER.info("Exiting parseSetupWagerFields()");
+		return mapFields;
+	}
+
+	/**
+	 * 
+	 * @param elements
+	 * @param hiddenData
+	 * @return
+	 * @throws BatchException
+	 */
+	/*
+	 * (non-Javadoc)
+	 * @see com.ticketadvantage.services.dao.sites.SiteParser#getFootballData(org.jsoup.select.Elements)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	protected List<TDSportsNewEventPackage> getFootballData(Elements elements) throws BatchException {
+		LOGGER.info("Entering getFootballData()");
+		LOGGER.debug("Elements: " + elements);
+
+		TDSportsNewEventPackage eventPackage = null;
+		final List<TDSportsNewEventPackage> events = new ArrayList<TDSportsNewEventPackage>();
+		if (elements != null) {
+			TDSportsNewTeamPackage team1 = null;
+			TDSportsNewTeamPackage team2 = null;
+			int t = 0;
+			for (int x = 0; x < elements.size(); x++) {
+				// Loop through the elements and then check for the dates
+				final Element element = elements.get(x);
+				LOGGER.debug("Element: " + element);
+
+				if (element != null) {
+					String classInfo = element.attr("class");
+					LOGGER.debug("ClassInfo: " + classInfo);
+
+					if ((classInfo != null && classInfo.length() > 0) && 
+						(("trgameodd".equalsIgnoreCase(classInfo) || "trgameeven".equalsIgnoreCase(classInfo)) || 
+						 (classInfo.contains("odd") || classInfo.contains("even")))) {
+						if (t++ == 0) {
+							eventPackage = new TDSportsNewEventPackage();
+							team1 = new TDSportsNewTeamPackage();
+							getFootballTeam(element.select("td"), team1);
+							eventPackage.setId(team1.getId());
+						} else {
+							team2 = new TDSportsNewTeamPackage();
+							int size = getFootballTeam(element.select("td"), team2);
+							Date eventDate = null;
+							if (size == 7 || size == 5) {
+								eventDate = setupDate(DATE_FORMAT, team1.gettDate(), team2.gettDate());
+							} else {
+								// Oct 01<br>7:30 PM
+								String dt = team1.gettDate();
+								if (dt != null) {
+									int index = dt.indexOf("<br>");
+									if (index != -1) {
+										team1.settDate(dt.substring(0, index));
+										team2.settDate(dt.substring(index + "<br>".length()));
+									}
+								}
+								eventDate = setupDate(DATE_FORMAT, team1.gettDate(), team2.gettDate());
+							}
+							team1.setDateofevent(eventDate);
+							team2.setDateofevent(eventDate);
+							final String dateOfEvent = team1.gettDate() + " " + team2.gettDate();
+							team1.settDate(dateOfEvent);
+							team2.settDate(dateOfEvent);
+							eventPackage.setDateofevent(dateOfEvent);
+							eventPackage.setSiteteamone(team1);
+							eventPackage.setSiteteamtwo(team2);
+							eventPackage.setTeamone(team1);
+							eventPackage.setTeamtwo(team2);
+							events.add(eventPackage);
+							t = 0;
+						}
+					}
+				}
+			}
+		}
+
+		LOGGER.info("List<TDSportsEventPackage>: " + events);
+		LOGGER.info("Exiting getFootballData()");
+		return events;
+	}
+
+	/**
+	 * 
+	 * @param element
+	 * @param team
+	 * @return
+	 */
+	private int getFootballTeam(Elements elements, TDSportsNewTeamPackage team) {
+		LOGGER.info("Entering getFootballTeam()");
+		LOGGER.debug("TDSportsTeamPackage: " + team);
+		int size = 0;
+
+		if (elements != null && elements.size() == 5) {
+			LOGGER.info("elements.size(): " + elements.size());
+			size = 5;
+			for (int x = 0;(elements != null && x < elements.size()); x++) {
+				final Element td = elements.get(x);
+				switch (x) {
+					case 0:
+						team = getOtherDate(td, team);
+					case 1:
+						team = getOtherEventAndTeam(td, team);
+						break;
+					case 2:
+						team = getOtherSpread(td, team);
+						break;
+					case 3:
+						team = getOtherTotal(td, team);
+						break;
+					case 4:
+						team = getOtherMoneyLine(td, team);
+						break;
+				}
+			}
+		} else if (elements != null) {
+			LOGGER.info("elements.size(): " + elements.size());
+		}
+
+		LOGGER.info("Exiting getFootballTeam()");
+		return size;
+	}
+
+	/**
+	 * 
+	 * @param divs
+	 * @param map
+	 * @param type
+	 * @param sport
+	 * @param foundString
+	 * @param menuString
+	 * @return
+	 */
+	private Map<String, String> findMenu(Elements divs, Map<String, String> map, String[] type, String sport, String foundString, String menuString) {
+		LOGGER.info("Entering findMenu()");
+
+		for (int x = 0; (divs != null && x < divs.size()); x++) {
+			final Element div = divs.get(x);
+			boolean foundDiv = false;
+			for (int y = 0; y < type.length; y++) {
+				foundDiv = foundSport(div, foundString, type[y], sport);
+				LOGGER.debug("foundDiv: " + foundDiv);
+
+				// Found the event
+				if (foundDiv) {
+					map = getHrefMenuData(div, menuString, map);
+					LOGGER.debug("Map: " + map);
+				}
+			}
+		}
+
+		LOGGER.info("Exiting findMenu()");
+		return map;
+	}
+
+	/**
+	 * 
+	 * @param div
+	 * @param select
+	 * @param sport
+	 * @return
+	 */
+	private boolean foundSport(Element div, String select, String type, String sport) {
+		LOGGER.info("Entering foundSport()");
+		LOGGER.debug("select: " + select);
+		LOGGER.debug("sport: " + sport);
+		boolean foundDiv = false;
+
+		String divData = getHtmlFromElement(div, select, 0, false);
+		LOGGER.debug("divData: " + divData);
+
+		// Check if we found div
+		if (divData != null && divData.equals(type)) {
+			foundDiv = true;
+		} else if (type.startsWith("NFL - WEEK") && divData.startsWith("NFL - WEEK")) { // HACK!!!
+			foundDiv = true;
+		}
+
+		LOGGER.info("Exiting foundSport()");
+		return foundDiv;
+	}
+
+	/**
+	 * 
+	 * @param a
+	 * @param map
+	 * @return
+	 */
+	private Map<String, String> getHrefMenuData(Element li, String element, Map<String, String> map) {
+		LOGGER.info("Entering getHrefMenuData()");
+		LOGGER.debug("li: " + li);
+		
+		if (li != null) {
+			Elements elements = li.select(element);
+			if (elements != null && elements.size() > 0) {
+				map.put("href", elements.get(0).attr("href"));
+			}
+		}
+
+		LOGGER.info("Exiting getHrefMenuData()");
+		return map;
+	}
+
+	/**
+	 * 
+	 * @param doc
+	 * @param teamPackage
+	 */
+	private void setupSpreadWager(Document doc, TDSportsNewTeamPackage teamPackage) {
+		LOGGER.info("Entering setupSpreadWager()");
+
+		final Map<String, String> hashMap = parseSelectField(doc.select("table tbody tr td select"));
+		teamPackage.setGameSpreadSelectName(hashMap.get("name"));
+
+		final Elements options = doc.select("table tbody tr td select option");
+		if (options != null && options.size() > 0) {
+			Map<String, SelectOptionData> optionsMap = parseSelectOptionField(options);
+			for (int x = 0; x < optionsMap.size(); x++) {
+				final SelectOptionData option = optionsMap.get(Integer.toString(x));
+				if (option != null && option.getData() != null && option.getData().length() > 0) {
+					String optionData = option.getData();
+					optionData = optionData.trim();
+					if (!"Buy no points".equals(optionData)) {
+						int index = optionData.indexOf("for ");
+						if (index != -1) {
+							teamPackage.addGameSpreadOptionValue(Integer.toString(x), option.getValue());
+							optionData = optionData.substring(index + "for ".length());
+
+							// -2½ +200; Now parse the data						
+							teamPackage = (TDSportsNewTeamPackage)parseSpreadData(reformatValues(optionData), x, " ", null, teamPackage);
+						}
+					}
+				} else {
+					// Throw an exception
+					throw new AppException(500, AppErrorCodes.SITE_PARSER_EXCEPTION,  
+							AppErrorMessage.SITE_PARSER_EXCEPTION  + " JWSportsParser:setupSpreadWager option is null");					
+				}
+			}
+		}
+
+		LOGGER.info("Exiting setupSpreadWager()");
+	}
+
+	/**
+	 * 
+	 * @param doc
+	 * @param teamPackage
+	 */
+	private void setupTotalWager(Document doc, TDSportsNewTeamPackage teamPackage) {
+		LOGGER.info("Entering setupTotalWager()");
+		
+		final Map<String, String> hashMap = parseSelectField(doc.select("#CreateWagerTable tbody tr td select"));
+		teamPackage.setGameTotalSelectName(hashMap.get("name"));
+
+		final Elements options = doc.select("#CreateWagerTable tbody tr td select option");
+		if (options != null && options.size() > 0) {
+			Map<String, SelectOptionData> optionsMap = parseSelectOptionField(options);
+			for (int x = 0; x < optionsMap.size(); x++) {
+				final SelectOptionData option = optionsMap.get(Integer.toString(x));
+				if (option != null && option.getData() != null && option.getData().length() > 0) {
+					String optionData = option.getData();
+					optionData = optionData.trim();
+					if (!"Buy no points".equals(optionData)) {
+						int index = optionData.indexOf("for ");
+						if (index != -1) {
+							teamPackage.addGameTotalOptionValue(Integer.toString(x), option.getValue());
+							optionData = optionData.substring(index + "for ".length());
+
+							// -2½ +200; Now parse the data						
+							teamPackage = (TDSportsNewTeamPackage)parseTotalData(reformatValues(optionData), x, " ", null, teamPackage);
+						}
+					}
+				} else {
+					// Throw an exception
+					throw new AppException(500, AppErrorCodes.SITE_PARSER_EXCEPTION,  
+							AppErrorMessage.SITE_PARSER_EXCEPTION  + " JWSportsParser:getSpread option is null");					
+				}
+			}
+		}
+
+		LOGGER.info("Exiting setupTotalWager()");
+	}
+	
+	/**
+	 * 
+	 * @param map
+	 * @return
+	 */
+	private Map<String, String> removeInputFields(Map<String, String> map) {
+		// Check for a valid map
+		Map<String, String> deleteMap = new HashMap<String, String>();
+		if (map != null && !map.isEmpty()) {
+			final Set<Entry<String, String>> indexs = map.entrySet();
+			if (indexs != null && !indexs.isEmpty()) {
+				final Iterator<Entry<String, String>> itr = indexs.iterator();
+				int counter = 0;
+				while (itr != null && itr.hasNext()) {
+					final Entry<String, String> values = itr.next();
+					String key = values.getKey();
+					String value = values.getValue();
+					LOGGER.info("KEY: " + key);
+					LOGGER.info("VALUE: " + value);
+
+					if (key != null && value != null && value.length() > 0) {
+						if (key.contains("Continue")) {
+							if (counter++ > 0) {
+								deleteMap.put(key, key);
+							}
+						}
+
+						if (key.contains("Refesh") || key.contains("Refresh") || key.contains("Clear") || key.contains("clear")) {
+							deleteMap.put(key, key);
+						}
+					}
+				}
+			}
+		}
+
+		if (deleteMap != null && !deleteMap.isEmpty()) {
+			final Set<Entry<String, String>> indexs = deleteMap.entrySet();
+			if (indexs != null && !indexs.isEmpty()) {
+				final Iterator<Entry<String, String>> itr = indexs.iterator();
+				while (itr != null && itr.hasNext()) {
+					final Entry<String, String> values = itr.next();
+					String key = values.getKey();
+					map.remove(key);
+				}
+			}
+		}	
+
+		return map;
+	}
+
+	/**
+	 * 
+	 * @param td
+	 * @param team
+	 * @return
+	 */
+	private TDSportsNewTeamPackage getOtherDate(Element td, TDSportsNewTeamPackage team) {
+		LOGGER.info("Entering getOtherDate()");
+		LOGGER.debug("Element: " + td);
+		LOGGER.debug("TDSportsTeamPackage: " + team);
+
+		// Date String
+		String date = td.html();
+		int index = date.indexOf("</a>");
+		if (index != -1) {
+			date = date.substring(index + "</a>".length());
+			date = date.trim();
+			date = date.replaceAll("&nbsp;", "");
+		} else {
+			index = date.indexOf("</span>");
+			if (index != -1) {
+				date = date.substring(index + "</span>".length());
+				date = date.trim();
+				date = date.replaceAll("&nbsp;", "");
+			}
+		}
+		LOGGER.debug("Date: " + date);
+		team.settDate(date);
+
+		LOGGER.info("Exiting getOtherDate()");
+		return team;
+	}
+
+	/**
+	 * 
+	 * @param td
+	 * @param team
+	 * @return
+	 */
+	private TDSportsNewTeamPackage getOtherEventAndTeam(Element td, TDSportsNewTeamPackage team) {
+		LOGGER.info("Entering getOtherEventAndTeam()");
+		LOGGER.debug("Element: " + td);
+		LOGGER.debug("TDSportsTeamPackage: " + team);
+
+		// Get the event ID
+		final String eventId = getHtmlFromElement(td, "span", 0, true);
+		team.setEventid(eventId);
+		team.setId(Integer.parseInt(eventId));
+		
+		// Now get the team name
+		String tName = td.html();
+		int index = tName.lastIndexOf(">");
+		if (index != -1) {
+			tName = tName.substring(index + ">".length());
+			tName = tName.trim();
+			tName = tName.replaceAll("&nbsp;", "");
+		}
+		team.setTeam(tName);
+
+		LOGGER.info("Exiting getOtherEventAndTeam()");
+		return team;
+	}
+
+	/**
+	 * 
+	 * @param td
+	 * @param team
+	 * @return
+	 */
+	private TDSportsNewTeamPackage getOtherSpread(Element td, TDSportsNewTeamPackage team) {
+		LOGGER.info("Entering getOtherSpread()");
+		LOGGER.debug("Element: " + td);
+		LOGGER.debug("TDSportsTeamPackage: " + team);
+
+		// First get the input field information
+		final Map<String, String> hashMap = parseInputField(td.select("input"), 0);
+		team.setGameSpreadInputId(hashMap.get("id"));
+		team.setGameSpreadInputName(hashMap.get("name"));
+		team.setGameSpreadInputValue(hashMap.get("value"));
+
+		String spread = getHtmlFromElement(td, "span", 0, false);
+
+		// Setup spread
+		team.addGameSpreadOptionValue("0", "0");
+		team = (TDSportsNewTeamPackage)parseSpreadData(reformatValues(spread), 0, " ", null, team);
+
+		LOGGER.info("Exiting getOtherSpread()");
+		return team;
+	}
+
+	/**
+	 * 
+	 * @param td
+	 * @param team
+	 * @return
+	 */
+	private TDSportsNewTeamPackage getOtherTotal(Element td, TDSportsNewTeamPackage team) {
+		LOGGER.info("Entering getOtherTotal()");
+		LOGGER.debug("Element: " + td);
+		LOGGER.debug("TDSportsTeamPackage: " + team);
+
+		// First get the input field information
+		final Map<String, String> hashMap = parseInputField(td.select("input"), 0);
+		team.setGameTotalInputId(hashMap.get("id"));
+		team.setGameTotalInputName(hashMap.get("name"));
+		team.setGameTotalInputValue(hashMap.get("value"));
+
+		String total = getHtmlFromElement(td, "span", 0, false);
+
+		// Parse Total Data
+		team.addGameTotalOptionValue("0", "0");
+		team = (TDSportsNewTeamPackage)parseTotalData(reformatValues(total), 0, " ", null, team);
+
+		LOGGER.info("Exiting getOtherTotal()");
+		return team;
+	}
+
+	/**
+	 * 
+	 * @param td
+	 * @param team
+	 * @return
+	 */
+	private TDSportsNewTeamPackage getOtherMoneyLine(Element td, TDSportsNewTeamPackage team) {
+		LOGGER.info("Entering getOtherMoneyLine()");
+		LOGGER.debug("Element: " + td);
+		LOGGER.debug("TDSportsTeamPackage: " + team);
+		
+		// First get the input field information
+		final Map<String, String> hashMap = parseInputField(td.select("input"), 0);
+		team.setGameMLInputId(hashMap.get("id"));
+		team.setGameMLInputName(hashMap.get("name"));
+		team.addGameMLInputValue("0", hashMap.get("value"));
+
+		// -110; Now parse the data
+		String ml = getHtmlFromElement(td, "span", 0, false);
+
+		// Parse for Money Line
+		team = (TDSportsNewTeamPackage)parseMlData(reformatValues(ml), 0, team);
+
+		LOGGER.info("Exiting getOtherMoneyLine()");
+		return team;
+	}
+}
