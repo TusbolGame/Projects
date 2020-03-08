@@ -1,0 +1,7 @@
+Bankname : Oversea
+DBSRecipientAccount : Nigel
+OtherRecipientAccount : 510530991001
+MyName : Jack
+RecipientName : Jax
+Purpose : Invoice Payment
+Comment : Thank you

@@ -1,0 +1,75 @@
+
+this bank no need captcha issue
+
+
+https://s.hongleongconnect.my/rib/app/fo/login
+Username : sehchiak1
+password : Huat8888
+
+there are two options.
+	* 3rd Party HLB Account
+	* Instant Transfer / IBG
+
+
+so now I transfer
+------------------------------------------------
+
+
+for others bank = Instant transfer
+
+account : 8602743004
+
+
+Recipent bank - Bank option
+Account type - Current/savings
+Account number - same with the bank info.txt
+Transfer type - instant transfer
+Amount = user input 
+recipient reference - Fund transfer
+Other Payment Detail - T-shirts
+check terms.
+tick next btn.
+Tick , next and request SMS code like previous
+
+
+ok return succesful or failed message
+
+-------------------------------------------------------------
+
+
+for hongleong - hong leong
+for same bank like cimb bank berhad  = 3rd party HLB account 
+
+bank : HONG LEONG BANK
+account : 16450800524
+
+plz fill in your info ok
+
+Account Type -Current/Savings
+account number- bankinfo.txt
+Amount - from user 
+Recipient Reference-fund transfer
+Other Payment Detail-t-shirts
+tick next btn.
+and fill in sms code.
+
+-----------------------------
+yes after that return success need to show and get it if return failed also need
+sometime user input wrong tac like this
+if like this can pop out the sms code box again and show him this and ask him to input again?ok
+
+ok and you know the different for 3rd party and instant right?
+well... bank list is the same with previous script?
+all same
+see this
+when I use this Hong leong bank it will go to 3rd party ok?
+if like cimb , maybank pub or any of here
+
+bro, I mean recipient banks this is all the list same all 
+for only hong leong = 3rd party, 1 sec, let me check one randomly
+ok, all banks are the same with previous site. ya . ok
+
+bro, well.. could you post a new project for me? with these skills
+much thanks.
+JavaScript, Python, PHP, Machine learning, Image processing. that's it
+ok. type first you. ok

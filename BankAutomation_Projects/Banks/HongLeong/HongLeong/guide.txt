@@ -1,0 +1,17 @@
+
+
+------------  Guide  ---------------
+
+1. First of all, Please confirm bankinfo.txt.
+	You can edit bank information you want on it.
+        for only Hong leong bank need to be upper case - Hong leong bank
+
+2. Please open run.py.
+	You can double click the file.
+	Or you can input this statement on cmd. python run.py
+
+3. Please input your account on GUI.
+4. When you receive sms code, Please input it on GUI for smscode confirmation.
+
+
+----   Thanks...

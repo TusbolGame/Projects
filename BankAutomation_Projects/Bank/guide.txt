@@ -1,0 +1,29 @@
+
+---> Users need to set some info in bankinfo.txt following this.
+
+   1. For "To Other DBS or POSB Acccount"
+
+	Bankname : DBS Account
+	
+	You need to change only Bankname.
+
+   2. For "To Other Bank Account(FAST)"
+
+	Bankname : It should be any word of bank name in Recipient's Bank
+		for example, oversea, cimb, maybank....
+	   You can use this bank name list.
+
+['AUSTRALIA & NEW ZEALAND BANKING GROUP', 'BANK OF CHINA LIMITED', 'BNP PARIBAS', 'CIMB BANK BERHAD', 'CITIBANK NA', 'Citibank Singapore Limited', 'DEUTSCHE BANK AG','HL BANK', 'HSBC (Corporate)', 'HSBC (Personal)', 'ICICI BANK LIMITED', 'INDUSTRIAL AND COMMERCIAL BANK OF CHINA LIMITED', 'MIZUHO BANK LIMITED', 'Malayan Banking Berhad, Singapore Branch', 'Maybank Singapore Limited', 'OVERSEA-CHINESE BANKING CORPN LTD', 'RHB BANK BERHAD', 'SUMITOMO MITSUI BANKING CORPORATION', 'Standard Chartered Bank (Singapore) Limited', 'THE BANK OF TOKYO-MITSUBISHI UFJ, LTD', 'UNITED OVERSEAS BANK LTD']
+
+	DBSRecipientAccount : You can use following these options.
+		[Eunice, Nigel, Zhen Wei, Terrorist, Jek]
+
+	Purpose : You need to write your purpose of transfer properly.
+		for example, Invoice Payment, Intra Company Payment...
+
+	...And You can change MyName, RecipentName, Comment as you want.
+
+
+-----> Thank you...
+
+	

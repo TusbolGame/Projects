@@ -1,0 +1,113 @@
+
+Website: https://logon.rhb.com.my/
+
+userid : hazim0055
+pwd : harib5099
+
+---------------------------------
+
+1. RHB Account
+
+hazim0055
+yes button
+harib5099
+
+fund transfer
+other RHB Account
+open transfer 
+submit security code
+Open transfer again.
+Account No : 11003700309997 (test)
+Beneficiary Nickname :backinfo.txt
+Amount : from user
+Other Payment Details : Tshirts
+Preview button
+submit security code again.
+submit transaction.
+get status.
+close page directly.
+
+------- page attribute
+
+open transfer btn : _ctl14_lnkbtnOpen (click)
+account no id : _ctl14_txtToAcctNo (input)
+nickname id : _ctl14_txtNickNm (input)
+amount id : _ctl14_txtAmt (input)
+payment detail id : _ctl14_txtPymntDtl (input)
+preview id : _ctl14_btnTransfer (button) click
+
+next page.
+security code id : _ctl14__ctl28_lblChallengeValue (label, get text)
+OTP id : _ctl14__ctl28_txtOTP (input)
+submit id : _ctl14_btnSubmit (button) click
+
+error id : _ctl14__ctl28_lblMessage (label, get text)
+
+
+2. Other bank
+
+Fund transfer
+Instant transfer 
+input one time password.
+submit.
+open transfer 
+Beneficiary Bank :  CImb  bankinfo.txt
+payment type : fund transfer
+Account No : 8602743004
+Beneficiary Nickname* :jack
+Amount : from user 
+Recipient Reference* 3rd party transfer
+Other Payment Details : tshirts  
+preview button
+
+--------------- page attribute ---------
+
+open transfer : _ctl14_lnkbtnOpen
+
+Beneficiary bank id : _ctl14_ddlBank (select tag)
+banks : [Agrobank,Alliance Bank Malaysia Berhad,Al-Rajhi Bank,AMBank,Bank Islam Malaysia Berhad,Bank Kerjasama Rakyat Malaysia,Bank Muamalat Malaysia Berhad,Bank Simpanan Nasional,CIMB,Citibank Berhad,Hong Leong Bank Berhad,HSBC Bank,Kuwait Finance House,
+Maybank,MBSB Bank Berhad,OCBC Bank (M) Berhad,Public Bank,Standard Chartered Bank,
+United Overseas Bank Berhad]
+
+time.sleep(2)
+
+payment type id: _ctl14_ddlPaymentType (select tag)
+payment type : Fund Transfer
+
+accont no id : _ctl14_txtToAcct (input tag)
+nickname id : _ctl14_txtToAcctNm (input)
+amount id : _ctl14_txtAmount (input)
+reference id : _ctl14_ddlRecipientRef (select)
+reference : 3rd Party Transfer
+time.sleep(2)
+
+payment details id : _ctl14_txtPymntDscp (input) Tshirts
+
+preview id : _ctl14_btnPreview (click btn)
+
+next page. 
+GUI for OTP
+security code id : _ctl14__ctl32_lblChallengeValue (get text)
+OTP id : _ctl14__ctl32_txtOTP (input)
+submit id : _ctl14_cmd_Submit (button) click submit button.
+
+when OTP is wrong, error message id : _ctl14__ctl32_lblMessage (label, get text)
+error msg : Invalid OTP entered. (D031)
+
+
+
+-------------------------------------
+
+RHB account (Other RHB Account)
+
+Account No : 11003700309997 (test)  
+
+
+
+Others bank (Instant Transfer)
+
+Cimb bank 
+8602743004 
+
+
+

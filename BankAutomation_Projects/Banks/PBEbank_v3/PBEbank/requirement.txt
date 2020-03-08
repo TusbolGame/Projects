@@ -1,0 +1,48 @@
+
+site link: https://www.pbebank.com/
+
+userid : sehchiak1
+pwd : munmun111
+
+go ahead . ok
+
+Login 
+PBe
+Username
+Yes button
+password
+fund transfer
+PB Account
+To Other Account
+Beneficiary Account No :  Bankinfo.txt 
+Recipient Reference   : Bankinfo.txt tshirt2
+Amount  :       from user 
+Next button
+Request PAC NOW button
+Close button
+Enter SMS CODE 
+Confirm button. 
+
+----------------------------------------------
+
+Fund transfer
+Other Bank Account
+Instant Transfer
+To other Account
+Beneficiary Bank : Bankinfo.txt 
+Beneficiary Account No : Bankinfo.txt
+Beneficiary Account Type : Saving/Current Account
+Recipient Reference : Tshirts
+Transaction Amount  : From users
+Accept button
+Request PAC Now button 
+close button
+Input TAC 
+confirm button 
+
+..
+and return result success or fail ok.perfect
+
+Public bank 3814981613
+cimb bank 8602743004
+
